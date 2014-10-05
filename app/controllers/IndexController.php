@@ -84,7 +84,7 @@ class IndexController extends ControllerBase
             $project = new \Models\Project($githubProject);
             $project->save();
         } catch(\Exception $e) {
-
+            error_log(__METHOD__ . $e->getMessage());
         }
         $this->response->redirect('');
     }

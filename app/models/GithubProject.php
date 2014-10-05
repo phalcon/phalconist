@@ -78,6 +78,7 @@ class GithubProject extends Injectable
 
             return ['text' => $content, 'html' => $html];
         } catch(\Exception $e) {
+            error_log(__METHOD__ . $e->getMessage());
             return ['text' => '', 'html' => ''];
         }
     }
@@ -97,6 +98,7 @@ class GithubProject extends Injectable
 
             return json_decode(base64_decode($composer_data['content']), true);
         } catch(\Exception $e) {
+            error_log(__METHOD__ . $e->getMessage());
             return [];
         }
     }
@@ -110,6 +112,7 @@ class GithubProject extends Injectable
             $packagist = $this->di->get('packagist');
             return $packagist->get($this->user_name . '/' . $this->repo_name);
         } catch(\Exception $e) {
+            error_log(__METHOD__ . $e->getMessage());
             return null;
         }
     }

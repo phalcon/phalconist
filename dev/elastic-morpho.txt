@@ -1,3 +1,7 @@
+https://github.com/imotov/elasticsearch-analysis-morphology
+bin/plugin -install analysis-morphology -url http://dl.bintray.com/content/imotov/elasticsearch-plugins/org/elasticsearch/elasticsearch-analysis-morphology/1.2.0/elasticsearch-analysis-morphology-1.2.0.zip
+
+
 curl -XDELETE 'http://localhost:9200/phalconist'
 
 curl -XPUT 'http://localhost:9200/phalconist' -d '{
@@ -25,6 +29,7 @@ curl -XPUT 'http://localhost:9200/phalconist/project/_mapping' -d '{
      "project": {
          "_all" : {"analyzer" : "english_morphology"},
          "properties" : {
+             "name" : { "type" : "string", "analyzer" : "english_morphology" },
              "description" : { "type" : "string", "analyzer" : "english_morphology" }
          }
      }
