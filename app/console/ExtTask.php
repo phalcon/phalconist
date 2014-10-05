@@ -43,4 +43,18 @@ class ExtTask extends \Phalcon\CLI\Task
             }
         }
     }
+
+    public function urlListAction()
+    {
+        $query = [
+            'query'   => ['match_all' => []],
+            '_source' => ['urls.html'],
+            'size' => 100000,
+        ];
+        $results = \Models\Project::find($query)->getResults();
+        foreach ($results as $project) {
+            $data = $project->getData();
+            echo $data['urls']['html'] . PHP_EOL;
+        }
+    }
 }
