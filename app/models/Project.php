@@ -189,6 +189,7 @@ class Project extends Injectable
             'is_composer' => $is_composer,
             'downloads'   => $downloads,
             'composer'    => [
+                'type'        => empty($composer['type']) ? '' : $composer['type'],
                 'name'        => empty($composer['name']) ? '' : $composer['name'],
                 'description' => empty($composer['description']) ? '' : $composer['description'],
                 'keywords'    => empty($composer['keywords']) ? [] : $composer['keywords'],
