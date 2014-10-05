@@ -14,7 +14,9 @@ return new \Phalcon\Config([
         $client = new \Github\Client(new \Github\HttpClient\CachedHttpClient([
             'cache_dir' => $github->cache_dir
         ]));
-        $client->authenticate($github->client_id, $github->client_secret, \Github\Client::AUTH_URL_CLIENT_ID);
+        if ($github->client_id) {
+            $client->authenticate($github->client_id, $github->client_secret, \Github\Client::AUTH_URL_CLIENT_ID);
+        }
         return $client;
     },
     'packagist' => function($di){
