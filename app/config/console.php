@@ -1,0 +1,16 @@
+<?php
+
+/** @var \Phalcon\Config $services */
+$services = require 'services.php';
+
+$services->merge(new \Phalcon\Config([
+    'loader' => function () {
+        $loader = new \Phalcon\Loader();
+        $loader->registerDirs([APP_PATH . '/console/',]);
+        $loader->register();
+        return $loader;
+    },
+    'router' => '\Phalcon\Cli\Router',
+]));
+
+return $services;
