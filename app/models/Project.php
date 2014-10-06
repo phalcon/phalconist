@@ -94,7 +94,8 @@ class Project extends Injectable
                 'updated',
                 'created',
                 'owner.login',
-                'owner.avatar_url'
+                'owner.avatar_url',
+                'composer.keywords',
             ],
             'filter'  => [
                 'bool' => [
@@ -135,7 +136,8 @@ class Project extends Injectable
                 'updated',
                 'created',
                 'owner.login',
-                'owner.avatar_url'
+                'owner.avatar_url',
+                'composer.keywords',
             ]
         );
         $query->setSort(['created' => ['order' => 'desc']]);
@@ -156,9 +158,10 @@ class Project extends Injectable
         if ($is_composer && $package = $this->githubProject->getPackage()) {
             /** @var \Packagist\Api\Result\Package\Downloads $downloads */
             $downloads = $package->getDownloads();
-            $downloads = ['total'   => $downloads->getTotal(),
-                          'monthly' => $downloads->getMonthly(),
-                          'daily'   => $downloads->getDaily()
+            $downloads = [
+                'total'   => $downloads->getTotal(),
+                'monthly' => $downloads->getMonthly(),
+                'daily'   => $downloads->getDaily()
             ];
         } else {
             $downloads = ['total' => 0, 'monthly' => 0, 'daily' => 0];

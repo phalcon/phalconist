@@ -50,6 +50,14 @@
                             <p class="small">
                                 {{ data['description'] }}
                             </p>
+                            {% if data['composer']['keywords'] %}
+                            <ul class="list-inline">
+                                <li class="small">tags:</li>
+                                {% for tag in data['composer']['keywords'] %}
+                                    <li>{{ link_to(['action', 'action': 'search', 'tag': tag], tag) }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                             <div><label class="label label-date">Last update: <?= \Models\Project::utcTime($data['updated'])->format('M d, Y') ?></label></div>
                         </li>
                     {% endfor %}
