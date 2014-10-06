@@ -24,6 +24,7 @@
         <div class="row">
             <hr/>
             <div class="col-lg-6">
+                <h5>Details</h5>
                 Created: <span class="label label-default"><?= \Models\Project::utcTime($project['created'])->format('M d, Y') ?></span><br>
                 Updated: <span class="label label-default"><?= \Models\Project::utcTime($project['updated'])->format('M d, Y') ?></span><br>
                 Composer:
@@ -69,6 +70,15 @@
                 Total: <span class="label label-default">{{ project['downloads']['total'] }}</span><br>
                 Monthly: <span class="label label-default">{{ project['downloads']['monthly'] }}</span><br>
                 Daily: <span class="label label-default">{{ project['downloads']['daily'] }}</span><br>
+                {% endif %}
+
+                {% if project['composer']['keywords'] %}
+                <h5>Tags</h5>
+                <ul class="list-inline">
+                    {% for tag in project['composer']['keywords'] %}
+                        <li>{{ link_to(['action', 'action': 'search', 'tag': tag], tag) }}</li>
+                    {% endfor %}
+                </ul>
                 {% endif %}
             </div>
         </div>

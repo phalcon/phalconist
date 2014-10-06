@@ -297,13 +297,20 @@ class Project extends Injectable
         return $resultSet->getAggregation('count')['value'];
     }
 
+    /**
+     * @link http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-cardinality-aggregation.html
+     * @return mixed
+     */
     public static function countOwners()
     {
         $query = [
             'size' => 0,
             'aggs' => [
                 'count' => [
-                    'cardinality' => ['field' => 'owner.id']
+                    'cardinality' => [
+                        'field'               => 'owner.id',
+                        'precision_threshold' => 100,
+                    ]
                 ]
             ]
         ];
