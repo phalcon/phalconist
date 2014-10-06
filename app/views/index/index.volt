@@ -4,8 +4,9 @@
         <div class="row text-left">
             <div class="intro-text text-center" style="margin: 50px;">
                 <span class="skills">
-                    Phalcon Framework Extensions
+                    Phalcon Framework Resources
                 </span>
+                <hr class="star-light">
             </div>
 
             <div class="col-lg-12 clearfix">
@@ -14,28 +15,34 @@
                 </div>
                 <ul class="list-inline col-lg-10 clearfix">
                     {% for item in top %}
-                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2" style="overflow: hidden">
+                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2" style="overflow: hidden;margin-top: 30px">
                             {% set data = item.getData() %}
                             <span class="badge"><i class="glyphicon glyphicon-star"> </i> {{ data['stars'] }}</span><br>
                             <h5 style="margin-bottom: 0;">
                                 {{ link_to(['action', 'action': 'view', 'id': item.getId()], data['name'], 'style': 'color:#fff') }}
                             </h5>
                             {#<small>{{ data['owner']['login'] }}</small>#}
-                            <small>{{ data['description'] }}</small>
+                            {% if data['description'] %}
+                                <small>{{ data['description'] }}</small>
+                            {% else %}
+                                <small>{{ data['composer']['description'] }}</small>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>
-
-                <hr class="col-lg-12"/>
+                <div class="text-right">
+                    <a href="/top" style="color:#fff">more</a>
+                </div>
             </div>
 
             <div class="col-lg-12 clearfix">
+                <hr class="col-lg-12"/>
                 <div class="col-lg-2">
                     <h2><a href="/new" style="color:#fff">New</a></h2>
                 </div>
                 <ul class="list-inline col-lg-10">
                     {% for item in newbie %}
-                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2" style="min-height:10em;margin-bottom:20px;overflow: hidden">
+                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2" style="min-height:10em;margin-bottom:20px;overflow: hidden;margin-top: 30px;">
                             {% set data = item.getData() %}
                             <span class="badge"><i class="glyphicon glyphicon-star"> </i> {{ data['stars'] }}</span><br>
                             <h5 style="margin-bottom: 0;"
@@ -43,10 +50,18 @@
                             <span class="label label-date" title="Created"><?= \Models\Project::utcTime($data['created'])->
                                 format('d M') ?></span><br>
                             {#<small>{{ data['owner']['login'] }}</small>#}
-                            <small>{{ data['description'] }}</small>
+                            {% if data['description'] %}
+                                <small>{{ data['description'] }}</small>
+                            {% else %}
+                                <small>{{ data['composer']['description'] }}</small>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>
+
+                <div class="text-right" style="margin-bottom: 20px">
+                    <a href="/new" style="color:#fff">more</a>
+                </div>
             </div>
         </div>
     </div>
@@ -70,13 +85,12 @@
             </ul>
         </div>
 
-        <hr class="col-lg-12"/>
-
         <div class="col-lg-12">
+            <hr class="col-lg-12"/>
             <div class="col-lg-2">
                 <h3 style="margin-bottom: 21px">Owners</h3>
             </div>
-            <ul class="list-inline col-lg-10">
+            <ul class="list-inline col-lg-10" style="margin-bottom: 40px">
                 {% for owner in owners['list'] %}
                     {% set size = 2.2 * owner['count'] / owners['max'] %}
                     {% set size = size < 0.8 ? 0.8 : size %}
@@ -86,6 +100,21 @@
                 {% endfor %}
             </ul>
         </div>
+
+        <div class="col-lg-12" style="display: none">
+            <hr class="col-lg-12"/>
+            <div class="col-lg-2">
+                <h3 style="margin-bottom: 21px">Types</h3>
+            </div>
+            <ul class="list-inline col-lg-10" style="margin-bottom: 40px">
+                {% for type in types['list'] %}
+                    {% set size = 2.5 * type['doc_count'] / types['max'] %}
+                    {% set size = size < 0.8 ? 0.8 : size %}
+                    <li style="font-size: {{ size }}em;">
+                        {{ link_to(['action', 'action': 'search', 'type': type['key']], type['key']) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>
-

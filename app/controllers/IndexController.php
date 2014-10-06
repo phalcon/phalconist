@@ -15,11 +15,15 @@ class IndexController extends ControllerBase
         $owners = \Models\Project::owners(30);
         $top = \Models\Project::top(6);
         $newbie = \Models\Project::newbie(12);
+        $types = \Models\Project::types(25);
+        $langs = [];//\Models\Project::langs(25);
 
         $this->view->tags = $tags;
         $this->view->owners = $owners;
         $this->view->top = $top;
         $this->view->newbie = $newbie;
+        $this->view->types = $types;
+        $this->view->langs = $langs;
     }
 
     public function viewAction()
@@ -37,6 +41,7 @@ class IndexController extends ControllerBase
         $text = $this->request->get('q', ['striptags', 'trim']);
         $tags = $this->request->get('tag', ['striptags', 'trim']);
         $owner = $this->request->get('owner', ['striptags', 'trim']);
+        $type = $this->request->get('type', ['striptags', 'trim']);
 
         $escaper = new \Phalcon\Escaper();
         Tag::prependTitle('Search result for ' . $escaper->escapeHtmlAttr($text));
@@ -44,15 +49,15 @@ class IndexController extends ControllerBase
         $this->view->q = $text;
         $this->view->tags = $tags;
         $this->view->owner = $owner;
-        $this->view->results = \Models\Project::search($text, $tags, $owner);
+        $this->view->type = $type;
+        $this->view->results = \Models\Project::search($text, $tags, $owner, $type);
     }
 
     public function newAction()
     {
         $newbie = \Models\Project::newbie(60);
         $this->view->results = $newbie;
-        $this->view->q = 'New';
-        $this->view->tags = '';
+        $this->view->section = 'New';
         $this->view->pick('index/search');
     }
 
@@ -60,8 +65,7 @@ class IndexController extends ControllerBase
     {
         $newbie = \Models\Project::top(60);
         $this->view->results = $newbie;
-        $this->view->q = 'Top';
-        $this->view->tags = '';
+        $this->view->section = 'Top';
         $this->view->pick('index/search');
     }
 

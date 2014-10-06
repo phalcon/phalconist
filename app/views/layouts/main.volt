@@ -14,7 +14,7 @@
                 <img src="/img/logo.png" alt="phalcon php" style="width: 36px;margin-top: -6px;" />
                 Phalconist
             </a>
-            <small class="navbar-brand-caption" style="margin-left: 37px;">Phalcon Framework Extensions</small>
+            <small class="navbar-brand-caption" style="margin-left: 37px;">Phalcon Framework Resources</small>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

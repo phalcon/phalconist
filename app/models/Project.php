@@ -54,6 +54,46 @@ class Project extends Injectable
     }
 
     /**
+     * @param int $limit
+     * @return mixed
+     */
+    public static function types($limit = 25)
+    {
+        $query = [
+            'aggs' => [
+                'types' => [
+                    'terms' => [
+                        'field' => 'composer.type',
+                        'size'  => $limit,
+                    ],
+                ]
+            ]
+        ];
+        $resultSet = static::getStorage()->search($query);
+        return static::toTags($resultSet->getAggregation('types')['buckets'], 'key', 'doc_count');
+    }
+
+    /**
+     * @param int $limit
+     * @return mixed
+     */
+    public static function langs($limit = 25)
+    {
+        $query = [
+            'aggs' => [
+                'langs' => [
+                    'terms' => [
+                        'field' => 'lang',
+                        'size'  => $limit,
+                    ],
+                ]
+            ]
+        ];
+        $resultSet = static::getStorage()->search($query);
+        return $resultSet->getAggregation('langs')['buckets'];
+    }
+
+    /**
      * @link http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-facets-terms-facet.html
      * @param int $limit
      * @return mixed
@@ -96,6 +136,7 @@ class Project extends Injectable
                 'owner.login',
                 'owner.avatar_url',
                 'composer.keywords',
+                'composer.description',
             ],
             'filter'  => [
                 'bool' => [
@@ -138,6 +179,7 @@ class Project extends Injectable
                 'owner.login',
                 'owner.avatar_url',
                 'composer.keywords',
+                'composer.description',
             ]
         );
         $query->setSort(['created' => ['order' => 'desc']]);
@@ -209,7 +251,7 @@ class Project extends Injectable
         ];
     }
 
-    public static function search($text = '', $tags = '', $owner = '')
+    public static function search($text = '', $tags = '', $owner = '', $type = '')
     {
         $query = [
             '_source' => [
@@ -222,7 +264,8 @@ class Project extends Injectable
                 'updated',
                 'is_composer',
                 'composer.version',
-                'composer.keywords'
+                'composer.keywords',
+                'composer.type',
             ],
             'sort'    => [
                 '_score',
@@ -258,22 +301,28 @@ class Project extends Injectable
             ];
         }
 
+        if (!empty($type)) {
+            $query['query']['bool']['should'] = [
+                ['match' => ['composer.type' => $type]],
+            ];
+        }
+
         $res = \Models\Project::find($query);
         return $res->getResults();
     }
 
-    private static function toTags($list)
+    private static function toTags($list, $key = 'term', $count = 'count')
     {
         $tag_min = PHP_INT_MAX;
         $tag_max = 0;
-        foreach ($list as $tag) {
-            $tag_min = min($tag['count'], $tag_min);
-            $tag_max = max($tag['count'], $tag_max);
+        foreach ($list as $item) {
+            $tag_min = min($item[$count], $tag_min);
+            $tag_max = max($item[$count], $tag_max);
         }
         usort(
             $list,
-            function ($a, $b) {
-                return $a['term'] > $b['term'] ? 1 : -1;
+            function ($a, $b) use($key) {
+                return $a[$key] > $b[$key] ? 1 : -1;
             }
         );
 

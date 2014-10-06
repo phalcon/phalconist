@@ -2,20 +2,25 @@
 <section id="addExt" style="padding-top: 30px">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <h3>
-                    {% if q is defined and q %}
-                        <small>search</small> {{ q }}
-                    {% endif %}
-                    {% if tags is defined AND tags %}
-                        <small>tag</small> {{ tags }}
-                    {% endif %}
-                    {% if owner is defined and owner %}
-                        <small>contributor</small> {{ owner }}
-                    {% endif %}
-                </h3>
-                <br/>
-            </div>
+            <h3>
+                {% if q is defined and q %}
+                <div class="col-lg-1 text-right"><small>search</small></div>
+                <div class="col-lg-11">{{ q }}</div>
+                {% endif %}
+                {% if tags is defined AND tags %}
+                <div class="col-lg-1 text-right"><small>tag</small></div>
+                <div class="col-lg-11">{{ tags }}</div>
+                {% endif %}
+                {% if owner is defined and owner %}
+                <div class="col-lg-1 text-right"><small>owner</small></div>
+                <div class="col-lg-11">{{ owner }}</div>
+                {% endif %}
+                {% if section is defined and section %}
+                <div class="col-lg-1 text-right"><small>rating</small></div>
+                <div class="col-lg-11">{{ section }}</div>
+                {% endif %}
+            </h3>
+            <br/>
         </div>
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
