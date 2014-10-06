@@ -57,4 +57,17 @@ class ExtTask extends \Phalcon\CLI\Task
             echo $data['urls']['html'] . PHP_EOL;
         }
     }
+
+    public function addAction()
+    {
+        $url = $this->dispatcher->getParam('url', ['trim', 'striptags']);
+
+        try {
+            $githubProject = new \Models\GithubProject($url);
+            $project = new \Models\Project($githubProject);
+            $project->save();
+        } catch(\Exception $e) {
+            error_log(__METHOD__ . $e->getMessage());
+        }
+    }
 }

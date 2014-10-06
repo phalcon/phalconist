@@ -12,7 +12,8 @@ try {
     /**
      * Load services
      */
-    $serviceLoader = new \Phalcon\DI\Service\Loader(new \Phalcon\DI\FactoryDefault\CLI());
+    $di = new \Phalcon\DI\FactoryDefault\CLI();
+    $serviceLoader = new \Phalcon\DI\Service\Loader($di);
     $serviceLoader->setDefinitions($services, ['loader']);
 
     /**
@@ -35,7 +36,8 @@ try {
         'action' => $action
     ], $handle_params);
 
-    $console = new \Phalcon\CLI\Console($serviceLoader->getDI());
+    $console = new \Phalcon\CLI\Console($di);
+    $di->setShared('console', $console);
     $console->handle($handle_params);
 } catch(\Exception $e) {
     error_log('[' . date('Y-m-d H:i:s') . '] -- ' . $e->getMessage());
