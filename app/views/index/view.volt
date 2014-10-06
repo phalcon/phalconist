@@ -1,7 +1,7 @@
 <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
-<div class="container" style="margin-top: 130px;">
-    <div class="col-lg-10 col-lg-offset-1">
+<div class="container" style="margin-top: 30px;">
+    <div class="col-lg-12">
         <div class="row">
             <div class="col-lg-12">
                 <ul class="col-lg-12 text-left list-inline" style="padding-left: 0">

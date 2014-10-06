@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header page-scroll">
@@ -11,10 +11,10 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/" style="padding-bottom:0;height:auto">
-                <img src="/img/logo.png" alt="phalcon php" style="width: 36px;margin-top: -30px" />
+                <img src="/img/logo.png" alt="phalcon php" style="width: 36px;margin-top: -6px;" />
                 Phalconist
             </a>
-            <small class="navbar-brand-caption" style="margin-left: 46px;">Phalcon Framework Extensions</small>
+            <small class="navbar-brand-caption" style="margin-left: 37px;">Phalcon Framework Extensions</small>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

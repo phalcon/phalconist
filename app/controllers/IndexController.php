@@ -13,8 +13,8 @@ class IndexController extends ControllerBase
 
         $tags = \Models\Project::tags(50);
         $owners = \Models\Project::owners(30);
-        $top = \Models\Project::top(5);
-        $newbie = \Models\Project::newbie(10);
+        $top = \Models\Project::top(6);
+        $newbie = \Models\Project::newbie(12);
 
         $this->view->tags = $tags;
         $this->view->owners = $owners;

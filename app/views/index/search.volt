@@ -1,5 +1,5 @@
 <!-- Contact Section -->
-<section id="addExt" style="padding-top: 150px">
+<section id="addExt" style="padding-top: 30px">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -22,7 +22,7 @@
                 <ul class="list-inline">
                     {% for item in results %}
                         {% set data = item.getData() %}
-                        <li class="col-xs-4" style="height: 15em;">
+                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-4" style="height: 15em;">
                             <h4 style="margin-bottom: 0;">
                                 <small>{{ data['owner']['login'] }}<br>
                                 </small>{{ link_to(['action', 'action': 'view', 'id': item.getId()], data['name']) }}

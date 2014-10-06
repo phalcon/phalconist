@@ -7,14 +7,17 @@
             </div>
 
             <div class="col-lg-12 clearfix">
-                <ul class="list-inline col-lg-12 clearfix">
-                    <li class="col-lg-2"><h2><a href="/top" style="color:#fff">Top</a></h2></li>
+                <div class="col-lg-2">
+                    <h2><a href="/top" style="color:#fff">Top</a></h2>
+                </div>
+                <ul class="list-inline col-lg-10 clearfix">
                     {% for item in top %}
-                        <li class="col-lg-2" style="overflow: hidden">
+                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2" style="overflow: hidden">
                             {% set data = item.getData() %}
                             <span class="badge"><i class="glyphicon glyphicon-star"> </i> {{ data['stars'] }}</span><br>
-                            <h5 style="margin-bottom: 0;">{{ loop.index }}
-                                . {{ link_to(['action', 'action': 'view', 'id': item.getId()], data['name'], 'style': 'color:#fff') }}</h5>
+                            <h5 style="margin-bottom: 0;">
+                                {{ link_to(['action', 'action': 'view', 'id': item.getId()], data['name'], 'style': 'color:#fff') }}
+                            </h5>
                             {#<small>{{ data['owner']['login'] }}</small>#}
                             <small>{{ data['description'] }}</small>
                         </li>
@@ -25,16 +28,17 @@
             <hr class="col-lg-12"/>
 
             <div class="col-lg-12 clearfix">
-                <ul class="list-inline">
-                    <li class="col-lg-2" style="min-height: 25em;"><h2><a href="/new" style="color:#fff">New</a></h2>
-                    </li>
+                <div class="col-lg-2">
+                    <h2><a href="/new" style="color:#fff">New</a></h2>
+                </div>
+                <ul class="list-inline col-lg-10">
                     {% for item in newbie %}
-                        <li class="col-lg-2" style="min-height:10em;margin-bottom:20px;overflow: hidden">
+                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2" style="min-height:10em;margin-bottom:20px;overflow: hidden">
                             {% set data = item.getData() %}
                             <span class="badge"><i class="glyphicon glyphicon-star"> </i> {{ data['stars'] }}</span><br>
                             <h5 style="margin-bottom: 0;"
                                 title="{{ data['name']|escape }}">{{ link_to(['action', 'action': 'view', 'id': item.getId()], data['name'], 'style': 'color:#fff') }}</h5>
-                            <span class="label label-date">Created: <?= \Models\Project::utcTime($data['created'])->
+                            <span class="label label-date" title="Created"><?= \Models\Project::utcTime($data['created'])->
                                 format('d M') ?></span><br>
                             {#<small>{{ data['owner']['login'] }}</small>#}
                             <small>{{ data['description'] }}</small>
@@ -50,8 +54,10 @@
     <div class="row">
         <br/>
         <div class="col-lg-12">
-            <ul class="list-inline">
-                <li class="col-lg-2" style="min-height: 10em;"><h3>Tags</h3></li>
+            <div class="col-lg-2">
+                <h3>Tags</h3>
+            </div>
+            <ul class="list-inline col-lg-10">
                 {% for tag in tags['list'] %}
                     {% set size = 2.2 * tag['count'] / tags['max'] %}
                     {% set size = size < 0.8 ? 0.8 : size %}
@@ -65,8 +71,10 @@
         <hr class="col-lg-12"/>
 
         <div class="col-lg-12">
-            <ul class="list-inline">
-                <li class="col-lg-2" style="min-height: 10em;"><h3>Owners</h3></li>
+            <div class="col-lg-2">
+                <h3 style="margin-bottom: 21px">Owners</h3>
+            </div>
+            <ul class="list-inline col-lg-10">
                 {% for owner in owners['list'] %}
                     {% set size = 2.2 * owner['count'] / owners['max'] %}
                     {% set size = size < 0.8 ? 0.8 : size %}
