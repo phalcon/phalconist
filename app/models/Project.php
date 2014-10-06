@@ -64,9 +64,9 @@ class Project extends Injectable
             'facets' => [
                 'owners' => [
                     'terms' => [
-                        'fields'  => ['owner.login'],
-                        'order'   => 'count',
-                        'size'    => $limit,
+                        'fields' => ['owner.login'],
+                        'order'  => 'count',
+                        'size'   => $limit,
                     ]
                 ]
             ]
@@ -124,18 +124,20 @@ class Project extends Injectable
     public static function newbie($limit = 6)
     {
         $query = new \Elastica\Query();
-        $query->setSource([
-            'name',
-            'description',
-            'stars',
-            'watchers',
-            'forks',
-            'is_composer',
-            'updated',
-            'created',
-            'owner.login',
-            'owner.avatar_url'
-        ]);
+        $query->setSource(
+            [
+                'name',
+                'description',
+                'stars',
+                'watchers',
+                'forks',
+                'is_composer',
+                'updated',
+                'created',
+                'owner.login',
+                'owner.avatar_url'
+            ]
+        );
         $query->setSort(['created' => ['order' => 'desc']]);
         $query->setSize($limit);
         $resultSet = static::getStorage()->search($query);
@@ -154,7 +156,10 @@ class Project extends Injectable
         if ($is_composer && $package = $this->githubProject->getPackage()) {
             /** @var \Packagist\Api\Result\Package\Downloads $downloads */
             $downloads = $package->getDownloads();
-            $downloads = ['total' => $downloads->getTotal(), 'monthly' => $downloads->getMonthly(), 'daily' => $downloads->getDaily()];
+            $downloads = ['total'   => $downloads->getTotal(),
+                          'monthly' => $downloads->getMonthly(),
+                          'daily'   => $downloads->getDaily()
+            ];
         } else {
             $downloads = ['total' => 0, 'monthly' => 0, 'daily' => 0];
         }
@@ -258,18 +263,49 @@ class Project extends Injectable
     {
         $tag_min = PHP_INT_MAX;
         $tag_max = 0;
-        foreach($list as $tag) {
+        foreach ($list as $tag) {
             $tag_min = min($tag['count'], $tag_min);
             $tag_max = max($tag['count'], $tag_max);
         }
-        usort($list, function($a, $b){
-            return $a['term'] > $b['term'] ? 1 : -1;
-        });
+        usort(
+            $list,
+            function ($a, $b) {
+                return $a['term'] > $b['term'] ? 1 : -1;
+            }
+        );
 
         $result['list'] = $list;
         $result['min'] = $tag_min;
         $result['max'] = $tag_max;
         return $result;
+    }
+
+    public static function count()
+    {
+        $query = [
+            'size' => 0,
+            'aggs' => [
+                'count' => [
+                    'value_count' => ['field' => 'id']
+                ]
+            ]
+        ];
+        $resultSet = static::getStorage()->search($query);
+        return $resultSet->getAggregation('count')['value'];
+    }
+
+    public static function countOwners()
+    {
+        $query = [
+            'size' => 0,
+            'aggs' => [
+                'count' => [
+                    'cardinality' => ['field' => 'owner.id']
+                ]
+            ]
+        ];
+        $resultSet = static::getStorage()->search($query);
+        return $resultSet->getAggregation('count')['value'];
     }
 
     /**

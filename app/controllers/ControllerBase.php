@@ -17,5 +17,8 @@ class ControllerBase extends Controller
         $this->view->setRenderLevel($layout);
 
         $this->view->setTemplateAfter('main');
+
+        $this->view->project_count = \Models\Project::count();
+        $this->view->owner_count = \Models\Project::countOwners();
     }
 }

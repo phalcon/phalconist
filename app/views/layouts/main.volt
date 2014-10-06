@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/" style="padding-bottom:0;height:auto">
-                <img src="/img/logo.png" alt="phalcon php" style="width: 36px;margin-top: -30px"/>
+                <img src="/img/logo.png" alt="phalcon php" style="width: 36px;margin-top: -30px" />
                 Phalconist
             </a>
             <small class="navbar-brand-caption" style="margin-left: 46px;">Phalcon Framework Extensions</small>
@@ -25,11 +25,11 @@
                         <input name="q" type="text" class="form-control" placeholder="search ext." id="search" required style="margin-top: 10px;">
                     </form>
                 </li>
-{#
-                <li>
-                    <a href="/add"><i class="glyphicon glyphicon-plus"> </i> Add Ext</a>
-                </li>
-#}
+                {#
+                                <li>
+                                    <a href="/add"><i class="glyphicon glyphicon-plus"> </i> Add Ext</a>
+                                </li>
+                #}
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -41,6 +41,45 @@
 
 <!-- Footer -->
 <footer class="text-center">
+    <div class="footer-above">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col col-md-4">
+                    <h3>Statistics</h3>
+                    <p><small>Projects:</small> {{ project_count }}</p>
+                    <p><small>Owners:</small> {{ owner_count }}</p>
+                </div>
+{#
+                <div class="footer-col col-md-4">
+                    <h3>Around the Web</h3>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                        </li>
+                        <li>
+                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-col col-md-4">
+                    <h3>About Freelancer</h3>
+
+                    <p>Freelance is a free to use, open source Bootstrap theme created by
+                        <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+                </div>
+#}
+            </div>
+        </div>
+    </div>
     <div class="footer-below">
         <div class="container">
             <div class="row">
