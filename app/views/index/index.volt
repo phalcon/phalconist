@@ -2,8 +2,10 @@
 <header>
     <div class="container" style="padding-bottom: 0px;">
         <div class="row text-left">
-            <div class="intro-text" style="margin: 50px;">
-                <span class="skills"></span>
+            <div class="intro-text text-center" style="margin: 50px;">
+                <span class="skills">
+                    Phalcon Framework Extensions
+                </span>
             </div>
 
             <div class="col-lg-12 clearfix">
@@ -23,9 +25,9 @@
                         </li>
                     {% endfor %}
                 </ul>
-            </div>
 
-            <hr class="col-lg-12"/>
+                <hr class="col-lg-12"/>
+            </div>
 
             <div class="col-lg-12 clearfix">
                 <div class="col-lg-2">
