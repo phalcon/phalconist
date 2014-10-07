@@ -19,6 +19,16 @@ return new \Phalcon\Config([
         }
         return $client;
     },
+    'authProvider' => function ($di) {
+        $github = $di->get('config')->github;
+        $config['redirectUri'] = $github->redirect_url;
+        $config['provider']['Github']['applicationId'] = $github->client_id;
+        $config['provider']['Github']['applicationSecret'] = $github->client_secret;
+        $service = new \SocialConnect\Auth\Service($config, null);
+        $service->setHttpClient(new \SocialConnect\Common\Http\Client\Guzzle());
+        $provider = $service->getProvider('Github');
+        return $provider;
+    },
     'packagist' => function($di){
         return new \Packagist\Api\Client();
     },
@@ -47,6 +57,18 @@ return new \Phalcon\Config([
                     '.volt' => 'voltEngine',
                     '.phtml' => 'Phalcon\Mvc\View\Engine\Php',
                 ]],
+            ]],
+        ],
+    ],
+    'session' => [
+        'className' => '\Phalcon\Session\Adapter\Files',
+        'calls' => [['method' => 'start']],
+    ],
+    'cookie' => [
+        'className' => 'Phalcon\Http\Response\Cookies',
+        'calls' => [
+            ['method' => 'useEncryption', 'arguments' => [
+                ['type' => 'parameter', 'value' => true],
             ]],
         ],
     ],
