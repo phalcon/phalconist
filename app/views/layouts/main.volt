@@ -22,7 +22,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li style="margin-right: 30px;">
                     <form name="search" method="get" action="/search">
-                        <input name="q" type="text" class="form-control" placeholder="search ext." id="search" required style="margin-top: 10px;">
+                        <input name="q" type="text" class="form-control" placeholder="search" id="search" required style="margin-top: 10px;">
                     </form>
                 </li>
                 {#
