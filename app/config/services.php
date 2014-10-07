@@ -22,7 +22,6 @@ return new \Phalcon\Config([
     'packagist' => function($di){
         return new \Packagist\Api\Client();
     },
-    'parsedown' => '\Parsedown',
     'url' => '\Library\Url',
     'voltEngine' => [
         'className' => '\Phalcon\Mvc\View\Engine\Volt',

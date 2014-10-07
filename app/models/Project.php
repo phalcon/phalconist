@@ -193,7 +193,7 @@ class Project extends Injectable
         $this->githubProject = $githubProject;
 
         $repository = $this->githubProject->fetchRepository();
-        $readme = $this->githubProject->fetchReadme();
+        $readme_html = $this->githubProject->fetchReadme();
         $composer = $this->githubProject->fetchComposer();
         $is_composer = (bool)count($composer);
 
@@ -235,7 +235,7 @@ class Project extends Injectable
             'created'     => $repository['created_at'],
             'updated'     => $repository['updated_at'],
             'pushed'      => $repository['pushed_at'],
-            'readme'      => $readme['html'],
+            'readme'      => $readme_html,
             'is_composer' => $is_composer,
             'downloads'   => $downloads,
             'composer'    => [

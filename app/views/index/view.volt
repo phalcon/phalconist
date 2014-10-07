@@ -1,4 +1,5 @@
 <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+<link rel="stylesheet" href="/css/github-markdown.css" />
 
 <div class="container" style="margin-top: 30px;">
     <div class="col-lg-12">
@@ -12,10 +13,12 @@
                     <li><a class="github-button" href="https://github.com/{{ project['full_name'] }}" data-icon="octicon-git-branch" {#data-style="mega" #}data-count-href="/{{ project['full_name'] }}/network" data-count-api="/repos/{{ project['full_name'] }}#forks_count">Fork</a></li>
                     <li><a class="github-button" href="https://github.com/{{ project['full_name'] }}/archive/master.zip" data-icon="octicon-cloud-download">Download</a>
                 </ul>
-                <h3>
-                    <small><a href="https://github.com/{{ project['owner']['login'] }}">{{ project['owner']['login'] }}</small>
-                    <a href="{{ project['urls']['html'] }}">{{ project['repo'] }}</a>
+                <h3 style="margin-top: 40px">
+                    <small><a href="https://github.com/{{ project['owner']['login'] }}">{{ project['owner']['login'] }}</a></small>
                 </h3>
+                <h2>
+                    <a href="{{ project['urls']['html'] }}">{{ project['repo'] }}</a>
+                </h2>
 
                 <p>{{ project['description'] }}</p>
             </div>
@@ -86,10 +89,14 @@
 
         <div class="row col-lg-12">
             <hr/>
-            <article>
+            <article class="markdown-body">
                 {{ project['readme'] }}
             </article>
             <hr/>
+        </div>
+
+        <div class="row">
+            {# comments #}
         </div>
     </div>
 </div>

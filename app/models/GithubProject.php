@@ -71,15 +71,11 @@ class GithubProject extends Injectable
                 return null;
             }
 
-            $html = '';
-            if (pathinfo($readme_data['name'], PATHINFO_EXTENSION) == 'md') {
-                $html = $this->di->get('parsedown')->text($content);
-            }
-
-            return ['text' => $content, 'html' => $html];
+            $html = $this->client->markdown()->render($content);
+            return $html;
         } catch(\Exception $e) {
             error_log(__METHOD__ . $e->getMessage());
-            return ['text' => '', 'html' => ''];
+            return '';
         }
     }
 
