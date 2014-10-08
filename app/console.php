@@ -1,7 +1,11 @@
 <?php
 
 defined('APP_PATH') || define('APP_PATH', dirname(__FILE__));
-defined('ENV') || define('ENV', getenv('ENV') ? getenv('ENV') : 'dev');
+if (!defined('ENV') && array_search('env=prod', $argv) !== false) {
+    define('ENV', 'prod');
+} else {
+    define('ENV', getenv('ENV') ? getenv('ENV') : 'dev');
+}
 
 try {
 
@@ -31,10 +35,13 @@ try {
             $handle_params[$name] = $value;
         }
     }
-    $handle_params = array_merge([
-        'task'   => $task,
-        'action' => $action
-    ], $handle_params);
+    $handle_params = array_merge(
+        [
+            'task'   => $task,
+            'action' => $action
+        ],
+        $handle_params
+    );
 
     $console = new \Phalcon\CLI\Console($di);
     $di->setShared('console', $console);
