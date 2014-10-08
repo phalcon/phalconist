@@ -15,7 +15,6 @@
     "serebro/phalcon-service-loader": "dev-master",
     "ruflin/elastica": "1.3.x-dev",
     "knplabs/github-api": "1.3.1",
-    "serebro/reach-common": "dev-master",
     "knplabs/packagist-api": "1.x-dev",
     "guzzlehttp/guzzle": "dev-master",
     "socialconnect/auth": "0.1.5"
