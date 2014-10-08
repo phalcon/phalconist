@@ -22,7 +22,7 @@ class ExtTask extends \Phalcon\CLI\Task
                 'bool' => [
                     'must' => [
                         ['range' => ['synced' => ['lte' => 'now-1d']]],
-                        ['term' => ['is_composer' => true]],
+                        //['term' => ['is_composer' => true]],
                     ],
                 ]
             ],
