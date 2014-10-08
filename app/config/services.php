@@ -2,76 +2,100 @@
 
 $config = require ENV . '.php';
 
-return new \Phalcon\Config([
-    'config' => $config,
-    'router' => function() {
-        return include(APP_PATH . '/config/routes.php');
-    },
-    'elastica' => function($di) {
-        $client = new \Elastica\Client($di->get('config')->elastica->toArray());
-        return $client;
-    },
-    'github' => function($di) {
-        $github = $di->get('config')->github;
-        $client = new \Github\Client(new \Github\HttpClient\CachedHttpClient([
-            'cache_dir' => $github->cache_dir
-        ]));
-        if ($github->client_id) {
-            $client->authenticate($github->client_id, $github->client_secret, \Github\Client::AUTH_URL_CLIENT_ID);
-        }
-        return $client;
-    },
-    'authProvider' => function ($di) {
-        $github = $di->get('config')->github;
-        $config['redirectUri'] = $github->redirect_url;
-        $config['provider']['Github']['applicationId'] = $github->client_id;
-        $config['provider']['Github']['applicationSecret'] = $github->client_secret;
-        $service = new \SocialConnect\Auth\Service($config, null);
-        $service->setHttpClient(new \SocialConnect\Common\Http\Client\Curl());
-        $provider = $service->getProvider('Github');
-        return $provider;
-    },
-    'packagist' => function($di){
-        return new \Packagist\Api\Client();
-    },
-    'url' => '\Library\Url',
-    'voltEngine' => [
-        'className' => '\Phalcon\Mvc\View\Engine\Volt',
-        'calls' => [
-            ['method' => 'setOptions', 'arguments' => [
-                ['type' => 'parameter', 'value' => [
-                    'compiledPath' => APP_PATH . '/../cache/volt/',
-                    'compiledSeparator' => '_',
-                    'compiledExtension' => '.php',
-                    'stat' => true,
-                ]],
-            ]],
+return new \Phalcon\Config(
+    [
+        'config'       => $config,
+        'router'       => function () {
+            return include(APP_PATH . '/config/routes.php');
+        },
+        'elastica'     => function ($di) {
+            $client = new \Elastica\Client($di->get('config')->elastica->toArray());
+            return $client;
+        },
+        'github'       => function ($di) {
+            $github = $di->get('config')->github;
+            $client = new \Github\Client(new \Github\HttpClient\CachedHttpClient(['cache_dir' => $github->cache_dir]));
+            if ($github->client_id) {
+                $client->authenticate($github->client_id, $github->client_secret, \Github\Client::AUTH_URL_CLIENT_ID);
+            }
+            return $client;
+        },
+        'authProvider' => function ($di) {
+            $github = $di->get('config')->github;
+            $config['redirectUri'] = $github->redirect_url;
+            $config['provider']['Github']['applicationId'] = $github->client_id;
+            $config['provider']['Github']['applicationSecret'] = $github->client_secret;
+            $service = new \SocialConnect\Auth\Service($config, null);
+            $service->setHttpClient(new \SocialConnect\Common\Http\Client\Curl());
+            $provider = $service->getProvider('Github');
+            return $provider;
+        },
+        'packagist'    => function ($di) {
+            return new \Packagist\Api\Client();
+        },
+        'url'          => '\Library\Url',
+        'voltEngine'   => [
+            'className' => '\Phalcon\Mvc\View\Engine\Volt',
+            'calls'     => [
+                [
+                    'method'    => 'setOptions',
+                    'arguments' => [
+                        [
+                            'type'  => 'parameter',
+                            'value' => [
+                                'compiledPath'      => APP_PATH . '/../cache/volt/',
+                                'compiledSeparator' => '_',
+                                'compiledExtension' => '.php',
+                                'stat'              => true,
+                            ]
+                        ],
+                    ]
+                ],
+            ],
         ],
-    ],
-    'view'   => [
-        'className' => '\Phalcon\Mvc\View',
-        'calls' => [
-            ['method' => 'setViewsDir', 'arguments' => [
-                ['type' => 'parameter', 'value' => APP_PATH . '/views/'],
-            ]],
-            ['method' => 'registerEngines', 'arguments' => [
-                ['type' => 'parameter', 'value' => [
-                    '.volt' => 'voltEngine',
-                    '.phtml' => 'Phalcon\Mvc\View\Engine\Php',
-                ]],
-            ]],
+        'view'         => [
+            'className' => '\Phalcon\Mvc\View',
+            'calls'     => [
+                [
+                    'method'    => 'setViewsDir',
+                    'arguments' => [
+                        ['type' => 'parameter', 'value' => APP_PATH . '/views/'],
+                    ]
+                ],
+                [
+                    'method'    => 'registerEngines',
+                    'arguments' => [
+                        [
+                            'type'  => 'parameter',
+                            'value' => [
+                                '.volt'  => 'voltEngine',
+                                '.phtml' => 'Phalcon\Mvc\View\Engine\Php',
+                            ]
+                        ],
+                    ]
+                ],
+            ],
         ],
-    ],
-    'session' => [
-        'className' => '\Phalcon\Session\Adapter\Files',
-        'calls' => [['method' => 'start']],
-    ],
-    'cookie' => [
-        'className' => 'Phalcon\Http\Response\Cookies',
-        'calls' => [
-            ['method' => 'useEncryption', 'arguments' => [
-                ['type' => 'parameter', 'value' => true],
-            ]],
+        'session'      => [
+            'className' => '\Phalcon\Session\Adapter\Files',
+            'calls'     => [['method' => 'start']],
         ],
-    ],
-]);
+        'cookie'       => [
+            'className' => 'Phalcon\Http\Response\Cookies',
+            'calls'     => [
+                [
+                    'method'    => 'useEncryption',
+                    'arguments' => [
+                        ['type' => 'parameter', 'value' => true],
+                    ]
+                ],
+            ],
+        ],
+        'log'          => [
+            'className' => '\Phalcon\Logger\Adapter\File',
+            'arguments' => [
+                ['type' => 'parameter', 'value' => APP_PATH . '/../logs/app.log'],
+            ],
+        ],
+    ]
+);
