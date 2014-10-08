@@ -4,20 +4,20 @@
         <div class="row">
             <h3>
                 {% if q is defined and q %}
-                <div class="col-lg-1 text-right"><small>search</small></div>
-                <div class="col-lg-11">{{ q }}</div>
+                <div class="col-lg-12"><small>search</small></div>
+                <div class="col-lg-12">{{ q }}</div>
                 {% endif %}
                 {% if tags is defined AND tags %}
-                <div class="col-lg-1 text-right"><small>tag</small></div>
-                <div class="col-lg-11">{{ tags }}</div>
+                <div class="col-lg-12"><small>tag</small></div>
+                <div class="col-lg-12">{{ tags }}</div>
                 {% endif %}
                 {% if owner is defined and owner %}
-                <div class="col-lg-1 text-right"><small>owner</small></div>
-                <div class="col-lg-11">{{ owner }}</div>
+                <div class="col-lg-12"><small>owner</small></div>
+                <div class="col-lg-12">{{ owner }}</div>
                 {% endif %}
                 {% if section is defined and section %}
-                <div class="col-lg-1 text-right"><small>rating</small></div>
-                <div class="col-lg-11">{{ section }}</div>
+                <div class="col-lg-12"><small>rating</small></div>
+                <div class="col-lg-12">{{ section }}</div>
                 {% endif %}
             </h3>
             <br/>
