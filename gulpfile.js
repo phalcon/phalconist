@@ -10,6 +10,8 @@ cssSrc = [
 ];
 
 gulp.task('stylesheets', function() {
+    $.run('cp public/src/vendor/font-awesome/fonts/* ./public/fonts/ -R');
+
     return gulp.src(cssSrc).pipe($.concat('project.css')).pipe(minifyCSS({
         removeEmpty: true,
         keepSpecialComments: 0
