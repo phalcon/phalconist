@@ -15,7 +15,6 @@ $services->merge(new \Phalcon\Config([
         'className' => '\Phalcon\Logger\Adapter\File',
         'arguments' => array(
             array('type' => 'parameter', 'value' => $services->get('config')->cronLogger->path . '/info.log'),
-            array('type' => 'parameter', 'value' => array('mode' => 'w')), // rewrite log file
         ),
         'calls' => [
             ['method' => 'setLogLevel', 'arguments' => [
