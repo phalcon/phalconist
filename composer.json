@@ -5,6 +5,10 @@
   "minimum-stability": "dev",
   "authors": [
     {
+      "name": "Patsura Dmitry",
+      "email": "zaets28rus@gmail.com"
+    },
+    {
       "name": "Serebro",
       "homepage": "http://github.com/serebro/"
     }
