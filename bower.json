@@ -1,0 +1,22 @@
+{
+  "name": "phalconist",
+  "version": "0.0.0",
+  "homepage": "https://github.com/phalconist/phalconist",
+  "authors": [
+    "Patsura Dmitry <zaets28rus@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/src/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "~4.2.0",
+    "bootstrap": "~3.2.0",
+    "bootstrap-social": "~4.8.0"
+  }
+}

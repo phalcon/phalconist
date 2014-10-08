@@ -1,4 +1,3 @@
-<!-- Navigation -->
 <nav class="navbar navbar-default">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -52,7 +51,6 @@
 
 {{ content() }}
 
-<!-- Footer -->
 <footer class="text-center">
     <div class="footer-above">
         <div class="container">

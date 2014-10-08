@@ -1,0 +1,29 @@
+{
+  "name": "phalconist",
+  "version": "0.0.0",
+  "description": "Phalconist ==========",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phalconist/phalconist.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phalconist/phalconist/issues"
+  },
+  "devDependencies": {
+    "bower": "^1.3.12",
+    "gulp": "^3.8.8",
+    "gulp-concat": "^2.4.1",
+    "gulp-load-plugins": "^0.7.0",
+    "gulp-minify-css": "^0.3.10",
+    "gulp-run": "^1.6.4"
+  }
+}

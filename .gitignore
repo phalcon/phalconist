@@ -4,3 +4,5 @@
 /cache
 .DS_Store
 /app/config/dev.php
+node_modules
+public/src
