@@ -25,7 +25,7 @@ return new \Phalcon\Config([
         $config['provider']['Github']['applicationId'] = $github->client_id;
         $config['provider']['Github']['applicationSecret'] = $github->client_secret;
         $service = new \SocialConnect\Auth\Service($config, null);
-        $service->setHttpClient(new \SocialConnect\Common\Http\Client\Guzzle());
+        $service->setHttpClient(new \SocialConnect\Common\Http\Client\Curl());
         $provider = $service->getProvider('Github');
         return $provider;
     },
