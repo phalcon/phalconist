@@ -1,7 +1,9 @@
 <?php
 
+$config = require ENV . '.php';
+
 return new \Phalcon\Config([
-    'config' => require ENV . '.php',
+    'config' => $config,
     'router' => function() {
         return include(APP_PATH . '/config/routes.php');
     },

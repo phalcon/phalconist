@@ -31,6 +31,7 @@ class ExtTask extends \Phalcon\CLI\Task
             ],
             'size'    => 3,
         ];
+        $done = [];
         $results = \Models\Project::find($query)->getResults();
         foreach ($results as $project) {
             $data = $project->getData();
@@ -38,10 +39,15 @@ class ExtTask extends \Phalcon\CLI\Task
                 $githubProject = new \Models\GithubProject($data['urls']['html']);
                 $project = new \Models\Project($githubProject);
                 $project->save();
+                $done[] = $githubProject->getUserName() . '/' . $githubProject->getRepoName();
             } catch(\Exception $e) {
                 error_log(__METHOD__ . ' -- ' . $e->getMessage() . ' -- ' . $e->getTraceAsString());
             }
         }
+
+        /** @var \Phalcon\Logger\Adapter\File $cronLogger */
+        $cronLogger = $this->di->get('cronLogger');
+        $cronLogger->info(__METHOD__ . ': ' . join(', ', $done));
     }
 
     public function urlListAction()
