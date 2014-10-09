@@ -13,6 +13,8 @@ $(function() {
         }, 1500, 'easeInOutExpo');
         event.preventDefault();
     });
+
+    $('#search').focus();
 });
 
 // Floating label headings for the contact form

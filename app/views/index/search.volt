@@ -24,7 +24,7 @@
         </div>
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
-                <ul class="list-inline">
+                <ul class="list-inline clearfix">
                     {% for item in results %}
                         {% set data = item.getData() %}
                         <li class="col-xs-12 col-sm-6 col-md-4 col-lg-4" style="height: 15em;">
@@ -52,18 +52,27 @@
                                     </li>
                                 {% endif %}
                             </ul>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <a href="{{ url(['action', 'action': 'search', 'owner': data['owner']['login']]) }}">
+                                        <img src="{{ data['owner']['avatar_url'] }}&s=40" alt="" style="width:40px;height:40px;"/>
+                                    </a>
+                                </div>
+                                <div class="col-lg-10">
+                                    <label class="label label-date">Updated: <?= \Models\Project::utcTime($data['updated'])->format('M d, Y') ?></label>
+                                    {% if data['composer']['keywords'] %}
+                                    <ul class="list-inline">
+                                        <li class="small">tags:</li>
+                                        {% for tag in data['composer']['keywords'] %}
+                                            <li>{{ link_to(['action', 'action': 'search', 'tag': tag], tag) }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
                             <p class="small">
                                 {{ data['description'] }}
                             </p>
-                            {% if data['composer']['keywords'] %}
-                            <ul class="list-inline">
-                                <li class="small">tags:</li>
-                                {% for tag in data['composer']['keywords'] %}
-                                    <li>{{ link_to(['action', 'action': 'search', 'tag': tag], tag) }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-                            <div><label class="label label-date">Last update: <?= \Models\Project::utcTime($data['updated'])->format('M d, Y') ?></label></div>
                         </li>
                     {% endfor %}
                 </ul>

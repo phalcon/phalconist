@@ -195,6 +195,7 @@ class Project extends Injectable
                 'name',
                 'description',
                 'owner.login',
+                'owner.avatar_url',
                 'stars',
                 'watchers',
                 'forks',
