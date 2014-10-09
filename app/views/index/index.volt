@@ -3,10 +3,7 @@
     <div class="container" style="padding-bottom: 0px;">
         <div class="row text-left">
             <div class="intro-text text-center" style="margin: 50px;">
-                <span class="skills">
-                    Phalcon Framework Resources
-                </span>
-                <hr class="star-light">
+                <h1 class="skills">Phalcon Framework Resources</h1>
             </div>
 
             <div class="col-lg-12 clearfix">

@@ -53,12 +53,12 @@
                                 {% endif %}
                             </ul>
                             <div class="row">
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                     <a href="{{ url(['action', 'action': 'search', 'owner': data['owner']['login']]) }}">
                                         <img src="{{ data['owner']['avatar_url'] }}&s=40" alt="" style="width:40px;height:40px;"/>
                                     </a>
                                 </div>
-                                <div class="col-lg-10">
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
                                     <label class="label label-date">Updated: <?= \Models\Project::utcTime($data['updated'])->format('M d, Y') ?></label>
                                     {% if data['composer']['keywords'] %}
                                     <ul class="list-inline">
