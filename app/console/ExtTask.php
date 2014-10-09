@@ -11,6 +11,7 @@ class ExtTask extends \Phalcon\CLI\Task
 
     public function updateAction()
     {
+        $limit = min(3, (int)$this->dispatcher->getParam('limit'));
         $query = [
             '_source' => [
                 'synced',
@@ -22,14 +23,13 @@ class ExtTask extends \Phalcon\CLI\Task
                 'bool' => [
                     'must' => [
                         ['range' => ['synced' => ['lte' => 'now-1d']]],
-                        //['term' => ['is_composer' => true]],
                     ],
                 ]
             ],
             'sort'    => [
                 'synced' => ['order' => 'asc']
             ],
-            'size'    => 3,
+            'size'    => $limit,
         ];
         $done = [];
         $results = \Models\Project::find($query)->getResults();
