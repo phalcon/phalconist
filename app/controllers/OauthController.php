@@ -19,6 +19,11 @@ class OauthController extends ControllerBase
             return $this->response->redirect('');
         }
 
+        if (empty($user->id)) {
+            // todo
+            return $this->response->redirect('');
+        }
+
         \Models\User::add((array)$user);
 
         $this->session->set(

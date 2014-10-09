@@ -30,6 +30,7 @@ class IndexController extends ControllerBase
     {
         $id = (int)$this->request->get('id', 'int');
         if (empty($id)) {
+            // todo
             $this->response->redirect('');
         }
         $project = \Models\Project::findById($id);
@@ -71,6 +72,10 @@ class IndexController extends ControllerBase
 
     public function addAction()
     {
+        if (!$this->user) {
+            // todo
+            return $this->response->redirect('');
+        }
     }
 
     public function addExtAction()
@@ -78,6 +83,12 @@ class IndexController extends ControllerBase
         $this->view->disable();
 
         if (!$this->request->isPost()) {
+            // todo
+            return $this->response->redirect('');
+        }
+
+        if (!$this->user) {
+            // todo
             return $this->response->redirect('');
         }
 
@@ -87,9 +98,19 @@ class IndexController extends ControllerBase
             $githubProject = new \Models\GithubProject($url);
             $project = new \Models\Project($githubProject);
             $project->save();
+            \Models\LogAction::add(
+                [
+                    'id'         => $this->user->get('id') . '_' . $project->get('id'),
+                    'user_id'    => $this->user->get('id'),
+                    'project_id' => $project->get('id'),
+                    'action'     => \Models\LogAction::ACTION_ADD,
+                    'created'    => \Models\LogAction::utcTime()->format(DATE_ISO8601),
+                ]
+            );
         } catch(\Exception $e) {
             error_log(__METHOD__ . $e->getMessage());
         }
+
         $this->response->redirect('');
     }
 
@@ -98,12 +119,12 @@ class IndexController extends ControllerBase
         $this->view->disable();
 
         if (!$this->request->isPost()) {
+            // todo
             return $this->response->redirect('');
         }
 
         $id = $this->request->getPost('id', ['trim', 'striptags']);
         \Models\Project::deleteById($id);
     }
-
 }
 
