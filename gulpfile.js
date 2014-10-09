@@ -23,8 +23,8 @@ var jsSrc = [
     './public/src/vendor/jquery/dist/jquery.min.js',
     './public/src/vendor/bootstrap/dist/js/bootstrap.min.js',
     './public/src/vendor/jquery.easing/js/jquery.easing.min.js',
-    './public/js/classie.js',
-    './public/js/cbpAnimatedHeader.js',
+    //'./public/src/vendor/classie/classie.js',
+    //'./public/js/cbpAnimatedHeader.js',
     './public/js/jqBootstrapValidation.js',
     './public/js/contact_me.js',
     './public/js/freelancer.js'
