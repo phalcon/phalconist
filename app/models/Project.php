@@ -188,69 +188,6 @@ class Project extends Injectable
         return $resultSet->getResults();
     }
 
-    public function __construct(\Models\GithubProject $githubProject)
-    {
-        $this->githubProject = $githubProject;
-
-        $repository = $this->githubProject->fetchRepository();
-        $readme_html = $this->githubProject->fetchReadme();
-        $composer = $this->githubProject->fetchComposer();
-        $is_composer = (bool)count($composer);
-
-        if ($is_composer && $package = $this->githubProject->getPackage()) {
-            /** @var \Packagist\Api\Result\Package\Downloads $downloads */
-            $downloads = $package->getDownloads();
-            $downloads = [
-                'total'   => $downloads->getTotal(),
-                'monthly' => $downloads->getMonthly(),
-                'daily'   => $downloads->getDaily()
-            ];
-        } else {
-            $downloads = ['total' => 0, 'monthly' => 0, 'daily' => 0];
-        }
-
-        $this->data = [
-            'id'          => $repository['id'],
-            'repo'        => $this->githubProject->getRepoName(),
-            'name'        => str_replace(['-', '_'], ' ', $repository['name']),
-            'full_name'   => $repository['full_name'],
-            'description' => $repository['description'],
-            'stars'       => $repository['stargazers_count'],
-            'watchers'    => $repository['subscribers_count'],
-            'forks'       => $repository['forks_count'],
-            'lang'        => $repository['language'],
-            'homepage'    => $repository['homepage'],
-            'urls'        => [
-                'html'  => $repository['html_url'],
-                'git'   => $repository['git_url'],
-                'ssh'   => $repository['ssh_url'],
-                'clone' => $repository['clone_url'],
-            ],
-            'owner'       => [
-                'id'         => $repository['owner']['id'],
-                'login'      => $repository['owner']['login'],
-                'avatar_url' => $repository['owner']['avatar_url'],
-                'type'       => $repository['owner']['type'],
-            ],
-            'created'     => $repository['created_at'],
-            'updated'     => $repository['updated_at'],
-            'pushed'      => $repository['pushed_at'],
-            'readme'      => $readme_html,
-            'is_composer' => $is_composer,
-            'downloads'   => $downloads,
-            'composer'    => [
-                'type'        => empty($composer['type']) ? '' : $composer['type'],
-                'name'        => empty($composer['name']) ? '' : $composer['name'],
-                'description' => empty($composer['description']) ? '' : $composer['description'],
-                'keywords'    => empty($composer['keywords']) ? [] : $composer['keywords'],
-                'license'     => empty($composer['license']) ? '' : $composer['license'],
-                'authors'     => empty($composer['authors']) ? [] : $composer['authors'],
-                'version'     => empty($composer['version']) ? '' : $composer['version'],
-                'require'     => empty($composer['require']) ? [] : $composer['require'],
-            ],
-        ];
-    }
-
     public static function search($text = '', $tags = '', $owner = '', $type = '')
     {
         $query = [
@@ -321,7 +258,7 @@ class Project extends Injectable
         }
         usort(
             $list,
-            function ($a, $b) use($key) {
+            function ($a, $b) use ($key) {
                 return $a[$key] > $b[$key] ? 1 : -1;
             }
         );
@@ -367,11 +304,79 @@ class Project extends Injectable
         return $resultSet->getAggregation('count')['value'];
     }
 
+    public function __construct(\Models\GithubProject $githubProject)
+    {
+        $this->githubProject = $githubProject;
+
+        $repository = $this->githubProject->fetchRepository();
+        $readme_html = $this->githubProject->fetchReadme();
+        $composer = $this->githubProject->fetchComposer();
+        $is_composer = (bool)count($composer);
+
+        if ($is_composer && $package = $this->githubProject->getPackage()) {
+            /** @var \Packagist\Api\Result\Package\Downloads $downloads */
+            $downloads = $package->getDownloads();
+            $downloads = [
+                'total'   => $downloads->getTotal(),
+                'monthly' => $downloads->getMonthly(),
+                'daily'   => $downloads->getDaily()
+            ];
+        } else {
+            $downloads = ['total' => 0, 'monthly' => 0, 'daily' => 0];
+        }
+
+        $this->data = [
+            'id'          => $repository['id'],
+            'repo'        => $this->githubProject->getRepoName(),
+            'name'        => str_replace(['-', '_'], ' ', $repository['name']),
+            'full_name'   => $repository['full_name'],
+            'description' => $repository['description'],
+            'stars'       => $repository['stargazers_count'],
+            'watchers'    => $repository['subscribers_count'],
+            'forks'       => $repository['forks_count'],
+            'lang'        => $repository['language'],
+            'homepage'    => $repository['homepage'],
+            'urls'        => [
+                'html'  => $repository['html_url'],
+                'git'   => $repository['git_url'],
+                'ssh'   => $repository['ssh_url'],
+                'clone' => $repository['clone_url'],
+            ],
+            'owner'       => [
+                'id'         => $repository['owner']['id'],
+                'login'      => $repository['owner']['login'],
+                'avatar_url' => $repository['owner']['avatar_url'],
+                'type'       => $repository['owner']['type'],
+            ],
+            'created'     => $repository['created_at'],
+            'updated'     => $repository['updated_at'],
+            'pushed'      => $repository['pushed_at'],
+            'readme'      => $readme_html,
+            'is_composer' => $is_composer,
+            'downloads'   => $downloads,
+            'composer'    => [
+                'type'        => empty($composer['type']) ? '' : $composer['type'],
+                'name'        => empty($composer['name']) ? '' : $composer['name'],
+                'description' => empty($composer['description']) ? '' : $composer['description'],
+                'keywords'    => empty($composer['keywords']) ? [] : $composer['keywords'],
+                'license'     => empty($composer['license']) ? '' : $composer['license'],
+                'authors'     => empty($composer['authors']) ? [] : $composer['authors'],
+                'version'     => empty($composer['version']) ? '' : $composer['version'],
+                'require'     => empty($composer['require']) ? [] : $composer['require'],
+            ],
+        ];
+    }
+
     /**
      * @return \Elastica\Response
      */
     public function save()
     {
         return static::add($this->data);
+    }
+
+    public function get($attr)
+    {
+        return $this->data[$attr];
     }
 }

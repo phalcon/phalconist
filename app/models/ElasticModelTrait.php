@@ -41,6 +41,7 @@ trait ElasticModelTrait
      */
     public static function add($data)
     {
+        $data['id'] = empty($data['id']) ? null : $data['id'];
         $data['synced'] = static::utcTime()->format(DATE_ISO8601);
         $doc = new \Elastica\Document($data['id'], $data);
         return static::getStorage()->addDocument($doc);

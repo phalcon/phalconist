@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use Models\LogAction;
+
 class OauthController extends ControllerBase
 {
 
@@ -35,7 +37,8 @@ class OauthController extends ControllerBase
             ]
         );
 
+        LogAction::log(LogAction::ACTION_LOGIN, $user->id);
+
         return $this->response->redirect('');
     }
 }
-

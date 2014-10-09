@@ -9,6 +9,7 @@ use Phalcon\Tag;
 class ControllerBase extends Controller
 {
 
+    /** @var  \Elastica\Document */
     public $user;
 
 

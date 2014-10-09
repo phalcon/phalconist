@@ -2,6 +2,9 @@
 
 namespace Controllers;
 
+use Models\GithubProject;
+use Models\LogAction;
+use Models\Project;
 use Phalcon\Tag;
 
 class IndexController extends ControllerBase
@@ -11,10 +14,10 @@ class IndexController extends ControllerBase
     {
         Tag::prependTitle('Phalconist Main');
 
-        $tags = \Models\Project::tags(50);
-        $owners = \Models\Project::owners(30);
-        $top = \Models\Project::top(6);
-        $newbie = \Models\Project::newbie(6);
+        $tags = Project::tags(50);
+        $owners = Project::owners(30);
+        $top = Project::top(6);
+        $newbie = Project::newbie(6);
         $langs = [];//\Models\Project::langs(25);
 
         $this->view->tags = $tags;
@@ -31,7 +34,7 @@ class IndexController extends ControllerBase
             // todo
             $this->response->redirect('');
         }
-        $project = \Models\Project::findById($id);
+        $project = Project::findById($id);
         $this->view->project = $project->getData();
     }
 
@@ -49,12 +52,12 @@ class IndexController extends ControllerBase
         $this->view->tags = $tags;
         $this->view->owner = $owner;
         $this->view->type = $type;
-        $this->view->results = \Models\Project::search($text, $tags, $owner, $type);
+        $this->view->results = Project::search($text, $tags, $owner, $type);
     }
 
     public function newAction()
     {
-        $newbie = \Models\Project::newbie(60);
+        $newbie = Project::newbie(60);
         $this->view->results = $newbie;
         $this->view->section = 'New';
         $this->view->pick('index/search');
@@ -62,7 +65,7 @@ class IndexController extends ControllerBase
 
     public function topAction()
     {
-        $newbie = \Models\Project::top(60);
+        $newbie = Project::top(60);
         $this->view->results = $newbie;
         $this->view->section = 'Top';
         $this->view->pick('index/search');
@@ -93,18 +96,10 @@ class IndexController extends ControllerBase
         $url = $this->request->getPost('url', ['trim', 'striptags']);
 
         try {
-            $githubProject = new \Models\GithubProject($url);
-            $project = new \Models\Project($githubProject);
+            $githubProject = new GithubProject($url);
+            $project = new Project($githubProject);
             $project->save();
-            \Models\LogAction::add(
-                [
-                    'id'         => $this->user->get('id') . '_' . $project->get('id'),
-                    'user_id'    => $this->user->get('id'),
-                    'project_id' => $project->get('id'),
-                    'action'     => \Models\LogAction::ACTION_ADD,
-                    'created'    => \Models\LogAction::utcTime()->format(DATE_ISO8601),
-                ]
-            );
+            LogAction::log(LogAction::ACTION_ADD, $this->user->get('id'), ['project_id' => $project->get('id')]);
         } catch(\Exception $e) {
             error_log(__METHOD__ . $e->getMessage());
         }
@@ -121,8 +116,16 @@ class IndexController extends ControllerBase
             return $this->response->redirect('');
         }
 
+        if (!$this->user) {
+            // todo
+            return $this->response->redirect('');
+        }
+
         $id = $this->request->getPost('id', ['trim', 'striptags']);
-        \Models\Project::deleteById($id);
+        //Project::deleteById($id);
+        LogAction::log(LogAction::ACTION_DELETE, $this->user->get('id'), ['project_id' => $id]);
+
+        return $this->response->redirect('');
     }
 }
 
