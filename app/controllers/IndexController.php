@@ -87,9 +87,12 @@ class IndexController extends ControllerBase
 
             try {
                 $githubProject = new GithubProject($url);
-                $project = new Project($githubProject);
-                $project->save();
-                LogAction::log(LogAction::ACTION_ADD, $this->user->get('id'), ['project_id' => $project->get('id')]);
+                if ($project = new Project($githubProject)) {
+                    $project->save();
+                    LogAction::log(LogAction::ACTION_ADD, $this->user->get('id'), ['project_id' => $project->get('id')]);
+                } else {
+                    // todo
+                }
             } catch(\Exception $e) {
                 error_log(__METHOD__ . ' -- ' . $e->getMessage() . " [$url]");
             }

@@ -309,7 +309,12 @@ class Project extends Injectable
     {
         $this->githubProject = $githubProject;
 
-        $repository = $this->githubProject->fetchRepository();
+        try {
+            $repository = $this->githubProject->fetchRepository();
+        } catch(\Exception $e) {
+            return null;
+        }
+
         $readme_html = $this->githubProject->fetchReadme();
         $composer = $this->githubProject->fetchComposer();
         $is_composer = (bool)count($composer);
