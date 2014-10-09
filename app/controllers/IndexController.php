@@ -91,11 +91,10 @@ class IndexController extends ControllerBase
                 $project->save();
                 LogAction::log(LogAction::ACTION_ADD, $this->user->get('id'), ['project_id' => $project->get('id')]);
             } catch(\Exception $e) {
-                error_log(__METHOD__ . ' -- ' . $e->getMessage());
+                error_log(__METHOD__ . ' -- ' . $e->getMessage() . " [$url]");
             }
+            return $this->response->redirect('');
         }
-
-        $this->response->redirect('');
     }
 
     public function deleteAction()
