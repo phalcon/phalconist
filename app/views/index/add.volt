@@ -8,7 +8,7 @@
         </div>
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <form name="addExt" method="post" action="/addExt">
+                <form name="addExt" method="post" action="/add">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>GitHub URL</label>

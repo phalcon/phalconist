@@ -73,7 +73,7 @@ class ExtTask extends \Phalcon\CLI\Task
             $project = new \Models\Project($githubProject);
             $project->save();
         } catch(\Exception $e) {
-            error_log(__METHOD__ . $e->getMessage());
+            error_log(__METHOD__ . ' -- ' . $e->getMessage());
         }
     }
 }

@@ -81,31 +81,18 @@ class IndexController extends ControllerBase
             // todo
             return $this->response->redirect('login');
         }
-    }
 
-    public function addExtAction()
-    {
-        $this->view->disable();
+        if ($this->request->isPost()) {
+            $url = $this->request->getPost('url', ['trim', 'striptags']);
 
-        if (!$this->request->isPost()) {
-            // todo
-            return $this->response->redirect('');
-        }
-
-        if (!$this->user) {
-            // todo
-            return $this->response->redirect('');
-        }
-
-        $url = $this->request->getPost('url', ['trim', 'striptags']);
-
-        try {
-            $githubProject = new GithubProject($url);
-            $project = new Project($githubProject);
-            $project->save();
-            LogAction::log(LogAction::ACTION_ADD, $this->user->get('id'), ['project_id' => $project->get('id')]);
-        } catch(\Exception $e) {
-            error_log(__METHOD__ . $e->getMessage());
+            try {
+                $githubProject = new GithubProject($url);
+                $project = new Project($githubProject);
+                $project->save();
+                LogAction::log(LogAction::ACTION_ADD, $this->user->get('id'), ['project_id' => $project->get('id')]);
+            } catch(\Exception $e) {
+                error_log(__METHOD__ . ' -- ' . $e->getMessage());
+            }
         }
 
         $this->response->redirect('');
