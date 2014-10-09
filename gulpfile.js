@@ -18,4 +18,20 @@ gulp.task('stylesheets', function() {
     })).pipe(gulp.dest('./public/dist/'));
 });
 
-gulp.task('default', ['stylesheets']);
+jsSrc = [
+    './public/src/vendor/jquery/dist/jquery.min.js',
+    './public/src/vendor/bootstrap/dist/js/bootstrap.min.js',
+    './public/src/vendor/jquery.easing/js/jquery.easing.min.js',
+    './public/js/classie.js',
+    './public/js/cbpAnimatedHeader.js',
+    './public/js/jqBootstrapValidation.js',
+    './public/js/contact_me.js',
+    './public/js/freelancer.js'
+];
+
+gulp.task('js', function() {
+    return gulp.src(jsSrc).pipe($.concat('min.js')).pipe($.uglify())
+        .pipe(gulp.dest('./public/dist/'));
+});
+
+gulp.task('default', ['stylesheets', 'js']);
