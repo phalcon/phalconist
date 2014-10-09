@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This script was stolen from  https://github.com/xboston/phalcon-php-elasticsearch-backup
+ * @author Nikolai Kirsh <bost56@gmail.com>
+ */
+
 ini_set('memory_limit', '1024M');
 set_time_limit(0);
 error_reporting(E_ALL);
