@@ -15,7 +15,6 @@ class IndexController extends ControllerBase
         $owners = \Models\Project::owners(30);
         $top = \Models\Project::top(6);
         $newbie = \Models\Project::newbie(6);
-        $types = \Models\Project::types(25);
         $langs = [];//\Models\Project::langs(25);
 
         $this->view->tags = $tags;

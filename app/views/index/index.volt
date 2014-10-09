@@ -101,21 +101,6 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="col-lg-12" style="display: none">
-                <hr class="col-lg-12" />
-                <div class="col-lg-3">
-                    <h3 style="margin-bottom: 21px">Types</h3>
-                </div>
-                <ul class="list-inline col-lg-8" style="margin-bottom: 40px">
-                    {% for type in types['list'] %}
-                        {% set size = 2.5 * type['doc_count'] / types['max'] %}
-                        {% set size = size < 0.8 ? 0.8 : size %}
-                        <li style="font-size: {{ size }}em;">
-                            {{ link_to(['action', 'action': 'search', 'type': type['key']], type['key']) }}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
         </div>
         <div class="col-lg-4">
             <a class="twitter-timeline" href="https://twitter.com/search?q=phalconphp" data-widget-id="519842350013489152">phalconphp</a>
