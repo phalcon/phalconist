@@ -21,7 +21,6 @@ class IndexController extends ControllerBase
         $this->view->owners = $owners;
         $this->view->top = $top;
         $this->view->newbie = $newbie;
-        $this->view->types = $types;
         $this->view->langs = $langs;
     }
 
