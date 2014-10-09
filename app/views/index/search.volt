@@ -29,8 +29,11 @@
                         {% set data = item.getData() %}
                         <li class="col-xs-12 col-sm-6 col-md-4 col-lg-4" style="height: 15em;">
                             <h4 style="margin-bottom: 0;">
-                                <small>{{ data['owner']['login'] }}<br>
-                                </small>{{ link_to(['action', 'action': 'view', 'id': item.getId()], data['name']) }}
+                                <small>
+                                    {{ link_to(['action', 'action': 'search', 'owner': data['owner']['login']], data['owner']['login'], 'style': 'color: #b4bcc2') }}
+                                </small>
+                                <br>
+                                {{ link_to(['action', 'action': 'view', 'id': item.getId()], data['name']) }}
                             </h4>
                             <ul class="list-inline" style="margin: 0 0 8px 0;">
                                 {% if data['watchers'] %}
