@@ -27,6 +27,10 @@ class IndexController extends ControllerBase
         $this->view->langs = $langs;
     }
 
+    public function route404Action()
+    {
+    }
+
     public function viewAction()
     {
         $id = (int)$this->request->get('id', 'int');
@@ -75,7 +79,7 @@ class IndexController extends ControllerBase
     {
         if (!$this->user) {
             // todo
-            return $this->response->redirect('');
+            return $this->response->redirect('login');
         }
     }
 
@@ -126,6 +130,11 @@ class IndexController extends ControllerBase
         LogAction::log(LogAction::ACTION_DELETE, $this->user->get('id'), ['project_id' => $id]);
 
         return $this->response->redirect('');
+    }
+
+    public function loginAction()
+    {
+        $this->view->login_url = $this->di->get('authProvider')->makeAuthUrl();
     }
 }
 

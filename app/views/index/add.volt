@@ -1,9 +1,9 @@
 <!-- Contact Section -->
 <section id="addExt">
-    <div class="container" style="margin-top: 50px;">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h3>Add Phalcon Extension</h3>
+                <h3>Add Phalcon Resource</h3>
             </div>
         </div>
         <div class="row">

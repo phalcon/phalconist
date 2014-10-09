@@ -24,24 +24,22 @@
                         <input name="q" type="text" class="form-control" placeholder="search" id="search" required style="margin-top: 10px;">
                     </form>
                 </li>
+                <li>
+                    <a href="/add"><i class="glyphicon glyphicon-plus"> </i> Add</a>
+                </li>
                 {% if currentUser %}
                 <li>
-                    <a class="btn btn-block btn-github" href="{{ url(['controller/action', 'controller': 'user', 'action': 'logout']) }}">
+                    <a href="{{ url(['controller/action', 'controller': 'user', 'action': 'logout']) }}">
                         Logout
                     </a>
                 </li>
                 {% else %}
-                    <li>
-                        <a class="btn btn-block btn-github" href="{{ login_url }}">
-                            <i class="fa fa-github" style="font-size: 1.5em"></i> Sign in
-                        </a>
-                    </li>
+                <li class="page-scroll">
+                    <a href="{{ login_url }}">
+                        <i class="fa fa-github"></i> Login
+                    </a>
+                </li>
                 {% endif %}
-                {#
-                    <li>
-                        <a href="/add"><i class="glyphicon glyphicon-plus"> </i> Add Ext</a>
-                    </li>
-                #}
             </ul>
         </div>
         <!-- /.navbar-collapse -->
