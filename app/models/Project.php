@@ -267,6 +267,17 @@ class Project extends Injectable
             $tag_min = min($item[$count], $tag_min);
             $tag_max = max($item[$count], $tag_max);
         }
+
+        $len = count($list);
+        if (is_int($len / 2)) {
+            $el = $len / 2;
+            $el2 = $el + 1;
+            $moda = ($list[$el][$count] + $list[$el2][$count]) / 2;
+        } else {
+            $el = round($len / 2);
+            $moda = $list[$el][$count];
+        }
+
         usort(
             $list,
             function ($a, $b) use ($key) {
@@ -277,6 +288,7 @@ class Project extends Injectable
         $result['list'] = $list;
         $result['min'] = $tag_min;
         $result['max'] = $tag_max;
+        $result['moda'] = $moda;
         return $result;
     }
 
