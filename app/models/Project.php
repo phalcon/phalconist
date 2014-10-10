@@ -205,14 +205,8 @@ class Project extends Injectable
                 'composer.keywords',
                 'composer.type',
             ],
-            'sort' => [
-                '_score',
-                ['is_composer' => ['order' => 'desc']],
-                ['watchers' => ['order' => 'desc']],
-                ['stars' => ['order' => 'desc']],
-            ],
             'from' => 0,
-            'size' => 100,
+            'size' => 60,
         ];
 
         $query['query']['bool']['should'] = [];
@@ -223,6 +217,12 @@ class Project extends Injectable
                 ['match' => ['owner.login' => $text]],
                 ['match' => ['composer.keywords' => $text]],
             ];
+            $query['sort'] = [
+                '_score',
+                ['is_composer' => ['order' => 'desc']],
+                ['watchers' => ['order' => 'desc']],
+                ['stars' => ['order' => 'desc']],
+            ];
         }
 
         if (!empty($tags)) {
@@ -231,11 +231,21 @@ class Project extends Injectable
                 ['match' => ['description' => $tags]],
                 ['match' => ['composer.keywords' => $tags]],
             ];
+            $query['sort'] = [
+                ['is_composer' => ['order' => 'desc']],
+                ['watchers' => ['order' => 'desc']],
+                ['stars' => ['order' => 'desc']],
+            ];
         }
 
         if (!empty($owner)) {
             $query['query']['bool']['should'] = [
                 ['match' => ['owner.login' => $owner]],
+            ];
+            $query['sort'] = [
+                ['is_composer' => ['order' => 'desc']],
+                ['watchers' => ['order' => 'desc']],
+                ['stars' => ['order' => 'desc']],
             ];
         }
 

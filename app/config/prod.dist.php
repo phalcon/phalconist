@@ -8,6 +8,10 @@ return new \Phalcon\Config(
             'cache_dir'     => APP_PATH . '/../cache/github-api-cache',
             'redirect_url'  => 'http://dev.phalconist.com/oauth/github',
         ],
+        'disqus' => [
+            'public_key' => '',
+            'secret_key' => '',
+        ],
         'top'        => ['updated' => 'now-15d'],
         'stopTags'   => explode(
             ',',
