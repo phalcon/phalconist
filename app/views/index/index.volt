@@ -74,7 +74,7 @@
                 <noindex><h3>Tags</h3></noindex>
                 <ul class="list-inline">
                     {% for tag in tags['list'] %}
-                        {% set size = 0.7 * tag['count'] / tags['moda'] %}
+                        {% set size = 0.7 * tag['avg'] %}
                         {% set size = size < 0.9 ? 0.9 : size %}
                         {% set size = size > 2.2 ? 2.2 : size %}
                         <li style="font-size: {{ size }}em;">
@@ -88,7 +88,7 @@
                 <noindex><h3 style="margin-bottom: 21px">Owners</h3></noindex>
                 <ul class="list-inline" style="margin-bottom: 40px">
                     {% for owner in owners['list'] %}
-                        {% set size = 0.7 * owner['doc_count'] / owners['moda'] %}
+                        {% set size = 0.7 * owner['avg'] %}
                         {% set size = size < 0.9 ? 0.9 : size %}
                         {% set size = size > 2.2 ? 2.2 : size %}
                         <li style="font-size: {{ size }}em;">
