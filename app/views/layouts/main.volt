@@ -53,14 +53,16 @@
     <div class="footer-above">
         <div class="container">
             <div class="row">
-                <div class="footer-col col-md-4">
-                    <h3>Statistics</h3>
+                <noindex>
+                    <div class="footer-col col-md-4">
+                        <h3>Statistics</h3>
 
-                    <p>
-                        <small>Projects:</small> {{ project_count }}</p>
-                    <p>
-                        <small>Owners:</small> {{ owner_count }}</p>
-                </div>
+                        <p>
+                            <small>Projects:</small> {{ project_count }}</p>
+                        <p>
+                            <small>Owners:</small> {{ owner_count }}</p>
+                    </div>
+                </noindex>
                 <div class="footer-col col-md-4">
                 </div>
                 <div class="footer-col col-md-4">

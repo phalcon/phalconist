@@ -12,7 +12,7 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-        Tag::prependTitle('Phalconist Main');
+        Tag::prependTitle('Phalcon Framework Resources');
 
         $tags = Project::tags(50);
         $owners = Project::owners(30);
@@ -56,8 +56,18 @@ class IndexController extends ControllerBase
         $owner = $this->request->get('owner', ['striptags', 'trim']);
         $type = $this->request->get('type', ['striptags', 'trim']);
 
+        if ($text) {
+            $title = '"' . ucfirst($text) . '" / Search / Phalconist';
+        } else if ($tags) {
+            $title = '"' . ucfirst($tags) . '" / Tag / Phalconist';
+        } else if ($owner) {
+            $title = '"' . ucfirst($owner) . '" / Owner / Phalconist';
+        } else {
+            $title = '"' . ucfirst($type) . '" / Repository type / Phalconist';
+        }
+
         $escaper = new \Phalcon\Escaper();
-        Tag::prependTitle('Search result for ' . $escaper->escapeHtmlAttr($text));
+        Tag::prependTitle($escaper->escapeHtmlAttr($title));
 
         $this->view->q = $text;
         $this->view->tags = $tags;

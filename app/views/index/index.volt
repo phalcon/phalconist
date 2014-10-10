@@ -8,7 +8,7 @@
 
             <div class="col-lg-12 clearfix">
                 <div class="col-lg-2">
-                    <h2><a href="/top" style="color:#fff">Top</a></h2>
+                    <h2><a href="/top" style="color:#fff" title="The most popular projects">Top</a></h2>
                 </div>
                 <ul class="list-inline col-lg-10 clearfix">
                     {% for item in top %}
@@ -28,14 +28,14 @@
                     {% endfor %}
                 </ul>
                 <div class="text-right">
-                    <a href="/top" style="color:#fff">more</a>
+                    <a href="/top" style="color:#fff" title="The most popular projects">more</a>
                 </div>
             </div>
 
             <div class="col-lg-12 clearfix">
                 <hr class="col-lg-12" />
                 <div class="col-lg-2">
-                    <h2><a href="/fresh" style="color:#fff">Fresh</a></h2>
+                    <h2><a href="/fresh" style="color:#fff" title="Recently created projects">Fresh</a></h2>
                 </div>
                 <ul class="list-inline col-lg-10">
                     {% for item in fresh %}
@@ -57,7 +57,7 @@
                 </ul>
 
                 <div class="text-right" style="margin-bottom: 20px">
-                    <a href="/new" style="color:#fff">more</a>
+                    <a href="/fresh" style="color:#fff" title="Recently created projects">more</a>
                 </div>
             </div>
         </div>
@@ -71,26 +71,26 @@
         <div class="col-lg-12">
             <div class="col-lg-6">
                 <hr class="col-lg-12" />
-                <h3>Tags</h3>
+                <noindex><h3>Tags</h3></noindex>
                 <ul class="list-inline">
                     {% for tag in tags['list'] %}
                         {% set size = 2.2 * tag['count'] / tags['max'] %}
                         {% set size = size < 0.8 ? 0.8 : size %}
                         <li style="font-size: {{ size }}em;">
-                            {{ link_to(['action', 'action': 'search', 'tag': tag['term']], tag['term']) }}
+                            {{ link_to(['action', 'action': 'search', 'tag': tag['term']], tag['term'], 'title': tag['term']) }}
                         </li>
                     {% endfor %}
                 </ul>
             </div>
             <div class="col-lg-6">
                 <hr class="col-lg-12" />
-                <h3 style="margin-bottom: 21px">Owners</h3>
+                <noindex><h3 style="margin-bottom: 21px">Owners</h3></noindex>
                 <ul class="list-inline" style="margin-bottom: 40px">
                     {% for owner in owners['list'] %}
                         {% set size = 2.2 * owner['doc_count'] / owners['max'] %}
                         {% set size = size < 0.8 ? 0.8 : size %}
                         <li style="font-size: {{ size }}em;">
-                            {{ link_to(['action', 'action': 'search', 'owner': owner['key']], owner['key']) }}
+                            {{ link_to(['action', 'action': 'search', 'owner': owner['key']], owner['key'], 'title': owner['key']) }}
                         </li>
                     {% endfor %}
                 </ul>
