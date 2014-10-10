@@ -12,6 +12,9 @@ class ControllerBase extends Controller
     /** @var  \Elastica\Document */
     public $user;
 
+    /** @var string */
+    public $description = '';
+
 
     public function initialize()
     {
@@ -35,6 +38,7 @@ class ControllerBase extends Controller
 
         $this->view->setTemplateAfter('main');
 
+        $this->view->description = 'Phalcon framework resources'; // todo
         $this->view->project_count = \Models\Project::count();
         $this->view->owner_count = \Models\Project::countOwners();
         $this->view->currentUser = $this->user;

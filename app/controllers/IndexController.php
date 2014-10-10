@@ -40,6 +40,12 @@ class IndexController extends ControllerBase
         }
         $project = Project::findById($id);
         $this->view->project = $project->getData();
+
+        $description = $project->get('name') ? $project->get('name') : empty($project->get('composer')['description']) ? $project->get('composer')['description'] : null;
+        if ($description) {
+            $this->view->description = $description;
+        }
+        Tag::setTitle($project->get('name') . ' / ' . $project->get('owner')['login']);
     }
 
     public function searchAction()
