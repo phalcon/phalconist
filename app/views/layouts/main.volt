@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" style="padding-bottom:0;height:auto">
+            <a class="navbar-brand" href="/" style="padding-bottom:0;height:auto;display: block">
                 <img src="/img/logo.png" alt="phalcon php" style="width: 36px;margin-top: -6px;" />
                 Phalconist
             </a>

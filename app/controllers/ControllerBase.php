@@ -17,9 +17,16 @@ class ControllerBase extends Controller
     {
         //Tag::setTitleSeparator(' | ');
 
-        if ($this->session->has('identity') && $this->session->get('identity')['id']) {
-            $this->user = \Models\User::findById($this->session->get('identity')['id']);
-        } else {
+        if ($this->session->has('identity')) {
+            $identity = $this->session->get('identity');
+            try {
+                $user = \Models\User::findById($identity['id']);
+                $this->user = $user;
+            } catch(\Exception $e){
+            }
+        }
+
+        if (!$this->user) {
             $this->view->login_url = $this->di->get('authProvider')->makeAuthUrl();
         }
 

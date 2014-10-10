@@ -90,10 +90,10 @@
                 </div>
                 <ul class="list-inline col-lg-8" style="margin-bottom: 40px">
                     {% for owner in owners['list'] %}
-                        {% set size = 2.2 * owner['count'] / owners['max'] %}
+                        {% set size = 2.2 * owner['doc_count'] / owners['max'] %}
                         {% set size = size < 0.8 ? 0.8 : size %}
                         <li style="font-size: {{ size }}em;">
-                            {{ link_to(['action', 'action': 'search', 'owner': owner['term']], owner['term']) }}
+                            {{ link_to(['action', 'action': 'search', 'owner': owner['key']], owner['key']) }}
                         </li>
                     {% endfor %}
                 </ul>

@@ -19,17 +19,17 @@ class ExtTask extends \Phalcon\CLI\Task
                 'created',
                 'urls.html'
             ],
-            'filter'  => [
+            'filter' => [
                 'bool' => [
                     'must' => [
                         ['range' => ['synced' => ['lte' => 'now-1d']]],
                     ],
                 ]
             ],
-            'sort'    => [
+            'sort' => [
                 'synced' => ['order' => 'asc']
             ],
-            'size'    => $limit,
+            'size' => $limit,
         ];
         $done = [];
         $results = \Models\Project::find($query)->getResults();
@@ -53,7 +53,7 @@ class ExtTask extends \Phalcon\CLI\Task
     public function urlListAction()
     {
         $query = [
-            'query'   => ['match_all' => []],
+            'query' => ['match_all' => []],
             '_source' => ['urls.html'],
             'size' => 100000,
         ];

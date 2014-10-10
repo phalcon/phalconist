@@ -101,19 +101,18 @@ class Project extends Injectable
     public static function owners($limit = 25)
     {
         $query = [
-            'facets' => [
+            'aggs' => [
                 'owners' => [
                     'terms' => [
-                        'fields' => ['owner.login'],
-                        'order' => 'count',
+                        'field' => 'owner.login',
                         'size' => $limit,
-                    ]
+                    ],
                 ]
             ]
         ];
         $resultSet = static::getStorage()->search($query);
-        $facets = $resultSet->getFacets();
-        return static::toTags($facets['owners']['terms']);
+        $buckets = $resultSet->getAggregation('owners')['buckets'];
+        return static::toTags($buckets, 'key', 'doc_count');
     }
 
     /**
@@ -123,6 +122,7 @@ class Project extends Injectable
     public static function top($limit = 6)
     {
         $di = \Phalcon\DI::getDefault();
+        $config = $di->get('config');
         $query = [
             '_source' => [
                 'name',
@@ -141,7 +141,7 @@ class Project extends Injectable
             'filter' => [
                 'bool' => [
                     'must' => [
-                        ['range' => ['updated' => ['gte' => $di->get('config')->top->updated]]],
+                        ['range' => ['updated' => ['gte' => $config->top->updated]]],
                         ['term' => ['is_composer' => true]],
                     ],
                     'should' => [
@@ -311,7 +311,7 @@ class Project extends Injectable
 
         try {
             $repository = $this->githubProject->fetchRepository();
-        } catch (\Exception $e) {
+        } catch(\Exception $e) {
             return null;
         }
 
@@ -331,10 +331,16 @@ class Project extends Injectable
             $downloads = ['total' => 0, 'monthly' => 0, 'daily' => 0];
         }
 
+        // PhalconSkeleton => Phalcon Skeleton
+        $name = preg_replace('/([a-z])([A-Z])/', '$1_$2', $repository['name']);
+
+        // Phalcon-Skeleton => Phalcon Skeleton
+        $name = str_replace(['-', '_'], ' ', $name);
+
         $this->data = [
             'id' => $repository['id'],
             'repo' => $this->githubProject->getRepoName(),
-            'name' => str_replace(['-', '_'], ' ', $repository['name']),
+            'name' => $name,
             'full_name' => $repository['full_name'],
             'description' => $repository['description'],
             'stars' => $repository['stargazers_count'],

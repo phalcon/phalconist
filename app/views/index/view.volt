@@ -17,7 +17,7 @@
                     <small><a href="https://github.com/{{ project['owner']['login'] }}">{{ project['owner']['login'] }}</a></small>
                 </h3>
                 <h2>
-                    <a href="{{ project['urls']['html'] }}">{{ project['repo'] }}</a>
+                    <a href="{{ project['urls']['html'] }}">{{ project['name'] }}</a>
                 </h2>
 
                 <p>{{ project['description'] }}</p>
