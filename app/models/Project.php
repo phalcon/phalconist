@@ -152,7 +152,6 @@ class Project extends Injectable
                 'watchers' => ['order' => 'desc'],
                 'stars' => ['order' => 'desc'],
                 'forks' => ['order' => 'desc'],
-                'updated' => ['order' => 'desc']
             ],
             'size' => $limit,
         ];
