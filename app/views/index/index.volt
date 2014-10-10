@@ -68,12 +68,11 @@
     <div class="row">
         <br />
 
-        <div class="col-lg-8">
-            <div class="col-lg-12">
-                <div class="col-lg-3">
-                    <h3>Tags</h3>
-                </div>
-                <ul class="list-inline col-lg-9">
+        <div class="col-lg-12">
+            <div class="col-lg-6">
+                <hr class="col-lg-12" />
+                <h3>Tags</h3>
+                <ul class="list-inline">
                     {% for tag in tags['list'] %}
                         {% set size = 2.2 * tag['count'] / tags['max'] %}
                         {% set size = size < 0.8 ? 0.8 : size %}
@@ -83,12 +82,10 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="col-lg-12">
+            <div class="col-lg-6">
                 <hr class="col-lg-12" />
-                <div class="col-lg-3">
-                    <h3 style="margin-bottom: 21px">Owners</h3>
-                </div>
-                <ul class="list-inline col-lg-8" style="margin-bottom: 40px">
+                <h3 style="margin-bottom: 21px">Owners</h3>
+                <ul class="list-inline" style="margin-bottom: 40px">
                     {% for owner in owners['list'] %}
                         {% set size = 2.2 * owner['doc_count'] / owners['max'] %}
                         {% set size = size < 0.8 ? 0.8 : size %}
@@ -100,8 +97,23 @@
             </div>
         </div>
         <div class="col-lg-4">
-            <a class="twitter-timeline" href="https://twitter.com/search?q=phalconphp" data-widget-id="519842350013489152">phalconphp</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+    </div>
+
+    <div class="raw">
+        <hr />
+        <div class="col-lg-4">
+            <div class="a-comments-header"></div>
+            <ul id="comment_widget_js" class="media-list"></ul>
+        </div>
+        <div class="col-lg-4">
+            <a class="twitter-timeline" href="https://twitter.com/search?q=phalconphp" data-widget-id="519842350013489152">phalconphp</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $(function(){
+        window.fetchLastComments('{{ disqus_public_key }}');
+    });
+</script>

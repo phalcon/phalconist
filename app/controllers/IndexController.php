@@ -25,6 +25,7 @@ class IndexController extends ControllerBase
         $this->view->top = $top;
         $this->view->fresh = $fresh;
         $this->view->langs = $langs;
+        $this->view->disqus_public_key = $this->di->get('config')->disqus->public_key;
     }
 
     public function route404Action()

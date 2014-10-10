@@ -58,7 +58,7 @@
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                     <a href="{{ url(['action', 'action': 'search', 'owner': data['owner']['login']]) }}">
-                                        <img src="{{ data['owner']['avatar_url'] }}&s=40" alt="" style="width:40px;height:40px;"/>
+                                        <img src="{{ data['owner']['avatar_url'] }}&s=40" alt="" class="img-rounded" style="width:40px;height:40px;"/>
                                     </a>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">

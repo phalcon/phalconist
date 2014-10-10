@@ -30,6 +30,7 @@
     </script>
 </head>
 <body id="page-top" class="index">
+<script src="dist/min.js"></script>
     {{ content() }}
 
     <div class="scroll-top page-scroll visible-xs visble-sm">
@@ -38,6 +39,5 @@
         </a>
     </div>
 
-    <script src="dist/min.js"></script>
 </body>
 </html>
