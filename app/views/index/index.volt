@@ -76,6 +76,7 @@
                     {% for tag in tags['list'] %}
                         {% set size = 0.7 * tag['count'] / tags['moda'] %}
                         {% set size = size < 0.9 ? 0.9 : size %}
+                        {% set size = size > 2.2 ? 2.2 : size %}
                         <li style="font-size: {{ size }}em;">
                             {{ link_to(['action', 'action': 'search', 'tag': tag['term']], tag['term'], 'title': tag['term']) }}
                         </li>
@@ -89,6 +90,7 @@
                     {% for owner in owners['list'] %}
                         {% set size = 0.7 * owner['doc_count'] / owners['moda'] %}
                         {% set size = size < 0.9 ? 0.9 : size %}
+                        {% set size = size > 2.2 ? 2.2 : size %}
                         <li style="font-size: {{ size }}em;">
                             {{ link_to(['action', 'action': 'search', 'owner': owner['key']], owner['key'], 'title': owner['key']) }}
                         </li>
