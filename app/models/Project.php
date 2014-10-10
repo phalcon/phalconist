@@ -263,17 +263,10 @@ class Project extends Injectable
     {
         $tag_min = PHP_INT_MAX;
         $tag_max = 0;
-        $len = count($list);
-        foreach ($list as $i => &$item) {
+        foreach ($list as $item) {
             $tag_min = min($item[$count], $tag_min);
             $tag_max = max($item[$count], $tag_max);
-            if ($i == 0 || $i == $len - 1) {
-                $item['avg'] = $item[$count];
-            } else {
-                $item['avg'] = ($list[$i - 1][$count] + $item[$count] + $list[$i + 1][$count]) / 3;
-            }
         }
-
         usort(
             $list,
             function ($a, $b) use ($key) {
