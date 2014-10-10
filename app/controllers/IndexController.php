@@ -17,13 +17,13 @@ class IndexController extends ControllerBase
         $tags = Project::tags(50);
         $owners = Project::owners(30);
         $top = Project::top(6);
-        $newbie = Project::newbie(6);
+        $fresh = Project::fresh(6);
         $langs = [];//\Models\Project::langs(25);
 
         $this->view->tags = $tags;
         $this->view->owners = $owners;
         $this->view->top = $top;
-        $this->view->newbie = $newbie;
+        $this->view->fresh = $fresh;
         $this->view->langs = $langs;
     }
 
@@ -59,11 +59,11 @@ class IndexController extends ControllerBase
         $this->view->results = Project::search($text, $tags, $owner, $type);
     }
 
-    public function newAction()
+    public function freshAction()
     {
-        $newbie = Project::newbie(60);
-        $this->view->results = $newbie;
-        $this->view->section = 'New';
+        $fresh = Project::fresh(60);
+        $this->view->results = $fresh;
+        $this->view->section = 'Fresh';
         $this->view->pick('index/search');
     }
 
@@ -73,6 +73,18 @@ class IndexController extends ControllerBase
         $this->view->results = $newbie;
         $this->view->section = 'Top';
         $this->view->pick('index/search');
+    }
+
+    public function ownersAction()
+    {
+        $owners = Project::owners(999999);
+        $this->view->results = $owners;
+    }
+
+    public function newsAction()
+    {
+        $so = \Models\StackOverflow::fetchActivity(10);
+        $this->view->results = $so;
     }
 
     public function addAction()

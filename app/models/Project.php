@@ -163,7 +163,7 @@ class Project extends Injectable
      * @param int $limit
      * @return \Elastica\Result[]
      */
-    public static function newbie($limit = 6)
+    public static function fresh($limit = 6)
     {
         $query = new \Elastica\Query();
         $query->setSource(

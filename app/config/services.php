@@ -4,15 +4,15 @@ $config = require ENV . '.php';
 
 return new \Phalcon\Config(
     [
-        'config'       => $config,
-        'router'       => function () {
+        'config' => $config,
+        'router' => function () {
             return include(APP_PATH . '/config/routes.php');
         },
-        'elastica'     => function ($di) {
+        'elastica' => function ($di) {
             $client = new \Elastica\Client($di->get('config')->elastica->toArray());
             return $client;
         },
-        'github'       => function ($di) {
+        'github' => function ($di) {
             $github = $di->get('config')->github;
             $client = new \Github\Client(new \Github\HttpClient\CachedHttpClient(['cache_dir' => $github->cache_dir]));
             if ($github->client_id) {
@@ -30,45 +30,61 @@ return new \Phalcon\Config(
             $provider = $service->getProvider('Github');
             return $provider;
         },
-        'packagist'    => function ($di) {
+        'packagist' => function ($di) {
             return new \Packagist\Api\Client();
         },
-        'url'          => '\Library\Url',
-        'voltEngine'   => [
-            'className' => '\Phalcon\Mvc\View\Engine\Volt',
-            'calls'     => [
+        'url' => '\Library\Url',
+        'fileCache' => [
+            'className' => '\Phalcon\Cache\Backend\File',
+            'arguments' => [
                 [
-                    'method'    => 'setOptions',
+                    'type' => 'instance',
+                    'className' => '\Phalcon\Cache\Frontend\Data',
+                    'arguments' => ['lifetime' => 3600]
+                ],
+                [
+                    'type' => 'parameter',
+                    'value' => [
+                        'cacheDir' => APP_PATH . '/../cache/files/',
+                    ]
+                ],
+            ],
+        ],
+        'voltEngine' => [
+            'className' => '\Phalcon\Mvc\View\Engine\Volt',
+            'calls' => [
+                [
+                    'method' => 'setOptions',
                     'arguments' => [
                         [
-                            'type'  => 'parameter',
+                            'type' => 'parameter',
                             'value' => [
-                                'compiledPath'      => APP_PATH . '/../cache/volt/',
+                                'compiledPath' => APP_PATH . '/../cache/volt/',
                                 'compiledSeparator' => '_',
                                 'compiledExtension' => '.php',
-                                'stat'              => true,
+                                'stat' => true,
                             ]
                         ],
                     ]
                 ],
             ],
         ],
-        'view'         => [
+        'view' => [
             'className' => '\Phalcon\Mvc\View',
-            'calls'     => [
+            'calls' => [
                 [
-                    'method'    => 'setViewsDir',
+                    'method' => 'setViewsDir',
                     'arguments' => [
                         ['type' => 'parameter', 'value' => APP_PATH . '/views/'],
                     ]
                 ],
                 [
-                    'method'    => 'registerEngines',
+                    'method' => 'registerEngines',
                     'arguments' => [
                         [
-                            'type'  => 'parameter',
+                            'type' => 'parameter',
                             'value' => [
-                                '.volt'  => 'voltEngine',
+                                '.volt' => 'voltEngine',
                                 '.phtml' => 'Phalcon\Mvc\View\Engine\Php',
                             ]
                         ],
@@ -76,22 +92,22 @@ return new \Phalcon\Config(
                 ],
             ],
         ],
-        'session'      => [
+        'session' => [
             'className' => '\Phalcon\Session\Adapter\Files',
-            'calls'     => [['method' => 'start']],
+            'calls' => [['method' => 'start']],
         ],
-        'cookie'       => [
+        'cookie' => [
             'className' => 'Phalcon\Http\Response\Cookies',
-            'calls'     => [
+            'calls' => [
                 [
-                    'method'    => 'useEncryption',
+                    'method' => 'useEncryption',
                     'arguments' => [
                         ['type' => 'parameter', 'value' => true],
                     ]
                 ],
             ],
         ],
-        'log'          => [
+        'log' => [
             'className' => '\Phalcon\Logger\Adapter\File',
             'arguments' => [
                 ['type' => 'parameter', 'value' => APP_PATH . '/../logs/app.log'],
