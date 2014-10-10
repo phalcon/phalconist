@@ -73,7 +73,7 @@ class GithubProject extends Injectable
 
             $html = $this->client->markdown()->render($content);
             return $html;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             error_log(__METHOD__ . ' -- ' . $e->getMessage());
             return '';
         }
@@ -83,7 +83,7 @@ class GithubProject extends Injectable
     {
         try {
             $composer_data = $this->repo->contents()
-                                        ->show($this->user_name, $this->repo_name, 'composer.json', 'master');
+                ->show($this->user_name, $this->repo_name, 'composer.json', 'master');
             if (empty($composer_data)) {
                 return null;
             }
@@ -93,7 +93,7 @@ class GithubProject extends Injectable
             }
 
             return json_decode(base64_decode($composer_data['content']), true);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             error_log(__METHOD__ . ' -- ' . $e->getMessage());
             return [];
         }
@@ -107,7 +107,7 @@ class GithubProject extends Injectable
         try {
             $packagist = $this->di->get('packagist');
             return $packagist->get($this->user_name . '/' . $this->repo_name);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             error_log(__METHOD__ . ' -- ' . $e->getMessage());
             return null;
         }

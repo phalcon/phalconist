@@ -12,5 +12,4 @@ class User extends Injectable
     protected static $index = 'phalconist';
 
     protected static $type = 'user';
-
 }

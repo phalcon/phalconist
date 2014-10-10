@@ -40,10 +40,10 @@ class Project extends Injectable
             'facets' => [
                 'tags' => [
                     'terms' => [
-                        'fields'  => ['name', 'description', 'composer.keywords', 'composer.description'],
-                        'order'   => 'count',
+                        'fields' => ['name', 'description', 'composer.keywords', 'composer.description'],
+                        'order' => 'count',
                         'exclude' => $di->get('config')->stopTags->toArray(),
-                        'size'    => $limit,
+                        'size' => $limit,
                     ]
                 ]
             ]
@@ -64,7 +64,7 @@ class Project extends Injectable
                 'types' => [
                     'terms' => [
                         'field' => 'composer.type',
-                        'size'  => $limit,
+                        'size' => $limit,
                     ],
                 ]
             ]
@@ -84,7 +84,7 @@ class Project extends Injectable
                 'langs' => [
                     'terms' => [
                         'field' => 'lang',
-                        'size'  => $limit,
+                        'size' => $limit,
                     ],
                 ]
             ]
@@ -105,8 +105,8 @@ class Project extends Injectable
                 'owners' => [
                     'terms' => [
                         'fields' => ['owner.login'],
-                        'order'  => 'count',
-                        'size'   => $limit,
+                        'order' => 'count',
+                        'size' => $limit,
                     ]
                 ]
             ]
@@ -138,9 +138,9 @@ class Project extends Injectable
                 'composer.keywords',
                 'composer.description',
             ],
-            'filter'  => [
+            'filter' => [
                 'bool' => [
-                    'must'   => [
+                    'must' => [
                         ['range' => ['updated' => ['gte' => $di->get('config')->top->updated]]],
                         ['term' => ['is_composer' => true]],
                     ],
@@ -148,13 +148,13 @@ class Project extends Injectable
                     ]
                 ]
             ],
-            'sort'    => [
+            'sort' => [
                 'watchers' => ['order' => 'desc'],
-                'stars'    => ['order' => 'desc'],
-                'forks'    => ['order' => 'desc'],
-                'updated'  => ['order' => 'desc']
+                'stars' => ['order' => 'desc'],
+                'forks' => ['order' => 'desc'],
+                'updated' => ['order' => 'desc']
             ],
-            'size'    => $limit,
+            'size' => $limit,
         ];
         return static::getStorage()->search($query)->getResults();
     }
@@ -205,14 +205,14 @@ class Project extends Injectable
                 'composer.keywords',
                 'composer.type',
             ],
-            'sort'    => [
+            'sort' => [
                 '_score',
                 ['is_composer' => ['order' => 'desc']],
                 ['watchers' => ['order' => 'desc']],
                 ['stars' => ['order' => 'desc']],
             ],
-            'from'    => 0,
-            'size'    => 100,
+            'from' => 0,
+            'size' => 100,
         ];
 
         $query['query']['bool']['should'] = [];
@@ -295,7 +295,7 @@ class Project extends Injectable
             'aggs' => [
                 'count' => [
                     'cardinality' => [
-                        'field'               => 'owner.id',
+                        'field' => 'owner.id',
                         'precision_threshold' => 100,
                     ]
                 ]
@@ -311,7 +311,7 @@ class Project extends Injectable
 
         try {
             $repository = $this->githubProject->fetchRepository();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return null;
         }
 
@@ -323,52 +323,52 @@ class Project extends Injectable
             /** @var \Packagist\Api\Result\Package\Downloads $downloads */
             $downloads = $package->getDownloads();
             $downloads = [
-                'total'   => $downloads->getTotal(),
+                'total' => $downloads->getTotal(),
                 'monthly' => $downloads->getMonthly(),
-                'daily'   => $downloads->getDaily()
+                'daily' => $downloads->getDaily()
             ];
         } else {
             $downloads = ['total' => 0, 'monthly' => 0, 'daily' => 0];
         }
 
         $this->data = [
-            'id'          => $repository['id'],
-            'repo'        => $this->githubProject->getRepoName(),
-            'name'        => str_replace(['-', '_'], ' ', $repository['name']),
-            'full_name'   => $repository['full_name'],
+            'id' => $repository['id'],
+            'repo' => $this->githubProject->getRepoName(),
+            'name' => str_replace(['-', '_'], ' ', $repository['name']),
+            'full_name' => $repository['full_name'],
             'description' => $repository['description'],
-            'stars'       => $repository['stargazers_count'],
-            'watchers'    => $repository['subscribers_count'],
-            'forks'       => $repository['forks_count'],
-            'lang'        => $repository['language'],
-            'homepage'    => $repository['homepage'],
-            'urls'        => [
-                'html'  => $repository['html_url'],
-                'git'   => $repository['git_url'],
-                'ssh'   => $repository['ssh_url'],
+            'stars' => $repository['stargazers_count'],
+            'watchers' => $repository['subscribers_count'],
+            'forks' => $repository['forks_count'],
+            'lang' => $repository['language'],
+            'homepage' => $repository['homepage'],
+            'urls' => [
+                'html' => $repository['html_url'],
+                'git' => $repository['git_url'],
+                'ssh' => $repository['ssh_url'],
                 'clone' => $repository['clone_url'],
             ],
-            'owner'       => [
-                'id'         => $repository['owner']['id'],
-                'login'      => $repository['owner']['login'],
+            'owner' => [
+                'id' => $repository['owner']['id'],
+                'login' => $repository['owner']['login'],
                 'avatar_url' => $repository['owner']['avatar_url'],
-                'type'       => $repository['owner']['type'],
+                'type' => $repository['owner']['type'],
             ],
-            'created'     => $repository['created_at'],
-            'updated'     => $repository['updated_at'],
-            'pushed'      => $repository['pushed_at'],
-            'readme'      => $readme_html,
+            'created' => $repository['created_at'],
+            'updated' => $repository['updated_at'],
+            'pushed' => $repository['pushed_at'],
+            'readme' => $readme_html,
             'is_composer' => $is_composer,
-            'downloads'   => $downloads,
-            'composer'    => [
-                'type'        => empty($composer['type']) ? '' : $composer['type'],
-                'name'        => empty($composer['name']) ? '' : $composer['name'],
+            'downloads' => $downloads,
+            'composer' => [
+                'type' => empty($composer['type']) ? '' : $composer['type'],
+                'name' => empty($composer['name']) ? '' : $composer['name'],
                 'description' => empty($composer['description']) ? '' : $composer['description'],
-                'keywords'    => empty($composer['keywords']) ? [] : $composer['keywords'],
-                'license'     => empty($composer['license']) ? '' : $composer['license'],
-                'authors'     => empty($composer['authors']) ? [] : $composer['authors'],
-                'version'     => empty($composer['version']) ? '' : $composer['version'],
-                'require'     => empty($composer['require']) ? [] : $composer['require'],
+                'keywords' => empty($composer['keywords']) ? [] : $composer['keywords'],
+                'license' => empty($composer['license']) ? '' : $composer['license'],
+                'authors' => empty($composer['authors']) ? [] : $composer['authors'],
+                'version' => empty($composer['version']) ? '' : $composer['version'],
+                'require' => empty($composer['require']) ? [] : $composer['require'],
             ],
         ];
     }

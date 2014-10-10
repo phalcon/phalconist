@@ -93,9 +93,10 @@ class IndexController extends ControllerBase
                 } else {
                     // todo
                 }
-            } catch(\Exception $e) {
+            } catch (\Exception $e) {
                 error_log(__METHOD__ . ' -- ' . $e->getMessage() . " [$url]");
             }
+
             return $this->response->redirect('');
         }
     }
@@ -126,4 +127,3 @@ class IndexController extends ControllerBase
         $this->view->login_url = $this->di->get('authProvider')->makeAuthUrl();
     }
 }
-
