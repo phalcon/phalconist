@@ -77,7 +77,9 @@
                         {% set size = 2.2 * tag['count'] / tags['max'] %}
                         {% set size = size < 0.8 ? 0.8 : size %}
                         <li style="font-size: {{ size }}em;">
-                            {{ link_to(['action', 'action': 'search', 'tag': tag['term']], tag['term'], 'title': tag['term']) }}
+                            <noindex>
+                            {{ link_to(['action', 'action': 'search', 'tag': tag['term']], tag['term'], 'title': tag['term'], 'rel': 'nofollow') }}
+                            </noindex>
                         </li>
                     {% endfor %}
                 </ul>
@@ -100,14 +102,18 @@
         </div>
     </div>
 
-    <div class="raw">
+    <div class="raw clearfix" style="margin-bottom: 40px">
         <hr />
         <div class="col-lg-4">
             <div class="a-comments-header"></div>
             <ul id="comment_widget_js" class="media-list"></ul>
         </div>
         <div class="col-lg-4">
-            <a class="twitter-timeline" href="https://twitter.com/search?q=phalconphp" data-widget-id="519842350013489152">phalconphp</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            <noindex class="col-lg-12">
+            <a class="twitter-timeline"  href="https://twitter.com/search?q=phalconphp" data-widget-id="519842350013489152">phalconphp</a> <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+            </noindex>
+        </div>
+        <div class="col-lg-4">
         </div>
     </div>
 </div>

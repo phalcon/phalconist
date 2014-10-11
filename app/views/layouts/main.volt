@@ -10,10 +10,10 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="/" style="padding-bottom:0;height:auto;display: block">
-                <img src="/img/logo.png" alt="phalcon php" style="width: 36px;margin-top: -6px;" />
-                Phalconist
+                <img src="/img/logo.png" alt="" style="width: 36px;margin-top: -6px;" />
+                <strong>Phalconist</strong>
             </a>
-            <small class="navbar-brand-caption" style="margin-left: 37px;">Phalcon Framework Resources</small>
+            <small class="navbar-brand-caption" style="margin-left: 37px;">Framework Resources</small>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -35,9 +35,11 @@
                 </li>
                 {% else %}
                 <li class="page-scroll">
+                    <noindex>
                     <a href="{{ login_url }}">
                         <i class="fa fa-github"></i> Login
                     </a>
+                    </noindex>
                 </li>
                 {% endif %}
             </ul>
@@ -73,28 +75,17 @@
     <div class="footer-below">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-{#
+                <div class="col-lg-4">
+                </div>
+                <div class="col-lg-4">
+                    Copyright &copy; Phalconist.com 2014
                     <ul class="list-inline">
                         <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                        </li>
-                        <li>
-                            <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
+                            <a href="https://github.com/phalconist/phalconist" title="https://github.com/phalconist/phalconist" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
                         </li>
                     </ul>
-                    <br />
-#}
-                    Copyright &copy; Phalconist.com 2014
+                </div>
+                <div class="col-lg-4">
                 </div>
             </div>
         </div>

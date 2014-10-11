@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ description|escape }}">
+    <link rel="canonical" href="http://phalconist.com"/>
 
     <!-- Custom CSS -->
     <link href="dist/project.css" rel="stylesheet">
