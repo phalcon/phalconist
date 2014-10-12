@@ -49,11 +49,16 @@
                                         v.{{ data['composer']['version'] }}
                                     </li>
                                 {% endif %}
+{#
                                 {% if data['is_composer'] %}
                                     <li class="label label-default" title="Composer support">
                                         <i class="glyphicon glyphicon-music"></i>
                                     </li>
                                 {% endif %}
+#}
+                                <!--li class="label label-default" title="Score">
+                                    <i class="glyphicon glyphicon-signal"> </i> {{ (data['score'] is defined) ? data['score'] : 0 }}
+                                </li-->
                             </ul>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">

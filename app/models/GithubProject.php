@@ -54,6 +54,9 @@ class GithubProject extends Injectable
         return $this->repo->show($this->user_name, $this->repo_name);
     }
 
+    /**
+     * @return null|string raw text
+     */
     public function fetchReadme()
     {
         try {
@@ -71,8 +74,7 @@ class GithubProject extends Injectable
                 return null;
             }
 
-            $html = $this->client->markdown()->render($content);
-            return $html;
+            return $content;
         } catch (\Exception $e) {
             error_log(__METHOD__ . ' -- ' . $e->getMessage());
             return '';
@@ -96,6 +98,30 @@ class GithubProject extends Injectable
         } catch (\Exception $e) {
             error_log(__METHOD__ . ' -- ' . $e->getMessage());
             return [];
+        }
+    }
+
+    /**
+     * @return null|string
+     */
+    public function fetchTravis()
+    {
+        try {
+            $travis_data = $this->repo->contents()
+                ->show($this->user_name, $this->repo_name, '.travis.yml', 'master');
+
+            if (empty($travis_data)) {
+                return null;
+            }
+
+            if ($travis_data['type'] !== 'file' || $travis_data['encoding'] !== 'base64') {
+                return null;
+            }
+
+            return base64_decode($travis_data['content']);
+        } catch (\Exception $e) {
+            error_log(__METHOD__ . ' -- ' . $e->getMessage());
+            return null;
         }
     }
 
@@ -127,5 +153,14 @@ class GithubProject extends Injectable
     public function getUserName()
     {
         return $this->user_name;
+    }
+
+    /**
+     * @param string $readme
+     * @return string
+     */
+    public function markdown($readme)
+    {
+        return $this->client->markdown()->render($readme);
     }
 }

@@ -86,8 +86,8 @@ class IndexController extends ControllerBase
 
     public function topAction()
     {
-        $newbie = Project::top(60);
-        $this->view->results = $newbie;
+        $topList = Project::top(60);
+        $this->view->results = $topList;
         $this->view->section = 'Top';
         $this->view->pick('index/search');
     }

@@ -130,6 +130,7 @@ class Project extends Injectable
                 'stars',
                 'watchers',
                 'forks',
+                'score',
                 'is_composer',
                 'updated',
                 'created',
@@ -172,6 +173,7 @@ class Project extends Injectable
                 'stars',
                 'watchers',
                 'forks',
+                'score',
                 'is_composer',
                 'updated',
                 'created',
@@ -198,6 +200,7 @@ class Project extends Injectable
                 'stars',
                 'watchers',
                 'forks',
+                'score',
                 'updated',
                 'is_composer',
                 'composer.version',
@@ -324,9 +327,12 @@ class Project extends Injectable
             return null;
         }
 
-        $readme_html = $this->githubProject->fetchReadme();
+        $readme = $this->githubProject->fetchReadme();
+        $readme_html = empty($readme) ? '' : $this->githubProject->markdown($readme);
         $composer = $this->githubProject->fetchComposer();
         $is_composer = (bool)count($composer);
+        $travis = $this->githubProject->fetchTravis();
+        $is_travis = !empty($travis);
 
         if ($is_composer && $package = $this->githubProject->getPackage()) {
             /** @var \Packagist\Api\Result\Package\Downloads $downloads */
@@ -346,12 +352,24 @@ class Project extends Injectable
         // Phalcon-Skeleton => Phalcon Skeleton
         $name = str_replace(['-', '_'], ' ', $name);
 
+        $score = $this->calcScore(
+            $repository['pushed_at'],
+            $repository['stargazers_count'],
+            $repository['subscribers_count'],
+            $readme,
+            $repository['description'],
+            $is_travis,
+            $is_composer,
+            !empty($package)
+        );
+
         $this->data = [
             'id' => $repository['id'],
             'repo' => $this->githubProject->getRepoName(),
             'name' => $name,
             'full_name' => $repository['full_name'],
             'description' => $repository['description'],
+            'score' => $score,
             'stars' => $repository['stargazers_count'],
             'watchers' => $repository['subscribers_count'],
             'forks' => $repository['forks_count'],
@@ -374,6 +392,7 @@ class Project extends Injectable
             'pushed' => $repository['pushed_at'],
             'readme' => $readme_html,
             'is_composer' => $is_composer,
+            'is_travis' => $is_travis,
             'downloads' => $downloads,
             'composer' => [
                 'type' => empty($composer['type']) ? '' : $composer['type'],
@@ -399,5 +418,24 @@ class Project extends Injectable
     public function get($attr)
     {
         return $this->data[$attr];
+    }
+
+    private function calcScore($pushed, $stars, $watchers, $readme, $description, $is_travis, $is_composer, $is_package)
+    {
+        $now = self::utcTime();
+        $pushed = self::utcTime($pushed);
+        $diff = $now->diff($pushed);
+
+        $score = 0;
+        $score += 1 * $stars;
+        $score += 2 * $watchers;
+        $score += 5 * (int)($diff->days < 30);
+        $score += 5 * (int)(strlen($description) > 10);
+        $score += 5 * (int)$is_travis;
+        $score += 5 * (int)$is_composer;
+        $score += 5 * (int)$is_package;
+        $score += 5 * (int)(str_word_count($readme) > 29);
+
+        return $score;
     }
 }
