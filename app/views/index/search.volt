@@ -22,12 +22,11 @@
             </h3>
             <br/>
         </div>
-        <div class="row">
-            <div class="col-lg-10 col-lg-offset-1">
+        <div class="row col-lg-10 col-lg-offset-1">
                 <ul class="list-inline clearfix">
                     {% for item in results %}
                         {% set data = item.getData() %}
-                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-4" style="height: 15em;">
+                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-4 item-inline">
                             <h4 style="margin-bottom: 0;">
                                 <small>
                                     {{ link_to(['action', 'action': 'search', 'owner': data['owner']['login']], data['owner']['login'], 'style': 'color: #b4bcc2') }}
@@ -84,7 +83,6 @@
                         </li>
                     {% endfor %}
                 </ul>
-            </div>
         </div>
     </div>
 </section>

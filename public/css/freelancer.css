@@ -470,3 +470,10 @@ header .label-date {
     background-color: #14A88B;
     color: #92E6D5;
 }
+
+.list-inline>li.item-inline {
+    float: none;
+    vertical-align: top;
+    margin-left: -1px;
+    margin-right: -1px;
+}

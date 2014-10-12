@@ -39,7 +39,7 @@
                 </div>
                 <ul class="list-inline col-lg-10">
                     {% for item in fresh %}
-                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2" style="min-height:10em;margin-bottom:20px;overflow: hidden;margin-top: 30px;">
+                        <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2" style="margin-bottom:20px;overflow: hidden;margin-top: 30px;">
                             {% set data = item.getData() %}
                             <span class="badge"><i class="glyphicon glyphicon-star"> </i> {{ data['stars'] }}</span><br>
                             <h5 style="margin-bottom: 0;"
