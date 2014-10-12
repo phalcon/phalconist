@@ -25,7 +25,7 @@
                     </form>
                 </li>
                 <li>
-                    <a href="/add"><i class="glyphicon glyphicon-plus"> </i> Add</a>
+                    <a href="/add" rel="nofollow"><i class="glyphicon glyphicon-plus"> </i> Add</a>
                 </li>
                 {% if currentUser %}
                 <li>
