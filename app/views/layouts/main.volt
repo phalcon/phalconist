@@ -35,11 +35,9 @@
                 </li>
                 {% else %}
                 <li class="page-scroll">
-                    <noindex>
-                    <a href="{{ login_url }}">
+                    <a href="{{ login_url }}" rel="nofollow">
                         <i class="fa fa-github"></i> Login
                     </a>
-                    </noindex>
                 </li>
                 {% endif %}
             </ul>
