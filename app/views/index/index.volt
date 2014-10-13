@@ -44,8 +44,8 @@
                             <span class="badge"><i class="glyphicon glyphicon-signal"> </i> {{ data['score'] }}</span><br>
                             <h5 style="margin-bottom: 0;"
                                 title="{{ data['name']|escape }}">{{ link_to(['action', 'action': 'view', 'id': item.getId()], data['name'], 'style': 'color:#fff') }}</h5>
-                            <span class="label label-date" title="Created"><?= \Models\Project::utcTime($data['created'])->
-                                format('d M') ?></span><br>
+                            <span class="label label-date" title="Created"><?= \Models\Project::utcTime($data['created'])->format('d M') ?></span>
+                            <br>
                             {#<small>{{ data['owner']['login'] }}</small>#}
                             {% if data['description'] %}
                                 <small>{{ data['description'] }}</small>

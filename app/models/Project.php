@@ -134,6 +134,7 @@ class Project extends Injectable
                 'is_composer',
                 'updated',
                 'created',
+                'pushed',
                 'owner.login',
                 'owner.avatar_url',
                 'composer.keywords',
@@ -142,7 +143,7 @@ class Project extends Injectable
             'filter' => [
                 'bool' => [
                     'must' => [
-                        ['range' => ['updated' => ['gte' => $config->top->updated]]],
+                        ['range' => ['pushed' => ['gte' => $config->top->pushed]]],
                         ['term' => ['is_composer' => true]],
                     ],
                     'should' => [
@@ -178,6 +179,7 @@ class Project extends Injectable
                 'is_composer',
                 'updated',
                 'created',
+                'pushed',
                 'owner.login',
                 'owner.avatar_url',
                 'composer.keywords',
@@ -202,7 +204,9 @@ class Project extends Injectable
                 'watchers',
                 'forks',
                 'score',
+                'created',
                 'updated',
+                'pushed',
                 'is_composer',
                 'composer.version',
                 'composer.keywords',
@@ -222,9 +226,9 @@ class Project extends Injectable
             ];
             $query['sort'] = [
                 '_score',
-                ['is_composer' => ['order' => 'desc']],
-                ['watchers' => ['order' => 'desc']],
-                ['stars' => ['order' => 'desc']],
+                ['score' => ['order' => 'desc']],
+                //['watchers' => ['order' => 'desc']],
+                //['stars' => ['order' => 'desc']],
             ];
         }
 
@@ -235,9 +239,10 @@ class Project extends Injectable
                 ['match' => ['composer.keywords' => $tags]],
             ];
             $query['sort'] = [
-                ['is_composer' => ['order' => 'desc']],
-                ['watchers' => ['order' => 'desc']],
-                ['stars' => ['order' => 'desc']],
+                ['score' => ['order' => 'desc']],
+                //['is_composer' => ['order' => 'desc']],
+                //['watchers' => ['order' => 'desc']],
+                //['stars' => ['order' => 'desc']],
             ];
         }
 
@@ -246,9 +251,10 @@ class Project extends Injectable
                 ['match' => ['owner.login' => $owner]],
             ];
             $query['sort'] = [
-                ['is_composer' => ['order' => 'desc']],
-                ['watchers' => ['order' => 'desc']],
-                ['stars' => ['order' => 'desc']],
+                ['score' => ['order' => 'desc']],
+                //['is_composer' => ['order' => 'desc']],
+                //['watchers' => ['order' => 'desc']],
+                //['stars' => ['order' => 'desc']],
             ];
         }
 

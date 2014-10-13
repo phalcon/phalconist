@@ -66,7 +66,7 @@
                                     </a>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
-                                    <label class="label label-date">Updated: <?= \Models\Project::utcTime($data['updated'])->format('M d, Y') ?></label>
+                                    <label class="label label-date">Pushed: <?= \Models\Project::utcTime($data['pushed'])->format('M d, Y') ?></label>
                                     {% if data['composer']['keywords'] %}
                                     <ul class="list-inline">
                                         <li class="small">tags:</li>
