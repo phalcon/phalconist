@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico" />
 
     <!-- Custom CSS -->
-    <link href="dist/project.css" rel="stylesheet">
+    <link href="/dist/project.css" rel="stylesheet">
 
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">

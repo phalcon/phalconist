@@ -34,7 +34,7 @@ class IndexController extends ControllerBase
 
     public function viewAction()
     {
-        $id = (int)$this->request->get('id', 'int');
+        $id = (int)$this->dispatcher->getParam('id', 'int');
         if (empty($id)) {
             // todo
             $this->response->redirect('');
@@ -46,7 +46,7 @@ class IndexController extends ControllerBase
         if ($description) {
             $this->view->description = $description;
         }
-        Tag::setTitle($project->get('name') . ' / ' . $project->get('owner')['login']);
+        Tag::setTitle($project->get('name') . ' / ' . $project->get('owner')['login'] . ' / Phalconist');
     }
 
     public function searchAction()
@@ -96,6 +96,11 @@ class IndexController extends ControllerBase
     {
         $owners = Project::owners(999999);
         $this->view->results = $owners;
+    }
+
+    public function newAction()
+    {
+        $this->response->redirect(['action', 'action' => 'news'], false, 301);
     }
 
     public function newsAction()

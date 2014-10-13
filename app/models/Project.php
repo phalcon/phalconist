@@ -126,6 +126,7 @@ class Project extends Injectable
         $query = [
             '_source' => [
                 'name',
+                'repo',
                 'description',
                 'stars',
                 'watchers',
@@ -171,6 +172,7 @@ class Project extends Injectable
         $query->setSource(
             [
                 'name',
+                'repo',
                 'description',
                 'stars',
                 'watchers',
@@ -197,6 +199,7 @@ class Project extends Injectable
         $query = [
             '_source' => [
                 'name',
+                'repo',
                 'description',
                 'owner.login',
                 'owner.avatar_url',
