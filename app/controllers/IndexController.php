@@ -14,18 +14,23 @@ class IndexController extends ControllerBase
     {
         Tag::prependTitle('Phalcon Framework Resources');
 
-        $tags = Project::tags(50);
-        $owners = Project::owners(30);
-        $top = Project::top(6);
-        $fresh = Project::fresh(6);
-        $langs = [];//\Models\Project::langs(25);
+        $exists = $this->view->getCache()->exists(__METHOD__);
+        if (!$exists) {
+            $tags = Project::tags(50);
+            $owners = Project::owners(30);
+            $top = Project::top(6);
+            $fresh = Project::fresh(6);
+            $langs = [];//\Models\Project::langs(25);
 
-        $this->view->tags = $tags;
-        $this->view->owners = $owners;
-        $this->view->top = $top;
-        $this->view->fresh = $fresh;
-        $this->view->langs = $langs;
-        $this->view->disqus_public_key = $this->di->get('config')->disqus->public_key;
+            $this->view->tags = $tags;
+            $this->view->owners = $owners;
+            $this->view->top = $top;
+            $this->view->fresh = $fresh;
+            $this->view->langs = $langs;
+            $this->view->disqus_public_key = $this->di->get('config')->disqus->public_key;
+        }
+
+        $this->view->cache(['lifetime' => 60, 'key' => __METHOD__]);
     }
 
     public function route404Action()
@@ -42,7 +47,12 @@ class IndexController extends ControllerBase
         $project = Project::findById($id);
         $this->view->project = $project->getData();
 
-        $description = $project->get('name') ? $project->get('name') : empty($project->get('composer')['description']) ? $project->get('composer')['description'] : null;
+        $description = $project->get('name') ?
+            $project->get('name') :
+            empty($project->get( 'composer')['description']) ?
+                $project->get('composer')['description'] :
+                null;
+
         if ($description) {
             $this->view->description = $description;
         }
@@ -78,18 +88,28 @@ class IndexController extends ControllerBase
 
     public function freshAction()
     {
-        $fresh = Project::fresh(60);
-        $this->view->results = $fresh;
-        $this->view->section = 'Fresh';
-        $this->view->pick('index/search');
+        $exists = $this->view->getCache()->exists(__METHOD__);
+        if (!$exists) {
+            $fresh = Project::fresh(60);
+            $this->view->results = $fresh;
+            $this->view->section = 'Fresh';
+            $this->view->pick('index/search');
+        }
+
+        $this->view->cache(['lifetime' => 60, 'key' => __METHOD__]);
     }
 
     public function topAction()
     {
-        $topList = Project::top(60);
-        $this->view->results = $topList;
-        $this->view->section = 'Top';
-        $this->view->pick('index/search');
+        $exists = $this->view->getCache()->exists(__METHOD__);
+        if (!$exists) {
+            $topList = Project::top(60);
+            $this->view->results = $topList;
+            $this->view->section = 'Top';
+            $this->view->pick('index/search');
+        }
+
+        $this->view->cache(['lifetime' => 60, 'key' => __METHOD__]);
     }
 
     public function ownersAction()
@@ -123,11 +143,15 @@ class IndexController extends ControllerBase
                 $githubProject = new GithubProject($url);
                 if ($project = new Project($githubProject)) {
                     $project->save();
-                    LogAction::log(LogAction::ACTION_ADD, $this->user->get('id'), ['project_id' => $project->get('id')]);
+                    LogAction::log(
+                        LogAction::ACTION_ADD,
+                        $this->user->get('id'),
+                        ['project_id' => $project->get('id')]
+                    );
                 } else {
                     // todo
                 }
-            } catch (\Exception $e) {
+            } catch(\Exception $e) {
                 error_log(__METHOD__ . ' -- ' . $e->getMessage() . " [$url]");
             }
 

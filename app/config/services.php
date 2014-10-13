@@ -50,6 +50,23 @@ return new \Phalcon\Config(
                 ],
             ],
         ],
+        'viewCache' => [
+            'className' => '\Phalcon\Cache\Backend\Memcache',
+            'arguments' => [
+                [
+                    'type' => 'instance',
+                    'className' => '\Phalcon\Cache\Frontend\Output',
+                    'arguments' => ['lifetime' => 60]
+                ],
+                [
+                    'type' => 'parameter',
+                    'value' => [
+                        'host' => 'localhost',
+                        'port' => 11211
+                    ]
+                ],
+            ],
+        ],
         'voltEngine' => [
             'className' => '\Phalcon\Mvc\View\Engine\Volt',
             'calls' => [
