@@ -150,9 +150,10 @@ class Project extends Injectable
                 ]
             ],
             'sort' => [
-                'watchers' => ['order' => 'desc'],
-                'stars' => ['order' => 'desc'],
-                'forks' => ['order' => 'desc'],
+                'score' => ['order' => 'desc'],
+                //'watchers' => ['order' => 'desc'],
+                //'stars' => ['order' => 'desc'],
+                //'forks' => ['order' => 'desc'],
             ],
             'size' => $limit,
         ];

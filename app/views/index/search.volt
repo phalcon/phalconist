@@ -55,9 +55,9 @@
                                     </li>
                                 {% endif %}
 #}
-                                <!--li class="label label-default" title="Score">
+                                <li class="label label-default" title="Score">
                                     <i class="glyphicon glyphicon-signal"> </i> {{ (data['score'] is defined) ? data['score'] : 0 }}
-                                </li-->
+                                </li>
                             </ul>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
