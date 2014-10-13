@@ -32,7 +32,7 @@
                                     {{ link_to(['action', 'action': 'search', 'owner': data['owner']['login']], data['owner']['login'], 'style': 'color: #b4bcc2') }}
                                 </small>
                                 <br>
-                                {{ link_to(['action', 'action': 'view', 'id': item.getId()], data['name']) }}
+                                {{ link_to(['view/item', 'action': 'view', 'id': item.getId(), 'title': data['repo']], data['name']) }}
                             </h4>
                             <ul class="list-inline" style="margin: 0 0 8px 0;">
                                 {% if data['watchers'] %}
