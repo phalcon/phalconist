@@ -39,6 +39,12 @@ class IndexController extends ControllerBase
         $this->response->setStatusCode(404, 'Not Found');
     }
 
+    public function route500Action()
+    {
+        Tag::prependTitle('500 Not Found');
+        $this->response->setStatusCode(500, 'Not Found');
+    }
+
     public function viewAction()
     {
         $id = (int)$this->dispatcher->getParam('id', 'int');
