@@ -32,7 +32,7 @@
     </script>
 </head>
 <body id="page-top" class="index">
-<script src="dist/min.js"></script>
+<script src="/dist/min.js"></script>
     {{ content() }}
 
     <div class="scroll-top page-scroll visible-xs visble-sm">
