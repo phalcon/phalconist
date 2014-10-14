@@ -35,6 +35,9 @@ return new \Phalcon\Config(
             'nosql' => [
                 'query' => 'mongodb elasticsearch redis couchdb sphinx cassandra riak',
             ],
+            'virtualization' => [
+                'query' => 'vagrant docker virtualbox vmware',
+            ],
         ],
     ]
 );
