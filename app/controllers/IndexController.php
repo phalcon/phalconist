@@ -35,6 +35,8 @@ class IndexController extends ControllerBase
 
     public function route404Action()
     {
+        Tag::prependTitle('404 Not Found');
+        $this->response->setStatusCode(404, 'Not Found');
     }
 
     public function viewAction()
