@@ -2,6 +2,9 @@
 
 namespace Controllers;
 
+use Elastica\Exception\NotFoundException;
+use Models\Project;
+use Models\User;
 use Phalcon\Mvc\Controller;
 use Phalcon\Mvc\View;
 use Phalcon\Tag;
@@ -18,14 +21,12 @@ class ControllerBase extends Controller
 
     public function initialize()
     {
-        //Tag::setTitleSeparator(' | ');
-
         if ($this->session->has('identity')) {
             $identity = $this->session->get('identity');
             try {
-                $user = \Models\User::findById($identity['id']);
+                $user = User::findById($identity['id']);
                 $this->user = $user;
-            } catch(\Exception $e){
+            } catch(NotFoundException $e){
             }
         }
 
@@ -39,8 +40,9 @@ class ControllerBase extends Controller
         $this->view->setTemplateAfter('main');
 
         $this->view->description = 'Phalcon framework resources'; // todo
-        $this->view->project_count = \Models\Project::count();
-        $this->view->owner_count = \Models\Project::countOwners();
+        $this->view->project_count = Project::count();
+        $this->view->owner_count = Project::countOwners();
         $this->view->currentUser = $this->user;
+        $this->view->last_added = Project::lastAdded();
     }
 }

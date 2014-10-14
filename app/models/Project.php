@@ -2,6 +2,7 @@
 
 namespace Models;
 
+use Elastica\Exception\NotFoundException;
 use Phalcon\DI\Injectable;
 
 class Project extends Injectable
@@ -147,15 +148,12 @@ class Project extends Injectable
                         ['range' => ['pushed' => ['gte' => $config->top->pushed]]],
                         ['term' => ['is_composer' => true]],
                     ],
-                    'should' => [
-                    ]
+                    //'should' => [
+                    //]
                 ]
             ],
             'sort' => [
                 'score' => ['order' => 'desc'],
-                //'watchers' => ['order' => 'desc'],
-                //'stars' => ['order' => 'desc'],
-                //'forks' => ['order' => 'desc'],
             ],
             'size' => $limit,
         ];
@@ -327,6 +325,38 @@ class Project extends Injectable
         return $resultSet->getAggregation('count')['value'];
     }
 
+    /**
+     * @param int $limit
+     * @return \Elastica\Result[]
+     */
+    public static function lastAdded($limit = 5)
+    {
+        $query = [
+            '_source' => [
+                'name',
+                'repo',
+                'score',
+                'added',
+                'owner.login',
+            ],
+            'filter' => [
+                'bool' => [
+                    'must' => [
+                        ['range' => ['added' => ['gte' => 0]]],
+                    ],
+                ]
+            ],
+            'from' => 0,
+            'size' => $limit,
+            'sort' => [
+                'added' => ['order' => 'desc'],
+                'score' => ['order' => 'desc'],
+            ],
+        ];
+        $resultSet = static::getStorage()->search($query);
+        return $resultSet->getResults();
+    }
+
     public function __construct(\Models\GithubProject $githubProject)
     {
         $this->githubProject = $githubProject;
@@ -422,6 +452,12 @@ class Project extends Injectable
      */
     public function save()
     {
+        try {
+            static::findById($this->data['id']);
+        } catch(NotFoundException $e) {
+            $this->data['added'] = static::utcTime()->format(DATE_ISO8601);
+        }
+
         return static::add($this->data);
     }
 
