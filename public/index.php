@@ -24,10 +24,16 @@ try {
      */
     $application = new \Phalcon\Mvc\Application($serviceLoader->getDI());
     echo $application->handle()->getContent();
-} catch(\Exception $e) {
+} catch(\Phalcon\Mvc\Dispatcher\Exception $e) {
     if (ENV == 'dev') {
         var_dump($e);
     } else {
         echo $application->handle('/index/route404')->getContent();
+    }
+} catch(\Exception $e) {
+    if (ENV == 'dev') {
+        var_dump($e);
+    } else {
+        echo $application->handle('/index/route500')->getContent();
     }
 }
