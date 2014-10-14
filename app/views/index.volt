@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{ description|escape }}">
+    <meta name="description" content="{{ description is defined ? description|escape : '' }}">
     <link rel="canonical" href="http://phalconist.com"/>
     <link rel="shortcut icon" href="/img/favicon.ico" />
 

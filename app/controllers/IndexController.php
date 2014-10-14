@@ -38,12 +38,14 @@ class IndexController extends ControllerBase
     public function route404Action()
     {
         Tag::setTitle('404 Not Found');
+        $this->view->setTemplateAfter('main');
         $this->response->setStatusCode(404, 'Not Found');
     }
 
     public function route500Action()
     {
         Tag::setTitle('500 Not Found');
+        $this->view->setTemplateAfter('main');
         $this->response->setStatusCode(500, 'Not Found');
     }
 

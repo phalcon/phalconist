@@ -27,18 +27,20 @@
                 <li>
                     <a href="/add" rel="nofollow"><i class="glyphicon glyphicon-plus"> </i> Add</a>
                 </li>
-                {% if currentUser %}
+                {% if currentUser is defined %}
                 <li>
                     <a href="{{ url(['controller/action', 'controller': 'user', 'action': 'logout']) }}">
                         Logout
                     </a>
                 </li>
                 {% else %}
+                {% if (login_url is defined) %}
                 <li class="page-scroll">
                     <a href="{{ login_url }}" rel="nofollow">
                         <i class="fa fa-github"></i> Login
                     </a>
                 </li>
+                {% endif %}
                 {% endif %}
             </ul>
         </div>
@@ -53,6 +55,7 @@
     <div class="footer-above">
         <div class="container">
             <div class="row">
+                {% if project_count is defined %}
                 <noindex>
                     <div class="footer-col col-md-4">
                         <h3>Statistics</h3>
@@ -63,6 +66,8 @@
                             <small>Owners:</small> {{ owner_count }}</p>
                     </div>
                 </noindex>
+                {% endif %}
+                {% if last_added is defined %}
                 <div class="footer-col col-md-4">
                     <h3>Last added</h3>
                     <ul class="list-unstyled">
@@ -81,6 +86,7 @@
                         {% endfor %}
                     </ul>
                 </div>
+                {% endif %}
                 <div class="footer-col col-md-4">
                 </div>
             </div>
