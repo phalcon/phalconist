@@ -25,5 +25,9 @@ try {
     $application = new \Phalcon\Mvc\Application($serviceLoader->getDI());
     echo $application->handle()->getContent();
 } catch(\Exception $e) {
-    echo $e->getMessage();
+    if (ENV == 'dev') {
+        var_dump($e);
+    } else {
+        echo $application->handle('/index/route404')->getContent();
+    }
 }
