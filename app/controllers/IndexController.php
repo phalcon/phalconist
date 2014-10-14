@@ -21,7 +21,9 @@ class IndexController extends ControllerBase
             $top = Project::top(6);
             $fresh = Project::fresh(6);
             $langs = [];//\Models\Project::langs(25);
+            $categories = $this->di->get('config')->categories;
 
+            $this->view->categories = $categories;
             $this->view->tags = $tags;
             $this->view->owners = $owners;
             $this->view->top = $top;
@@ -65,6 +67,27 @@ class IndexController extends ControllerBase
             $this->view->description = $description;
         }
         Tag::setTitle($project->get('name') . ' / ' . $project->get('owner')['login'] . ' / Phalconist');
+    }
+
+    public function viewCategoryAction()
+    {
+        $category_name = $this->dispatcher->getParam('name');
+        $categories = $this->di->get('config')->categories->toArray();
+        $names = array_keys($categories);
+
+        if (!in_array($category_name, $names)) {
+            $this->dispatcher->forward(['controller' => 'index', 'action' => 'route404']);
+        }
+
+        $title = '"' . ucfirst($category_name) . '" category';
+
+        $escaper = new \Phalcon\Escaper();
+        Tag::prependTitle($escaper->escapeHtmlAttr($title));
+
+        $results = Project::search('', $categories[$category_name]['query']);
+        $this->view->category = $category_name;
+        $this->view->results = $results;
+        $this->view->pick('index/search');
     }
 
     public function searchAction()

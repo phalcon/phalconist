@@ -19,6 +19,10 @@
                 <div class="col-lg-12"><small>rating</small></div>
                 <div class="col-lg-12">{{ section }}</div>
                 {% endif %}
+                {% if category is defined and category %}
+                <div class="col-lg-12"><small>category</small></div>
+                <div class="col-lg-12">{{ category }}</div>
+                {% endif %}
             </h3>
             <br/>
         </div>
