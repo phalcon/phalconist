@@ -71,7 +71,7 @@
                         <li class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom: 10px;">
                             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right" style="padding-right: 0;">
                                 <span class="label label-default" style="background-color: #18bc9c;color: #000;">
-                                    <i class="glyphicon glyphicon-calendar"> </i> <?= \Models\Project::utcTime($last_added_item['added'])->format('d M') ?>
+                                    <?= \Models\Project::utcTime($last_added_item['added'])->format('d M') ?>
                                 </span>
                             </div>
                             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left">

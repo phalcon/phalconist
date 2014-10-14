@@ -12,7 +12,7 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
-        Tag::prependTitle('Phalcon Framework Resources');
+        Tag::setTitle('Phalcon Framework Resources');
 
         $exists = $this->view->getCache()->exists(__METHOD__);
         if (!$exists) {
@@ -37,13 +37,13 @@ class IndexController extends ControllerBase
 
     public function route404Action()
     {
-        Tag::prependTitle('404 Not Found');
+        Tag::setTitle('404 Not Found');
         $this->response->setStatusCode(404, 'Not Found');
     }
 
     public function route500Action()
     {
-        Tag::prependTitle('500 Not Found');
+        Tag::setTitle('500 Not Found');
         $this->response->setStatusCode(500, 'Not Found');
     }
 
@@ -79,7 +79,7 @@ class IndexController extends ControllerBase
             $this->dispatcher->forward(['controller' => 'index', 'action' => 'route404']);
         }
 
-        $title = '"' . ucfirst($category_name) . '" category';
+        $title = '"' . ucfirst($category_name) . '" category / Phalcon';
 
         $escaper = new \Phalcon\Escaper();
         Tag::prependTitle($escaper->escapeHtmlAttr($title));
@@ -98,17 +98,19 @@ class IndexController extends ControllerBase
         $type = $this->request->get('type', ['striptags', 'trim']);
 
         if ($text) {
-            $title = '"' . ucfirst($text) . '" / Search / Phalconist';
+            $title = '"' . ucfirst($text) . '" / Search';
         } else if ($tags) {
-            $title = '"' . ucfirst($tags) . '" / Tag / Phalconist';
+            $title = '"' . ucfirst($tags) . '" / Tag';
         } else if ($owner) {
-            $title = '"' . ucfirst($owner) . '" / Owner / Phalconist';
+            $title = '"' . ucfirst($owner) . '" / Owner';
         } else {
-            $title = '"' . ucfirst($type) . '" / Repository type / Phalconist';
+            $title = '"' . ucfirst($type) . '" / Repository type';
         }
 
+        $title .= ' / Phalcon';
+
         $escaper = new \Phalcon\Escaper();
-        Tag::prependTitle($escaper->escapeHtmlAttr($title));
+        Tag::setTitle($escaper->escapeHtmlAttr($title));
 
         $this->view->q = $text;
         $this->view->tags = $tags;
@@ -127,6 +129,7 @@ class IndexController extends ControllerBase
             $this->view->pick('index/search');
         }
 
+        Tag::setTitle('Recently created projects with Phalcon framework');
         $this->view->cache(['lifetime' => 60, 'key' => __METHOD__]);
     }
 
@@ -140,6 +143,7 @@ class IndexController extends ControllerBase
             $this->view->pick('index/search');
         }
 
+        Tag::setTitle('Top projects with Phalcon framework');
         $this->view->cache(['lifetime' => 60, 'key' => __METHOD__]);
     }
 
