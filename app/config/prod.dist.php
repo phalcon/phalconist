@@ -25,5 +25,16 @@ return new \Phalcon\Config(
         'cronLogger' => [
             'path' => APP_PATH . '/../logs/cron',
         ],
+        'categories' => [
+            'skeleton' => [
+                'query' => 'skeleton boilerplate bootstrap',
+            ],
+            'rest' => [
+                'query' => 'api rest restful oauth oauth2',
+            ],
+            'nosql' => [
+                'query' => 'mongodb elasticsearch redis couchdb sphinx cassandra riak',
+            ],
+        ],
     ]
 );
