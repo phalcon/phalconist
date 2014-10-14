@@ -13,8 +13,9 @@ class StackOverflow extends Injectable
         /** @var \Phalcon\Cache\Backend\File $cache */
         $cache = $di->get('fileCache');
         $key = 'stackoverflow.cache';
+        $min_answers = 0;
         if (!$data = $cache->get($key, 3600)) {
-            $stack_url = "compress.zlib://https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=creation&answers=1&tagged=phalcon&site=stackoverflow";
+            $stack_url = "compress.zlib://https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=creation&answers=$min_answers&tagged=phalcon&site=stackoverflow";
             $result = file_get_contents($stack_url);
             $data = json_decode($result);
             $cache->save($key, $data);
