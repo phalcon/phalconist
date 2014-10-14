@@ -350,7 +350,6 @@ class Project extends Injectable
             'size' => $limit,
             'sort' => [
                 'added' => ['order' => 'desc'],
-                'score' => ['order' => 'desc'],
             ],
         ];
         $resultSet = static::getStorage()->search($query);
