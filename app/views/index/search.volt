@@ -60,7 +60,7 @@
                                 {% endif %}
 #}
                                 <li class="label label-default" title="Score">
-                                    <i class="glyphicon glyphicon-signal"> </i> {{ (data['score'] is defined) ? data['score'] : 0 }}
+                                    <i class="glyphicon glyphicon-stats"> </i> {{ (data['score'] is defined) ? data['score'] : 0 }}
                                 </li>
                             </ul>
                             <div class="row">
