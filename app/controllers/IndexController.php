@@ -14,25 +14,20 @@ class IndexController extends ControllerBase
     {
         Tag::setTitle('Phalcon Framework Resources');
 
-        $exists = $this->view->getCache()->exists(__METHOD__);
-        if (!$exists) {
-            $tags = Project::tags(50);
-            $owners = Project::owners(30);
-            $top = Project::top(6);
-            $fresh = Project::fresh(6);
-            $langs = [];//\Models\Project::langs(25);
-            $categories = $this->di->get('config')->categories;
+        $tags = Project::tags(50);
+        $owners = Project::owners(30);
+        $top = Project::top(6);
+        $fresh = Project::fresh(6);
+        $langs = [];//\Models\Project::langs(25);
+        $categories = $this->di->get('config')->categories;
 
-            $this->view->categories = $categories;
-            $this->view->tags = $tags;
-            $this->view->owners = $owners;
-            $this->view->top = $top;
-            $this->view->fresh = $fresh;
-            $this->view->langs = $langs;
-            $this->view->disqus_public_key = $this->di->get('config')->disqus->public_key;
-        }
-
-        $this->view->cache(['lifetime' => 60, 'key' => __METHOD__]);
+        $this->view->categories = $categories;
+        $this->view->tags = $tags;
+        $this->view->owners = $owners;
+        $this->view->top = $top;
+        $this->view->fresh = $fresh;
+        $this->view->langs = $langs;
+        $this->view->disqus_public_key = $this->di->get('config')->disqus->public_key;
     }
 
     public function route404Action()
@@ -123,30 +118,22 @@ class IndexController extends ControllerBase
 
     public function freshAction()
     {
-        $exists = $this->view->getCache()->exists(__METHOD__);
-        if (!$exists) {
-            $fresh = Project::fresh(60);
-            $this->view->results = $fresh;
-            $this->view->section = 'Fresh';
-            $this->view->pick('index/search');
-        }
+        $fresh = Project::fresh(60);
+        $this->view->results = $fresh;
+        $this->view->section = 'Fresh';
+        $this->view->pick('index/search');
 
         Tag::setTitle('Recently created projects with Phalcon framework');
-        $this->view->cache(['lifetime' => 60, 'key' => __METHOD__]);
     }
 
     public function topAction()
     {
-        $exists = $this->view->getCache()->exists(__METHOD__);
-        if (!$exists) {
-            $topList = Project::top(60);
-            $this->view->results = $topList;
-            $this->view->section = 'Top';
-            $this->view->pick('index/search');
-        }
+        $topList = Project::top(60);
+        $this->view->results = $topList;
+        $this->view->section = 'Top';
+        $this->view->pick('index/search');
 
         Tag::setTitle('Top projects with Phalcon framework');
-        $this->view->cache(['lifetime' => 60, 'key' => __METHOD__]);
     }
 
     public function ownersAction()
