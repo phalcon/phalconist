@@ -477,3 +477,8 @@ header .label-date {
     margin-left: -1px;
     margin-right: -2px;
 }
+
+.alert {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

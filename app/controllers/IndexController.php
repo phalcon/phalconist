@@ -53,9 +53,9 @@ class IndexController extends ControllerBase
     {
         $id = (int)$this->dispatcher->getParam('id', 'int');
         if (empty($id)) {
-            // todo
-            $this->response->redirect('');
+            return $this->dispatcher->forward(['controller' => 'index', 'action' => 'route404']);
         }
+
         $project = Project::findById($id);
         $this->view->project = $project->getData();
 
@@ -78,7 +78,7 @@ class IndexController extends ControllerBase
         $names = array_keys($categories);
 
         if (!in_array($category_name, $names)) {
-            $this->dispatcher->forward(['controller' => 'index', 'action' => 'route404']);
+            return $this->dispatcher->forward(['controller' => 'index', 'action' => 'route404']);
         }
 
         $title = '"' . ucfirst($category_name) . '" category / Phalcon';
@@ -169,7 +169,7 @@ class IndexController extends ControllerBase
     public function addAction()
     {
         if (!$this->user) {
-            // todo
+            $this->flash->warning('You should be authorized');
             return $this->response->redirect('login');
         }
 
@@ -185,10 +185,12 @@ class IndexController extends ControllerBase
                         $this->user->get('id'),
                         ['project_id' => $project->get('id')]
                     );
+                    $this->flash->warning('Your project is added.');
                 } else {
-                    // todo
+                    $this->flash->warning('Something is going wrong. Try again later.');
                 }
             } catch(\Exception $e) {
+                $this->flash->warning('Something is going wrong. Try again later.');
                 error_log(__METHOD__ . ' -- ' . $e->getMessage() . " [$url]");
             }
 

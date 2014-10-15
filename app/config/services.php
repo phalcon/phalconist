@@ -130,5 +130,19 @@ return new \Phalcon\Config(
                 ['type' => 'parameter', 'value' => APP_PATH . '/../logs/app.log'],
             ],
         ],
+        'flash' => [
+            'className' => '\Phalcon\Flash\Session',
+            'arguments' => [
+                [
+                    'type' => 'parameter',
+                    'value' => [
+                        'error' => 'alert alert-danger col-lg-10 col-lg-offset-1',
+                        'success' => 'alert alert-success',
+                        'notice' => 'alert alert-info',
+                        'warning' => 'alert alert-warning',
+                    ]
+                ]
+            ]
+        ],
     ]
 );

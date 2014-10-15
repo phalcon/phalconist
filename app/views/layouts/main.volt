@@ -49,6 +49,12 @@
     <!-- /.container-fluid -->
 </nav>
 
+{% if flash.getMessages(null, false)|length %}
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sx-10 col-sx-offset-1 col-xs-12">
+    {{ flash.output() }}
+</div>
+{% endif %}
+
 {{ content() }}
 
 <footer class="text-center">
