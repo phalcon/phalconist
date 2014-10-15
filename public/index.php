@@ -28,12 +28,14 @@ try {
     if (ENV == 'dev') {
         var_dump($e);
     } else {
+        error_log($e->getMessage() . ' -- ' . $e->getFile() . ':' . $e->getLine());
         echo $application->handle('/index/route404')->getContent();
     }
 } catch(\Exception $e) {
     if (ENV == 'dev') {
         var_dump($e);
     } else {
+        error_log($e->getMessage() . ' -- ' . $e->getFile() . ':' . $e->getLine());
         echo $application->handle('/index/route500')->getContent();
     }
 }
