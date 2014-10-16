@@ -172,7 +172,7 @@ class IndexController extends ControllerBase
                         $this->user->get('id'),
                         ['project_id' => $project->get('id')]
                     );
-                    $this->flash->warning('Your project is added.');
+                    $this->flash->success('Your project was added.');
                 } else {
                     $this->flash->warning('Something is going wrong. Try again later.');
                 }

@@ -482,3 +482,8 @@ header .label-date {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
+.alert-success {
+    background-color: #2de7c3;
+    border-color: #2de7c3;
+}
