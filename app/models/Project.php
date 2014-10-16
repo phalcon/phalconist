@@ -451,10 +451,17 @@ class Project extends Injectable
      */
     public function save()
     {
+        $now = static::utcTime()->format(DATE_ISO8601);
         try {
-            static::findById($this->data['id']);
+            $doc = static::findById($this->data['id']);
+            $data = $doc->getData();
+            if (empty($data['added'])) {
+                $this->data['added'] = $now;
+            } else {
+                $this->data['added'] = $data['added'];
+            }
         } catch(NotFoundException $e) {
-            $this->data['added'] = static::utcTime()->format(DATE_ISO8601);
+            $this->data['added'] = $now;
         }
 
         return static::add($this->data);
