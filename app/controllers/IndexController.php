@@ -95,13 +95,13 @@ class IndexController extends ControllerBase
         $type = $this->request->get('type', ['striptags', 'trim']);
 
         if ($text) {
-            $title = '"' . ucfirst($text) . '" / Search';
+            $title = ucfirst($text) . ' / Search';
         } else if ($tags) {
-            $title = '"' . ucfirst($tags) . '" / Tag';
+            $title = ucfirst($tags) . ' / Tag';
         } else if ($owner) {
-            $title = '"' . ucfirst($owner) . '" / Owner';
+            $title = ucfirst($owner) . ' / Owner';
         } else {
-            $title = '"' . ucfirst($type) . '" / Repository type';
+            $title = ucfirst($type) . ' / Repository type';
         }
 
         $title .= ' / Phalcon';
