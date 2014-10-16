@@ -76,13 +76,27 @@ class IndexController extends ControllerBase
             return $this->dispatcher->forward(['controller' => 'index', 'action' => 'route404']);
         }
 
-        $title = '"' . ucfirst($category_name) . '" category / Phalcon';
+        $title = ucfirst($category_name) . ' / Category / Phalcon';
 
         $escaper = new \Phalcon\Escaper();
         Tag::prependTitle($escaper->escapeHtmlAttr($title));
 
         $results = Project::search('', $categories[$category_name]['query']);
         $this->view->category = $category_name;
+        $this->view->results = $results;
+        $this->view->pick('index/search');
+    }
+
+    public function viewOwnerAction()
+    {
+        $owner_name = $this->dispatcher->getParam('owner');
+        $title = ucfirst($owner_name) . ' / Owner / Phalcon';
+
+        $escaper = new \Phalcon\Escaper();
+        Tag::prependTitle($escaper->escapeHtmlAttr($title));
+
+        $results = Project::search('', '', $owner_name);
+        $this->view->owner = $owner_name;
         $this->view->results = $results;
         $this->view->pick('index/search');
     }
@@ -136,7 +150,7 @@ class IndexController extends ControllerBase
         Tag::setTitle('Top projects with Phalcon framework');
     }
 
-    public function ownersAction()
+    public function ownerAction()
     {
         $owners = Project::owners(999999);
         $this->view->results = $owners;

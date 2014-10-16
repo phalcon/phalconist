@@ -109,7 +109,7 @@
                         {% set size = 2.2 * owner['doc_count'] / owners['max'] %}
                         {% set size = size < 0.8 ? 0.8 : size %}
                         <li style="font-size: {{ size }}em;">
-                            {{ link_to(['action', 'action': 'search', 'owner': owner['key']], owner['key'], 'title': owner['key']) }}
+                            {{ link_to(['owner', 'owner': owner['key']], owner['key'], 'title': owner['key']) }}
                         </li>
                     {% endfor %}
                 </ul>

@@ -33,7 +33,7 @@
                         <li class="col-xs-12 col-sm-6 col-md-4 col-lg-4 item-inline">
                             <h4 style="margin-bottom: 0;">
                                 <small>
-                                    {{ link_to(['action', 'action': 'search', 'owner': data['owner']['login']], data['owner']['login'], 'style': 'color: #b4bcc2') }}
+                                    {{ link_to(['owner', 'owner': data['owner']['login']], data['owner']['login'], 'style': 'color: #b4bcc2') }}
                                 </small>
                                 <br>
                                 {{ link_to(['view/item', 'action': 'view', 'id': item.getId(), 'title': data['repo']], data['name']) }}
@@ -65,7 +65,7 @@
                             </ul>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                                    <a href="{{ url(['action', 'action': 'search', 'owner': data['owner']['login']]) }}">
+                                    <a href="{{ url(['owner', 'owner': data['owner']['login']]) }}">
                                         <img src="{{ data['owner']['avatar_url'] }}&s=40" alt="" class="img-rounded" style="width:40px;height:40px;"/>
                                     </a>
                                 </div>
