@@ -14,20 +14,27 @@ class IndexController extends ControllerBase
     {
         Tag::setTitle('Phalcon Framework Resources');
 
-        $tags = Project::tags(50);
-        $owners = Project::owners(30);
-        $top = Project::top(6);
-        $fresh = Project::fresh(6);
-        $langs = [];//\Models\Project::langs(25);
-        $categories = $this->di->get('config')->categories;
+        $exists = !$this->user && $this->view->getCache()->exists(__METHOD__);
+        if (!$exists) {
+            $tags = Project::tags(50);
+            $owners = Project::owners(30);
+            $top = Project::top(6);
+            $fresh = Project::fresh(6);
+            $langs = [];//\Models\Project::langs(25);
+            $categories = $this->di->get('config')->categories;
 
-        $this->view->categories = $categories;
-        $this->view->tags = $tags;
-        $this->view->owners = $owners;
-        $this->view->top = $top;
-        $this->view->fresh = $fresh;
-        $this->view->langs = $langs;
-        $this->view->disqus_public_key = $this->di->get('config')->disqus->public_key;
+            $this->view->categories = $categories;
+            $this->view->tags = $tags;
+            $this->view->owners = $owners;
+            $this->view->top = $top;
+            $this->view->fresh = $fresh;
+            $this->view->langs = $langs;
+            $this->view->disqus_public_key = $this->di->get('config')->disqus->public_key;
+        }
+
+        if (!$this->user) {
+            $this->view->cache(['lifetime' => 60, 'key' => __METHOD__]);
+        }
     }
 
     public function route404Action()
