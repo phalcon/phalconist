@@ -26,6 +26,7 @@ try {
     echo $application->handle()->getContent();
 } catch(\Phalcon\Mvc\Dispatcher\Exception $e) {
     if (ENV == 'dev') {
+        echo $e->getMessage();
         var_dump($e);
     } else {
         error_log($e->getMessage() . ' -- ' . $e->getFile() . ':' . $e->getLine());
@@ -33,6 +34,7 @@ try {
     }
 } catch(\Exception $e) {
     if (ENV == 'dev') {
+        echo $e->getMessage();
         var_dump($e);
     } else {
         error_log($e->getMessage() . ' -- ' . $e->getFile() . ':' . $e->getLine());

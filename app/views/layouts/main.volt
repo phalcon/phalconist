@@ -85,7 +85,7 @@
                                     <?= \Models\Project::utcTime($last_added_item['added'])->format('d M') ?>
                                 </span>
                             </div>
-                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 text-left" data-id="{{ item.getId() }}" data-url="{{ url(['view/item', 'id': item.getId(), 'title': last_added_item['repo']]) }}">
                                 {{ link_to(['view/item', 'id': item.getId(), 'title': last_added_item['repo']], last_added_item['name']|capitalize) }}
                             </div>
                         </li>
