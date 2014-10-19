@@ -27,6 +27,15 @@
 
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <div class="row">
+                {% if project['composer']['keywords'] %}
+                <h5>Tags</h5>
+                <ul class="list-inline col-xs-12 col-sm-10 col-sm-offset-2 col-md-9 col-md-offset-3 col-lg-9 col-lg-offset-3">
+                    {% for tag in project['composer']['keywords'] %}
+                        <li>{{ link_to(['action', 'action': 'search', 'tag': tag], tag) }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
                 <h5>Details</h5>
 
                 {% if project['composer']['version'] is defined AND project['composer']['version'] %}
@@ -138,20 +147,6 @@
                 <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
             </div>
         </div>
-
-        {% if project['composer']['keywords'] %}
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-            <div class="row">
-                <h5>Tags</h5>
-                <ul class="list-inline">
-                    {% for tag in project['composer']['keywords'] %}
-                        <li>{{ link_to(['action', 'action': 'search', 'tag': tag], tag) }}</li>
-                    {% endfor %}
-                </ul>
-                <hr />
-            </div>
-        </div>
-        {% endif %}
 
         <div class="hidden-xs col-sm-12 col-md-6 col-lg-6">
             <div class="row clearfix" style="margin-bottom: 20px;">
