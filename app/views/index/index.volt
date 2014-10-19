@@ -71,7 +71,7 @@
         <ul class="col-lg-12 list-inline clearfix">
             {% set cats = categories|length %}
             {% for name, category in categories %}
-                <li class="col-lg-{{ 12 / cats }} col-md-{{ 12 / cats }} col-sm-12 col-xs-12 text-center" style="margin: 20px auto">
+                <li class="col-lg-<?= round(12 / $cats) ?> col-md-<?= round(12 / $cats) ?> col-sm-12 col-xs-12 text-center" style="margin: 20px auto">
                     <a href="{{ url(['category', 'name': name]) }}" title="{{ name }}">
                         <img src="/img/icon_{{ name }}.png" alt="{{ name }}" />
                     </a>

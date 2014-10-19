@@ -28,7 +28,7 @@
 }
 
 .markdown-body h1 {
-  font-size: 2em;
+  font-size: 200%;
   margin: 0.67em 0;
 }
 
@@ -50,7 +50,7 @@
 .markdown-body kbd,
 .markdown-body pre {
   font-family: monospace, monospace;
-  font-size: 1em;
+  font-size: 100%;
 }
 
 .markdown-body input {
@@ -135,27 +135,27 @@
 }
 
 .markdown-body h1 {
-  font-size: 30px;
+  font-size: 200%;
 }
 
 .markdown-body h2 {
-  font-size: 21px;
+  font-size: 175%;
 }
 
 .markdown-body h3 {
-  font-size: 16px;
+  font-size: 150%;
 }
 
 .markdown-body h4 {
-  font-size: 14px;
+  font-size: 125%;
 }
 
 .markdown-body h5 {
-  font-size: 12px;
+  font-size: 100%;
 }
 
 .markdown-body h6 {
-  font-size: 11px;
+  font-size: 100%;
 }
 
 .markdown-body blockquote {
@@ -207,6 +207,10 @@
   line-height: 10px;
   font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
   display: inline-block;
+}
+
+.markdown-body p {
+  font-size: 100%;
 }
 
 .markdown-body>*:first-child {
@@ -280,33 +284,33 @@
 
 .markdown-body h1 {
   padding-bottom: 0.3em;
-  font-size: 2.25em;
+  font-size: 225%;
   line-height: 1.2;
   border-bottom: 1px solid #eee;
 }
 
 .markdown-body h2 {
   padding-bottom: 0.3em;
-  font-size: 1.75em;
+  font-size: 175%;
   line-height: 1.225;
   border-bottom: 1px solid #eee;
 }
 
 .markdown-body h3 {
-  font-size: 1.5em;
+  font-size: 150%;
   line-height: 1.43;
 }
 
 .markdown-body h4 {
-  font-size: 1.25em;
+  font-size: 125%;
 }
 
 .markdown-body h5 {
-  font-size: 1em;
+  font-size: 100%;
 }
 
 .markdown-body h6 {
-  font-size: 1em;
+  font-size: 100%;
   color: #777;
 }
 
@@ -353,7 +357,7 @@
 .markdown-body dl dt {
   padding: 0;
   margin-top: 16px;
-  font-size: 1em;
+  font-size: 100%;
   font-style: italic;
   font-weight: bold;
 }
