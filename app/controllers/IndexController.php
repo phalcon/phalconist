@@ -53,12 +53,12 @@ class IndexController extends ControllerBase
 
     public function viewAction()
     {
-        $id = (int)$this->dispatcher->getParam('id', 'int');
-        if (empty($id)) {
+        $project_id = (int)$this->dispatcher->getParam('id', 'int');
+        if (empty($project_id)) {
             return $this->dispatcher->forward(['controller' => 'index', 'action' => 'route404']);
         }
 
-        $project = Project::findById($id);
+        $project = Project::findById($project_id);
         $this->view->project = $project->getData();
 
         $description = $project->get('name') ?
@@ -181,29 +181,31 @@ class IndexController extends ControllerBase
             return $this->response->redirect('login');
         }
 
-        if ($this->request->isPost()) {
-            $url = $this->request->getPost('url', ['trim', 'striptags']);
-
-            try {
-                $githubProject = new GithubProject($url);
-                if ($project = new Project($githubProject)) {
-                    $project->save();
-                    LogAction::log(
-                        LogAction::ACTION_ADD,
-                        $this->user->get('id'),
-                        ['project_id' => $project->get('id')]
-                    );
-                    $this->flash->success('Your project was added.');
-                } else {
-                    $this->flash->warning('Something is going wrong. Try again later.');
-                }
-            } catch(\Exception $e) {
-                $this->flash->warning('Something is going wrong. Try again later.');
-                error_log(__METHOD__ . ' -- ' . $e->getMessage() . " [$url]");
-            }
-
-            return $this->response->redirect('');
+        if (!$this->request->isPost()) {
+            return $this->response->setStatusCode(405, 'Method Not Allowed');
         }
+
+        $url = $this->request->getPost('url', ['trim', 'striptags']);
+
+        try {
+            $githubProject = new GithubProject($url);
+            if ($project = new Project($githubProject)) {
+                $project->save();
+                LogAction::log(
+                    LogAction::ACTION_ADD,
+                    $this->user->get('id'),
+                    ['project_id' => $project->get('id')]
+                );
+                $this->flash->success('Your project was added.');
+            } else {
+                $this->flash->warning('Something is going wrong. Try again later.');
+            }
+        } catch(\Exception $e) {
+            $this->flash->warning('Something is going wrong. Try again later.');
+            error_log(__METHOD__ . ' -- ' . $e->getMessage() . " [$url]");
+        }
+
+        return $this->response->redirect('');
     }
 
     public function deleteAction()
@@ -220,9 +222,9 @@ class IndexController extends ControllerBase
             return $this->response->redirect('');
         }
 
-        $id = $this->request->getPost('id', ['trim', 'striptags']);
+        $project_id = $this->request->getPost('id', ['trim', 'striptags']);
         //Project::deleteById($id);
-        LogAction::log(LogAction::ACTION_DELETE, $this->user->get('id'), ['project_id' => $id]);
+        LogAction::log(LogAction::ACTION_DELETE, $this->user->get('id'), ['project_id' => $project_id]);
 
         return $this->response->redirect('');
     }

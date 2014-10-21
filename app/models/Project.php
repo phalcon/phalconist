@@ -3,6 +3,8 @@
 namespace Models;
 
 use Elastica\Exception\NotFoundException;
+use Elastica\Query;
+use Phalcon\DI;
 use Phalcon\DI\Injectable;
 
 class Project extends Injectable
@@ -36,7 +38,7 @@ class Project extends Injectable
      */
     public static function tags($limit = 25)
     {
-        $di = \Phalcon\DI::getDefault();
+        $di = DI::getDefault();
         $query = [
             'facets' => [
                 'tags' => [
@@ -122,7 +124,7 @@ class Project extends Injectable
      */
     public static function top($limit = 6)
     {
-        $di = \Phalcon\DI::getDefault();
+        $di = DI::getDefault();
         $config = $di->get('config');
         $query = [
             '_source' => [
@@ -166,7 +168,7 @@ class Project extends Injectable
      */
     public static function fresh($limit = 6)
     {
-        $query = new \Elastica\Query();
+        $query = new Query();
         $query->setSource(
             [
                 'name',
@@ -265,7 +267,7 @@ class Project extends Injectable
             ];
         }
 
-        $res = \Models\Project::find($query);
+        $res = self::find($query);
         return $res->getResults();
     }
 
@@ -356,7 +358,7 @@ class Project extends Injectable
         return $resultSet->getResults();
     }
 
-    public function __construct(\Models\GithubProject $githubProject)
+    public function __construct(GithubProject $githubProject)
     {
         $this->githubProject = $githubProject;
 
