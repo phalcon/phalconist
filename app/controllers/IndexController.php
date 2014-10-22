@@ -181,33 +181,31 @@ class IndexController extends ControllerBase
             return $this->response->redirect('login');
         }
 
-        if (!$this->request->isPost()) {
-            return $this->response->setStatusCode(405, 'Method Not Allowed');
-        }
+        if ($this->request->isPost()) {
+            $url = $this->request->getPost('url', ['trim', 'striptags']);
 
-        $url = $this->request->getPost('url', ['trim', 'striptags']);
-
-        try {
-            $githubProject = new GithubProject($url);
-            if ($project = new Project($githubProject)) {
-                if (!$project->save()) {
-                    throw new \Exception('Something is going wrong. Try again later.');
+            try {
+                $githubProject = new GithubProject($url);
+                if ($project = new Project($githubProject)) {
+                    if (!$project->save()) {
+                        throw new \Exception('Something is going wrong. Try again later.');
+                    }
+                    LogAction::log(
+                        LogAction::ACTION_ADD,
+                        $this->user->get('id'),
+                        ['project_id' => $project->get('id')]
+                    );
+                    $this->flash->success('Your project was added.');
+                } else {
+                    throw new \Exception('Failed to read from GitHub. Try again later.');
                 }
-                LogAction::log(
-                    LogAction::ACTION_ADD,
-                    $this->user->get('id'),
-                    ['project_id' => $project->get('id')]
-                );
-                $this->flash->success('Your project was added.');
-            } else {
-                throw new \Exception('Failed to read from GitHub. Try again later.');
+            } catch(\Exception $e) {
+                $this->flash->warning($e->getMessage());
+                error_log(__METHOD__ . ' -- ' . $e->getMessage() . " [$url]");
             }
-        } catch(\Exception $e) {
-            $this->flash->warning($e->getMessage());
-            error_log(__METHOD__ . ' -- ' . $e->getMessage() . " [$url]");
-        }
 
-        return $this->response->redirect('');
+            return $this->response->redirect('');
+        }
     }
 
     public function deleteAction()
