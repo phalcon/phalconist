@@ -190,7 +190,9 @@ class IndexController extends ControllerBase
         try {
             $githubProject = new GithubProject($url);
             if ($project = new Project($githubProject)) {
-                $project->save();
+                if (!$project->save()) {
+                    throw new \Exception('Something is going wrong. Try again later.');
+                }
                 LogAction::log(
                     LogAction::ACTION_ADD,
                     $this->user->get('id'),
@@ -198,10 +200,10 @@ class IndexController extends ControllerBase
                 );
                 $this->flash->success('Your project was added.');
             } else {
-                $this->flash->warning('Something is going wrong. Try again later.');
+                throw new \Exception('Failed to read from GitHub. Try again later.');
             }
         } catch(\Exception $e) {
-            $this->flash->warning('Something is going wrong. Try again later.');
+            $this->flash->warning($e->getMessage());
             error_log(__METHOD__ . ' -- ' . $e->getMessage() . " [$url]");
         }
 

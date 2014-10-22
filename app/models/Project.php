@@ -449,10 +449,14 @@ class Project extends Injectable
     }
 
     /**
-     * @return \Elastica\Response
+     * @return null|\Elastica\Response
      */
     public function save()
     {
+        if (empty($this->data['name'])) {
+            return null;
+        }
+
         $now = static::utcTime()->format(DATE_ISO8601);
         try {
             $doc = static::findById($this->data['id']);
