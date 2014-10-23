@@ -194,6 +194,39 @@ class Project extends Injectable
         return $resultSet->getResults();
     }
 
+    /**
+     * @param int $limit
+     * @return \Elastica\Result[]
+     */
+    public static function last($limit = 6)
+    {
+        $query = new Query();
+        $query->setSource(
+            [
+                'name',
+                'repo',
+                'description',
+                'stars',
+                'watchers',
+                'forks',
+                'score',
+                'is_composer',
+                'added',
+                'updated',
+                'created',
+                'pushed',
+                'owner.login',
+                'owner.avatar_url',
+                'composer.keywords',
+                'composer.description',
+            ]
+        );
+        $query->setSort(['added' => ['order' => 'desc']]);
+        $query->setSize($limit);
+        $resultSet = static::getStorage()->search($query);
+        return $resultSet->getResults();
+    }
+
     public static function search($text = '', $tags = '', $owner = '', $type = '')
     {
         $query = [

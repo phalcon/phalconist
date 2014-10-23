@@ -5,6 +5,7 @@ namespace Controllers;
 use Models\GithubProject;
 use Models\LogAction;
 use Models\Project;
+use Models\StackOverflow;
 use Phalcon\Tag;
 
 class IndexController extends ControllerBase
@@ -144,7 +145,7 @@ class IndexController extends ControllerBase
         $this->view->section = 'Fresh';
         $this->view->pick('index/search');
 
-        Tag::setTitle('Recently created projects with Phalcon framework');
+        Tag::setTitle('Recently created projects for Phalcon framework');
     }
 
     public function topAction()
@@ -170,8 +171,17 @@ class IndexController extends ControllerBase
 
     public function newsAction()
     {
-        $so = \Models\StackOverflow::fetchActivity(10);
-        $this->view->results = $so;
+        $this->view->results = StackOverflow::fetchActivity(10);
+    }
+
+    public function lastAction()
+    {
+        $this->view->results = Project::last(60);
+        $this->view->q = 'Last added';
+        $this->view->is_show_date_added = true;
+        $this->view->pick('index/search');
+
+        Tag::setTitle('Recently added projects for Phalcon framework');
     }
 
     public function addAction()

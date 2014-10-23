@@ -70,7 +70,11 @@
                                     </a>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+                                    {% if is_show_date_added is defined AND data['added'] is defined %}
+                                    <label class="label label-date">Added: <?= \Models\Project::utcTime($data['added'])->format('M d, Y') ?></label><br>
+                                    {% else %}
                                     <label class="label label-date">Pushed: <?= \Models\Project::utcTime($data['pushed'])->format('M d, Y') ?></label>
+                                    {% endif %}
                                     {% if data['composer']['keywords'] %}
                                     <ul class="list-inline">
                                         <li class="small">tags:</li>
