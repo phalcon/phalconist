@@ -75,7 +75,7 @@
                 {% endif %}
                 {% if last_added is defined %}
                 <div class="footer-col col-md-4">
-                    <h3>Last added</h3>
+                    <h3><a href="/last" style="color:#fff">Last added</a></h3>
                     <ul class="list-unstyled">
                         {% for item in last_added %}
                         {% set last_added_item = item.getData() %}
@@ -91,6 +91,9 @@
                         </li>
                         {% endfor %}
                     </ul>
+                    <div class="text-right col-lg-4 col-md-4 col-sm-4 col-xs-4 text-right" style="padding: 0">
+                    <a href="/last">more</a>
+                    </div>
                 </div>
                 {% endif %}
                 <div class="footer-col col-md-4">
