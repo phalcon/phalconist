@@ -17,13 +17,13 @@ class OauthController extends ControllerBase
 
         /** @var \SocialConnect\Common\Entity\User $user */
         if (!$user = $provider->getUser($accessToken)) {
-            // todo
-            return $this->response->redirect('');
+            $this->flash->warning('Sorry, we cant get GitHub user right now');
+            return $this->response->redirect('/');
         }
 
         if (empty($user->id)) {
-            // todo
-            return $this->response->redirect('');
+            $this->flash->warning('Sorry, no GitHub user->id found');
+            return $this->response->redirect('/');
         }
 
         \Models\User::add((array)$user);
