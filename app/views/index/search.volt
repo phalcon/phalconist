@@ -39,6 +39,9 @@
                                 {{ link_to(['view/item', 'action': 'view', 'id': item.getId(), 'title': data['repo']], data['name']) }}
                             </h4>
                             <ul class="list-inline" style="margin: 0 0 8px 0;">
+                                <li class="label label-default" title="Score">
+                                    <i class="glyphicon glyphicon-stats"> </i> {{ (data['score'] is defined) ? data['score'] : 0 }}
+                                </li>
                                 {% if data['watchers'] %}
                                 <li class="label label-default" title="Number of watchers">
                                     <i class="glyphicon glyphicon-eye-open"></i> {{ data['watchers'] }}
@@ -52,16 +55,11 @@
                                         v.{{ data['composer']['version'] }}
                                     </li>
                                 {% endif %}
-{#
                                 {% if data['is_composer'] %}
                                     <li class="label label-default" title="Composer support">
                                         <i class="glyphicon glyphicon-music"></i>
                                     </li>
                                 {% endif %}
-#}
-                                <li class="label label-default" title="Score">
-                                    <i class="glyphicon glyphicon-stats"> </i> {{ (data['score'] is defined) ? data['score'] : 0 }}
-                                </li>
                             </ul>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">

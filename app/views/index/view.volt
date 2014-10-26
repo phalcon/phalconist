@@ -38,6 +38,13 @@
 
                 <h5>Details</h5>
 
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
+                    Score:
+                </div>
+                <div class="col-xs-12 col-sm-10 col-md-9 col-lg-9">
+                    <span class="label label-default"><i class="glyphicon glyphicon-stats"> </i> {{ (data['score'] is defined) ? data['score'] : 0 }}</span>
+                </div>
+
                 {% if project['composer']['version'] is defined AND project['composer']['version'] %}
                 <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
                     Version:
