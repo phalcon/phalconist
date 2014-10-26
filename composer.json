@@ -1,6 +1,7 @@
 {
   "name": "phalconist/phalconist",
   "description": "Get more resources for Phalcon framework on http://phalconist.com",
+  "homepage": "http://phalconist.com",
   "license": "MIT",
   "keywords": ["phalcon", "website", "elasticsearch", "github", "socialconnect", "extension"],
   "minimum-stability": "dev",
