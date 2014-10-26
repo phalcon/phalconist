@@ -325,6 +325,9 @@ class Project extends Injectable
         return $result;
     }
 
+    /**
+     * @return int
+     */
     public static function count()
     {
         $query = [
@@ -341,7 +344,7 @@ class Project extends Injectable
 
     /**
      * @link http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/search-aggregations-metrics-cardinality-aggregation.html
-     * @return mixed
+     * @return int
      */
     public static function countOwners()
     {
