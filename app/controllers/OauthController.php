@@ -22,7 +22,7 @@ class OauthController extends ControllerBase
         }
 
         if (empty($user->id)) {
-            $this->flash->warning('Sorry, no GitHub user->id found');
+            $this->flash->warning('Sorry, no GitHub user ID found');
             return $this->response->redirect('/');
         }
 

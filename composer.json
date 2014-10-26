@@ -2,7 +2,7 @@
   "name": "phalconist/phalconist",
   "description": "Resources catalog for Phalcon framework",
   "homepage": "http://phalconist.com",
-  "license": "MIT",
+  "license": "GPL-2.0",
   "keywords": ["phalcon", "website", "elasticsearch", "github", "socialconnect", "extension"],
   "minimum-stability": "dev",
   "authors": [
