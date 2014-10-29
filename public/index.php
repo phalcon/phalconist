@@ -24,6 +24,22 @@ try {
      */
     $application = new \Phalcon\Mvc\Application($serviceLoader->getDI());
     echo $application->handle()->getContent();
+} catch(\Elastica\Exception\Connection\HttpException $e) {
+    if (ENV == 'dev') {
+        echo $e->getMessage();
+        var_dump($e);
+    } else {
+        error_log($e->getMessage() . ' -- ' . $e->getFile() . ':' . $e->getLine());
+
+        $di = $application->getDI();
+        $adminEmail = $di->get('config')->params->adminEmail;
+        if ($adminEmail) {
+            mail($adminEmail, 'ERROR: ' . $_SERVER['HTTP_HOST'], $e->getMessage() . "\n" . $e->getFile() . ':' . $e->getLine());
+        }
+
+        echo $application->handle('/index/route500')->getContent();
+    }
+
 } catch(\Phalcon\Mvc\Dispatcher\Exception $e) {
     if (ENV == 'dev') {
         echo $e->getMessage();
