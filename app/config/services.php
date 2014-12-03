@@ -2,6 +2,9 @@
 
 $config = require ENV . '.php';
 
+$eventsManager = new \Phalcon\Events\Manager();
+$eventsManager->attach("view:afterRender", new \Library\HtmlCompress());
+
 return new \Phalcon\Config(
     [
         'config' => $config,
@@ -93,6 +96,12 @@ return new \Phalcon\Config(
                     'method' => 'setViewsDir',
                     'arguments' => [
                         ['type' => 'parameter', 'value' => APP_PATH . '/views/'],
+                    ]
+                ],
+                [
+                    'method' => 'setEventsManager',
+                    'arguments' => [
+                        ['type' => 'parameter', 'value' => $eventsManager],
                     ]
                 ],
                 [

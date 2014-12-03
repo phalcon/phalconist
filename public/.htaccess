@@ -1,5 +1,19 @@
 AddDefaultCharset UTF-8
 
+<FilesMatch "\.(ico|jpg|jpeg|png|gif|js|css)(\.gz)?$">
+	Header set Cache-Control "max-age=3600, public, no-transform"
+    Header unset ETag
+    FileETag None
+</FilesMatch>
+
+<ifModule mod_deflate.c>
+	<FilesMatch "\.(js|css)$">
+		SetOutputFilter DEFLATE
+	</FilesMatch>
+	AddOutputFilterByType DEFLATE application/json
+	AddOutputFilterByType DEFLATE application/javascript
+</ifModule>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-d
