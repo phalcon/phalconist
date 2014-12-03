@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ description is defined ? description|escape : '' }}">
     <link rel="canonical" href="http://phalconist.com"/>
-    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link href="/dist/project.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,9 +36,9 @@
     </script>
 
     <!-- Custom CSS -->
-    <link href="/dist/project.css" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="/img/favicon.ico" />
 
 </body>
 </html>
