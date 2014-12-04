@@ -1,7 +1,17 @@
 AddDefaultCharset UTF-8
 DefaultLanguage en-US
+Options +FollowSymLinks
+Options -Indexes
+IndexIgnore */*
 
-<IfModule mod_rewrite.c>
+<FilesMatch "\.(jpg|png|gif|css|js)$">
+Header set Cache-Control "max-age=604800, public"
+</FilesMatch>
+
+#ExpiresActive On
+#ExpiresByType text/html "access plus 2 hours"
+
+FileETag MTime Size<IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
