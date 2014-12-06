@@ -142,7 +142,7 @@
             <div class="row" style="margin: 10px;">
                 <div id="disqus_thread"></div>
                 <script type="text/javascript">
-                var disqus_shortname = 'phalconist'; // required: replace example with your forum shortname
+                var disqus_shortname = 'phalconist';
                 var disqus_identifier = 'project:{{ project['id'] }}';
                 (function() {
                     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
