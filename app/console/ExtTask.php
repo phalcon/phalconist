@@ -44,6 +44,8 @@ class ExtTask extends \Phalcon\CLI\Task
             } catch(\Exception $e) {
                 if ($e->getCode() === 404) {
                     \Models\Project::deleteById($data['id']);
+                    error_log(__METHOD__ . ' -- ' . $e->getMessage() . ' -- It was deleted' );
+                    return;
                 }
                 error_log(__METHOD__ . ' -- ' . $e->getMessage() . ' -- ' . $e->getTraceAsString());
             }
