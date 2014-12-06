@@ -41,6 +41,9 @@ class ExtTask extends \Phalcon\CLI\Task
                 $project->save();
                 $done[] = $githubProject->getUserName() . '/' . $githubProject->getRepoName();
             } catch(\Exception $e) {
+                if ($e->getCode() === 404) {
+                    \Models\Project::deleteById($data['id']);
+                }
                 error_log(__METHOD__ . ' -- ' . $e->getMessage() . ' -- ' . $e->getTraceAsString());
             }
         }
