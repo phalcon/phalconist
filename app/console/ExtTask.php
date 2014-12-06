@@ -14,6 +14,7 @@ class ExtTask extends \Phalcon\CLI\Task
         $limit = min(3, (int)$this->dispatcher->getParam('limit'));
         $query = [
             '_source' => [
+                'id',
                 'synced',
                 'updated',
                 'created',
