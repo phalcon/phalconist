@@ -17,13 +17,16 @@ class HtmlCompress
     private static function clean($content)
     {
         $replace = [
+            "/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:)\/\/.*))/" => '', // js comments
             '/<!--[^\[](.*?)[^\]]-->/s' => '',
             "/<\?php/" => '<?php ',
-            "/\n([\S])/" => ' $1',
             "/\r/" => '',
-            "/\n/" => '',
+            "/\n/" => ' ',
+            '/\>[^\S ]+/s' => '>',
+            '/[^\S ]+\</s' => '<',
+            "/\n([\S])/" => ' $1',
+            '/(\s)+/s' => '\\1',
             "/\t/" => ' ',
-            "/ +/" => ' ',
         ];
         $content = preg_replace(array_keys($replace), array_values($replace), $content);
         return $content;

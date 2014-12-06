@@ -10,8 +10,9 @@ Header set Cache-Control "max-age=604800, public"
 
 #ExpiresActive On
 #ExpiresByType text/html "access plus 2 hours"
+#FileETag MTime Size
 
-FileETag MTime Size<IfModule mod_rewrite.c>
+<IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
