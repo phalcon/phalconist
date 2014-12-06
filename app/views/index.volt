@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ description is defined ? description|escape : '' }}">
     <link rel="canonical" href="http://phalconist.com"/>
-    <link href="/dist/project.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,7 +16,7 @@
     <![endif]-->
 </head>
 <body id="page-top" class="index">
-<script async src="/dist/min.js"></script>
+    <script async src="/dist/min.js"></script>
     {{ content() }}
 
     <div class="scroll-top page-scroll visible-xs visble-sm">
@@ -25,6 +24,8 @@
             <i class="fa fa-chevron-up"></i>
         </a>
     </div>
+
+    <link href="/dist/project.css" rel="stylesheet">
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
