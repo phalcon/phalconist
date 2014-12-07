@@ -54,6 +54,21 @@ class IndexController extends ControllerBase
 
     public function viewAction()
     {
+        if ($id = (int)$this->request->get('id')) {
+            // Handle old urls
+            $project = Project::findById($id);
+            return $this->response->redirect(
+                [
+                    'view/item',
+                    'action' => 'view',
+                    'id' => $id,
+                    'title' => $project->get('repo')
+                ],
+                false,
+                301
+            );
+        }
+
         $project_id = (int)$this->dispatcher->getParam('id', 'int');
         if (empty($project_id)) {
             return $this->dispatcher->forward(['controller' => 'index', 'action' => 'route404']);
@@ -62,11 +77,9 @@ class IndexController extends ControllerBase
         $project = Project::findById($project_id);
         $this->view->project = $project->getData();
 
-        $description = $project->get('name') ?
-            $project->get('name') :
-            empty($project->get( 'composer')['description']) ?
-                $project->get('composer')['description'] :
-                null;
+        $description = $project->get('name') ? $project->get('name') : empty($project->get(
+            'composer'
+        )['description']) ? $project->get('composer')['description'] : null;
 
         if ($description) {
             $this->view->description = $description;
