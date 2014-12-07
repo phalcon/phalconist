@@ -37,5 +37,19 @@
       ga('create', 'UA-55599252-1', 'auto');
       ga('send', 'pageview');
     </script>
+
+    {# See link: https://developers.google.com/webmasters/richsnippets/sitelinkssearch #}
+    <script type="application/ld+json">
+    {
+       "@context": "http://schema.org",
+       "@type": "WebSite",
+       "url": "http://phalconist.com/",
+       "potentialAction": {
+         "@type": "SearchAction",
+         "target": "http://phalconist.com/search?q={search_term_string}",
+         "query-input": "required name=search_term_string"
+       }
+    }
+    </script>
 </body>
 </html>
