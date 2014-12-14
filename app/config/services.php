@@ -2,8 +2,8 @@
 
 $config = require ENV . '.php';
 
-$eventsManager = new \Phalcon\Events\Manager();
-$eventsManager->attach("view:afterRender", new \Library\HtmlCompress());
+//$eventsManager = new \Phalcon\Events\Manager();
+//$eventsManager->attach("view:afterRender", new \Library\HtmlCompress());
 
 return new \Phalcon\Config(
     [
