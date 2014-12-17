@@ -16,6 +16,7 @@ class HtmlCompress
 
     private static function clean($content)
     {
+        // #<script(.*?)>(.*?)</script>#is
         $replace = [
             "/(?:(?:\/\*(?:[^*]|(?:\*+[^*\/]))*\*+\/)|(?:(?<!\:)\/\/.*))/" => '', // js comments
             '/<!--[^\[](.*?)[^\]]-->/s' => '',
