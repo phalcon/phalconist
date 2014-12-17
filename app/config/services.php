@@ -98,12 +98,12 @@ return new \Phalcon\Config(
                         ['type' => 'parameter', 'value' => APP_PATH . '/views/'],
                     ]
                 ],
-                [
-                    'method' => 'setEventsManager',
-                    'arguments' => [
-                        ['type' => 'parameter', 'value' => $eventsManager],
-                    ]
-                ],
+                //[
+                //    'method' => 'setEventsManager',
+                //    'arguments' => [
+                //        ['type' => 'parameter', 'value' => $eventsManager],
+                //    ]
+                //],
                 [
                     'method' => 'registerEngines',
                     'arguments' => [
