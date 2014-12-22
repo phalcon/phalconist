@@ -1,5 +1,7 @@
 <?php
 
+use Models\GithubProject;
+use Models\Project;
 
 class ExtTask extends \Phalcon\CLI\Task
 {
@@ -33,17 +35,17 @@ class ExtTask extends \Phalcon\CLI\Task
             'size' => $limit,
         ];
         $done = [];
-        $results = \Models\Project::find($query)->getResults();
+        $results = Project::find($query)->getResults();
         foreach ($results as $project) {
             $data = $project->getData();
             try {
-                $githubProject = new \Models\GithubProject($data['urls']['html']);
-                $project = new \Models\Project($githubProject);
+                $githubProject = new GithubProject($data['urls']['html']);
+                $project = new Project($githubProject);
                 $project->save();
                 $done[] = $githubProject->getUserName() . '/' . $githubProject->getRepoName();
             } catch(\Exception $e) {
                 if ($e->getCode() === 404) {
-                    \Models\Project::deleteById($data['id']);
+                    Project::deleteById($data['id']);
                     error_log(__METHOD__ . ' -- ' . $e->getMessage() . ' -- Deleted: ' . $data['urls']['html']);
                     return;
                 }
@@ -63,7 +65,7 @@ class ExtTask extends \Phalcon\CLI\Task
             '_source' => ['urls.html'],
             'size' => 100000,
         ];
-        $results = \Models\Project::find($query)->getResults();
+        $results = Project::find($query)->getResults();
         foreach ($results as $project) {
             $data = $project->getData();
             echo $data['urls']['html'] . PHP_EOL;
@@ -75,8 +77,8 @@ class ExtTask extends \Phalcon\CLI\Task
         $url = $this->dispatcher->getParam('url', ['trim', 'striptags']);
 
         try {
-            $githubProject = new \Models\GithubProject($url);
-            $project = new \Models\Project($githubProject);
+            $githubProject = new GithubProject($url);
+            $project = new Project($githubProject);
             $project->save();
         } catch(\Exception $e) {
             error_log(__METHOD__ . ' -- ' . $e->getMessage());

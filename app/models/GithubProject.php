@@ -114,7 +114,6 @@ class GithubProject extends Injectable
             $travis_data = $this->repo->contents()->show($this->user_name, $this->repo_name, '.travis.yml', 'master');
             return !empty($travis_data);
         } catch(\Exception $e) {
-            error_log(__METHOD__ . ' -- ' . $e->getMessage());
             return false;
         }
     }
