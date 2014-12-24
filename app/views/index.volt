@@ -11,7 +11,6 @@
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" href="/img/favicon.ico" />
-    <script async src="/dist/min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,6 +20,7 @@
     <![endif]-->
 </head>
 <body id="page-top" class="index">
+    <script src="/dist/min.js"></script>
     {{ content() }}
 
     <div class="scroll-top page-scroll visible-xs visble-sm">
