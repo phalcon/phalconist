@@ -84,7 +84,7 @@ class IndexController extends ControllerBase
         if ($description) {
             $this->view->description = $description;
         }
-        Tag::setTitle($project->get('name') . ' / ' . $project->get('owner')['login'] . ' / Phalconist');
+        Tag::setTitle($project->get('name') . ' / ' . $project->get('owner')['login']);
     }
 
     public function viewCategoryAction()
