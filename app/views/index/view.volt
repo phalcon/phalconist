@@ -15,9 +15,9 @@
                     <li><a class="github-button" href="https://github.com/{{ project['full_name'] }}/archive/master.zip" data-icon="octicon-cloud-download">Download</a>
                 </ul>
                 <h3>
-                    <a href="{{ project['urls']['html'] }}">{{ project['name'] }}</a>
+                    <a href="{{ project['urls']['html'] }}" target="_blank">{{ project['name'] }}</a>
                     <small>maintained by</small>
-                    <a href="https://github.com/{{ project['owner']['login'] }}" title="Projects by {{ project['owner']['login'] }}">{{ project['owner']['login'] }}</a>
+                    <a href="https://github.com/{{ project['owner']['login'] }}" title="Powered by {{ project['owner']['login'] }}" target="_blank">{{ project['owner']['login'] }}</a>
                 </h3>
 
                 <p>{{ project['description'] }}</p>
