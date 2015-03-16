@@ -394,6 +394,31 @@ class Project extends Injectable
         return $resultSet->getResults();
     }
 
+    /**
+     * @param string $fullName
+     * @return \Elastica\Result
+     */
+    public static function getByFullName($fullName)
+    {
+        $query = [
+            '_source' => [
+                'score'
+            ],
+            'query' => [
+                'filtered' => [
+                    'filter' => [
+                        'term' => ['full_name' => $fullName]
+                    ]
+                ]
+            ],
+            'from' => 0,
+            'size' => 1
+        ];
+
+        $resultSet = static::getStorage()->search($query);
+        return reset($resultSet->getResults());
+    }
+
     public function __construct(GithubProject $githubProject)
     {
         $this->githubProject = $githubProject;

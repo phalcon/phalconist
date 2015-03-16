@@ -256,4 +256,37 @@ class IndexController extends ControllerBase
     {
         $this->view->login_url = $this->di->get('authProvider')->makeAuthUrl();
     }
+
+    public function badgeAction()
+    {
+        $owner = $this->dispatcher->getParam('owner', ['string', 'striptags']);
+        $repoName = $this->dispatcher->getParam('repo', ['string', 'striptags']);
+
+        /** @var \Phalcon\Cache\Backend\Memcache $cache */
+        $cache = $this->getDI()->get('cache');
+
+        $repo = "$owner/$repoName";
+        $key = __METHOD__ . "-$repo";
+        if (!$svg = $cache->get($key)) {
+            if ($project = Project::getByFullName($repo)) {
+                $data = $project->getData();
+                $score = $data['score'];
+                $scoreColor = '#2c3e50';
+                $siteName = 'Phalconist';
+                $siteColor = '#18bc9c';
+                $svg = '<svg xmlns="http://www.w3.org/2000/svg" width="123" height="20"><linearGradient id="b" x2="0" y2="100%"><stop offset="0" stop-color="#bbb" stop-opacity=".1"/><stop offset="1" stop-opacity=".1"/></linearGradient><mask id="a"><rect width="123" height="20" rx="3" fill="#fff"/></mask><g mask="url(#a)"><path fill="' . $siteColor . '" d="M0 0h70v20H0z"/><path fill="' . $scoreColor . '" d="M70 0h53v20H70z"/><path fill="url(#b)" d="M0 0h123v20H0z"/></g><g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11"><text x="36" y="15" fill="#010101" fill-opacity=".3">' . $siteName . '</text><text x="36" y="14">' . $siteName . '</text><text x="95.5" y="15" fill="#010101" fill-opacity=".3">' . $score . '</text><text x="95.5" y="14">' . $score . '</text></g></svg>';
+            } else {
+                $svg = '404';
+            }
+            $cache->save($key, $svg, 5 * TIME_MINUTE);
+        }
+
+        if ($svg === '404') {
+            return $this->response->setStatusCode(404, 'Not Found');
+        }
+
+        return $this->response
+            ->setContentType('image/svg+xml', 'utf-8')
+            ->setContent($svg);
+    }
 }

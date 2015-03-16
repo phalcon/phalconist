@@ -53,6 +53,23 @@ return new \Phalcon\Config(
                 ],
             ],
         ],
+        'cache' => [
+            'className' => '\Phalcon\Cache\Backend\Memcache',
+            'arguments' => [
+                [
+                    'type' => 'instance',
+                    'className' => '\Phalcon\Cache\Frontend\Data',
+                    'arguments' => ['lifetime' => 60]
+                ],
+                [
+                    'type' => 'parameter',
+                    'value' => [
+                        'host' => 'localhost',
+                        'port' => 11211
+                    ]
+                ]
+            ]
+        ],
         'viewCache' => [
             'className' => '\Phalcon\Cache\Backend\Memcache',
             'arguments' => [

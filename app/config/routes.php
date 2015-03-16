@@ -12,5 +12,6 @@ $router->add('/{controller}/{action}')->setName('controller/action');
 $router->add('/{id}-{title}', ['controller' => 'index', 'action' => 'view', 'id' => 0, 'title' => 1])->setName('view/item');
 $router->add('/category/{name}', ['controller' => 'index', 'action' => 'viewCategory', 'name' => 0])->setName('category');
 $router->add('/owner/{owner}', ['controller' => 'index', 'action' => 'viewOwner', 'owner' => 0])->setName('owner');
+$router->add('/{owner}/{repo}.svg', ['controller' => 'index', 'action' => 'badge', 'owner' => 0, 'repo' => 1])->setName('badge');
 
 return $router;
