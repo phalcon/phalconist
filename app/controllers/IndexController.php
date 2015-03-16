@@ -278,7 +278,7 @@ class IndexController extends ControllerBase
             } else {
                 $svg = '404';
             }
-            $cache->save($key, $svg, 5 * TIME_MINUTE);
+            $cache->save($key, $svg, 5 * 3600);
         }
 
         if ($svg === '404') {
