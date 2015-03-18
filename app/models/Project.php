@@ -453,6 +453,7 @@ class Project extends Injectable
             $repository['pushed_at'],
             $repository['stargazers_count'],
             $repository['subscribers_count'],
+            $repository['forks_count'],
             $readme,
             $repository['description'],
             $is_travis,
@@ -534,7 +535,7 @@ class Project extends Injectable
         return $this->data[$attr];
     }
 
-    private function calcScore($pushed, $stars, $watchers, $readme, $description, $is_travis, $is_composer, $is_package)
+    private function calcScore($pushed, $stars, $watchers, $forks, $readme, $description, $is_travis, $is_composer, $is_package)
     {
         $now = self::utcTime();
         $pushed = self::utcTime($pushed);
@@ -543,6 +544,7 @@ class Project extends Injectable
         $score = 0;
         $score += 1 * $stars;
         $score += 2 * $watchers;
+        $score += 2 * $forks;
         $score += 5 * (int)($diff->days < 30);
         $score += 5 * (int)(strlen($description) > 10);
         $score += 5 * (int)$is_travis;

@@ -31,7 +31,8 @@ curl -XPUT 'http://localhost:9200/phalconist/project/_mapping' -d '{
          "_all" : {"analyzer" : "english_morphology"},
          "properties" : {
              "name" : { "type" : "string", "analyzer" : "english_morphology" },
-             "description" : { "type" : "string", "analyzer" : "english_morphology" }
+             "description" : { "type" : "string", "analyzer" : "english_morphology" },
+             "full_name": {"type": "string", "index" : "not_analyzed"}
          }
      }
 }'
