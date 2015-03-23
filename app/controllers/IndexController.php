@@ -261,6 +261,12 @@ class IndexController extends ControllerBase
     {
         $owner = $this->dispatcher->getParam('owner', ['string', 'striptags']);
         $repoName = $this->dispatcher->getParam('repo', ['string', 'striptags']);
+        $type = $this->dispatcher->getParam('type');
+
+        $allow_types = ['default'];
+        if (!in_array($type, $allow_types)) {
+            return $this->response->setStatusCode(400, 'Bad Request');
+        }
 
         /** @var \Phalcon\Cache\Backend\Memcache $cache */
         $cache = $this->getDI()->get('cache');
