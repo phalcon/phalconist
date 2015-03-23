@@ -407,7 +407,7 @@ class Project extends Injectable
             'query' => [
                 'filtered' => [
                     'filter' => [
-                        'term' => ['full_name' => $fullName]
+                        'term' => ['fullname' => $fullName]
                     ]
                 ]
             ],
@@ -466,6 +466,7 @@ class Project extends Injectable
             'repo' => $this->githubProject->getRepoName(),
             'name' => $name,
             'full_name' => $repository['full_name'],
+            'fullname' => $repository['full_name'],
             'description' => $repository['description'],
             'score' => $score,
             'stars' => $repository['stargazers_count'],
