@@ -416,7 +416,8 @@ class Project extends Injectable
         ];
 
         $resultSet = static::getStorage()->search($query);
-        return reset($resultSet->getResults());
+        $results = $resultSet->getResults();
+        return reset($results);
     }
 
     public function __construct(GithubProject $githubProject)
