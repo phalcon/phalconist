@@ -7,6 +7,11 @@ use Models\LogAction;
 class UserController extends ControllerBase
 {
 
+    public function loginAction()
+    {
+        $this->view->login_url = $this->di->get('authProvider')->makeAuthUrl();
+    }
+
     public function logoutAction()
     {
         $this->session->remove('identity');

@@ -52,7 +52,7 @@ class IndexController extends ControllerBase
         $this->response->setStatusCode(500, 'Not Found');
     }
 
-    public function viewIdAction()
+    public function view301Action()
     {
         if ($id = (int)$this->request->get('id')) {
             // Handle old urls
@@ -137,6 +137,12 @@ class IndexController extends ControllerBase
         $this->view->category = $category_name;
         $this->view->results = $results;
         $this->view->pick('index/search');
+    }
+
+    public function viewOwner301Action()
+    {
+        $owner = $this->dispatcher->getParam('owner', ['string', 'striptags']);
+        return $this->response->redirect(['owner', 'owner' => $owner], false, 301);
     }
 
     public function viewOwnerAction()
@@ -232,7 +238,7 @@ class IndexController extends ControllerBase
     {
         if (!$this->user) {
             $this->flash->warning('You should be authorized');
-            return $this->response->redirect('login');
+            return $this->response->redirect(['controller/action', 'controller' => 'user', 'action' => 'login']);
         }
 
         if ($this->request->isPost()) {
@@ -281,11 +287,6 @@ class IndexController extends ControllerBase
         LogAction::log(LogAction::ACTION_DELETE, $this->user->get('id'), ['project_id' => $project_id]);
 
         return $this->response->redirect('');
-    }
-
-    public function loginAction()
-    {
-        $this->view->login_url = $this->di->get('authProvider')->makeAuthUrl();
     }
 
     public function badgeAction()
