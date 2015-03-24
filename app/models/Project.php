@@ -401,9 +401,6 @@ class Project extends Injectable
     public static function getByFullName($fullName)
     {
         $query = [
-            '_source' => [
-                'score'
-            ],
             'query' => [
                 'filtered' => [
                     'filter' => [

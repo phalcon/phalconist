@@ -36,7 +36,7 @@
                                     {{ link_to(['owner', 'owner': data['owner']['login']], data['owner']['login'], 'style': 'color: #b4bcc2') }}
                                 </small>
                                 <br>
-                                {{ link_to(['view/item', 'action': 'view', 'id': item.getId(), 'title': data['repo']], data['name']) }}
+                                {{ link_to(['view/item', 'action': 'view', 'owner': data['owner']['login'], 'repo': data['repo']], data['name']) }}
                             </h4>
                             <ul class="list-inline" style="margin: 0 0 8px 0;">
                                 <li class="label label-default" title="Score">

@@ -52,7 +52,7 @@ class IndexController extends ControllerBase
         $this->response->setStatusCode(500, 'Not Found');
     }
 
-    public function viewAction()
+    public function viewIdAction()
     {
         if ($id = (int)$this->request->get('id')) {
             // Handle old urls
@@ -61,8 +61,8 @@ class IndexController extends ControllerBase
                 [
                     'view/item',
                     'action' => 'view',
-                    'id' => $id,
-                    'title' => $project->get('repo')
+                    'owner' => $project->get('owner')['login'],
+                    'repo' => $project->get('repo')
                 ],
                 false,
                 301
@@ -75,16 +75,47 @@ class IndexController extends ControllerBase
         }
 
         $project = Project::findById($project_id);
-        $this->view->project = $project->getData();
 
-        $description = $project->get('name') ? $project->get('name') : empty($project->get(
-            'composer'
-        )['description']) ? $project->get('composer')['description'] : null;
+        return $this->response->redirect(
+            [
+                'view/item',
+                'action' => 'view',
+                'owner' => $project->get('owner')['login'],
+                'repo' => $project->get('repo')
+            ],
+            false,
+            301
+        );
+    }
+
+    public function viewAction()
+    {
+        $owner = $this->dispatcher->getParam('owner', ['string', 'striptags']);
+        $repoName = $this->dispatcher->getParam('repo', ['string', 'striptags']);
+        $repo = "$owner/$repoName";
+
+        $project = Project::getByFullName($repo);
+        if (empty($project)) {
+            return $this->dispatcher->forward(['controller' => 'index', 'action' => 'route404']);
+        }
+
+        $project = $project->getData();
+        $this->view->project = $project;
+        if (empty($project['name'])) {
+            if (empty($project['composer']['description'])) {
+                $description = null;
+            } else {
+                $description = $project['composer']['description'];
+            }
+        } else {
+            $description = $project['name'];
+        }
 
         if ($description) {
             $this->view->description = $description;
         }
-        Tag::setTitle($project->get('name') . ' / ' . $project->get('owner')['login']);
+
+        Tag::setTitle($project['name'] . ' / ' . $project['owner']['login']);
     }
 
     public function viewCategoryAction()
