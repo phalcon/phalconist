@@ -136,6 +136,13 @@
                     {% endfor %}
                 </div>
                 {% endif %}
+
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
+                    Badge:
+                </div>
+                <div class="col-xs-12 col-sm-10 col-md-9 col-lg-9">
+                    <small><a href="{{ urlSvg }}" target="_blank">{{ urlSvg }}</a></small>
+                </div>
             </div>
 
             <hr />

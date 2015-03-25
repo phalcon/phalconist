@@ -36,7 +36,20 @@ return new \Phalcon\Config(
         'packagist' => function ($di) {
             return new \Packagist\Api\Client();
         },
-        'url' => '\Library\Url',
+        'url' => [
+            'className' => '\Library\Url',
+            'calls' => [
+                [
+                    'method' => 'setBaseUri',
+                    'arguments' => [
+                        [
+                            'type' => 'parameter',
+                            'value' => 'http://' . $_SERVER['SERVER_NAME'] . '/'
+                        ],
+                    ]
+                ],
+            ],
+        ],
         'fileCache' => [
             'className' => '\Phalcon\Cache\Backend\File',
             'arguments' => [
