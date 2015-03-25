@@ -1,5 +1,7 @@
 Phalconist
 ==========
+[![Phalconist](http://phalconist.com/phalconist/phalconist/default.svg)](http://phalconist.com/phalconist/phalconist)
+
 
 > Phalcon framework resources.
 
