@@ -123,6 +123,14 @@ class IndexController extends ControllerBase
             'type' => 'default'
         ], null, false);
 
+        $this->view->url = $this->url->get([
+            'view/item',
+            'action' => 'view',
+            'owner' => $project['owner']['login'],
+            'repo' => $project['repo']
+        ], null, false);
+
+
         Tag::setTitle($project['name'] . ' / ' . $project['owner']['login']);
     }
 

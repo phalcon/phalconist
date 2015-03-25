@@ -141,7 +141,11 @@
                     Badge:
                 </div>
                 <div class="col-xs-12 col-sm-10 col-md-9 col-lg-9">
-                    <small><a href="{{ urlSvg }}" target="_blank">{{ urlSvg }}</a></small>
+                    <small>
+                        <b>GitHub code:</b><br />
+                        <input type="text" value="[![Phalconist]({{ urlSvg }})]({{ url }})" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding: 2px 4px"/><br />
+                        <a href="{{ urlSvg }}" target="_blank">{{ urlSvg }}</a>
+                    </small>
                 </div>
             </div>
 
