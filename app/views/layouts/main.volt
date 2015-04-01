@@ -107,7 +107,7 @@
                 <div class="col-lg-4">
                 </div>
                 <div class="col-lg-4">
-                    Copyright &copy; Phalconist.com 2014
+                    Copyright &copy; Phalconist.com {{ date("Y") }}
                     <ul class="list-inline">
                         <li>
                             <a href="https://github.com/phalconist/phalconist" title="https://github.com/phalconist/phalconist" class="btn-social btn-outline"><i class="fa fa-fw fa-github"></i></a>
