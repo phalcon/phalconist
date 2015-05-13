@@ -47,6 +47,12 @@ trait ElasticModelTrait
         return static::getStorage()->addDocument($doc);
     }
 
+    public static function update($data)
+    {
+        $doc = new \Elastica\Document($data['id'], $data);
+        return static::getStorage()->updateDocument($doc);
+    }
+
     /**
      * @param $id
      * @return \Elastica\Response

@@ -8,6 +8,7 @@ class CronTask extends \Phalcon\CLI\Task
     ];
 
     private static $hourly_commands = [
+        ['task' => 'ext', 'action' => 'positions']
     ];
 
     private static $minutely_commands = [

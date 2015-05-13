@@ -134,6 +134,49 @@ class IndexController extends ControllerBase
         Tag::setTitle($project['name'] . ' / ' . $project['owner']['login']);
     }
 
+    public function idAction()
+    {
+        $project_id = $this->dispatcher->getParam('id', 'int');
+        $project = Project::findById($project_id);
+        if (empty($project)) {
+            return $this->dispatcher->forward(['controller' => 'index', 'action' => 'route404']);
+        }
+
+        $project = $project->getData();
+        $this->view->project = $project;
+        if (empty($project['name'])) {
+            if (empty($project['composer']['description'])) {
+                $description = null;
+            } else {
+                $description = $project['composer']['description'];
+            }
+        } else {
+            $description = $project['name'];
+        }
+
+        if ($description) {
+            $this->view->description = $description;
+        }
+
+        $this->view->urlSvg = $this->url->get([
+            'badge',
+            'owner' => $project['owner']['login'],
+            'repo' => $project['repo'],
+            'type' => 'default'
+        ], null, false);
+
+        $this->view->url = $this->url->get([
+            'view/item',
+            'action' => 'view',
+            'owner' => $project['owner']['login'],
+            'repo' => $project['repo']
+        ], null, false);
+
+
+        Tag::setTitle($project['name'] . ' / ' . $project['owner']['login']);
+        $this->view->pick('index/view');
+    }
+
     public function viewCategoryAction()
     {
         $category_name = $this->dispatcher->getParam('name');
@@ -347,7 +390,7 @@ class IndexController extends ControllerBase
             if ($projectData = Project::getByFullName($repo)) {
                 $data = $projectData->getData();
                 $svg = new Svg();
-                $svgContent = $svg->generate($data['score']);
+                $svgContent = $svg->generate($data['position']);
             } else {
                 $svgContent = '404';
             }

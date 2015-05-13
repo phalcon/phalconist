@@ -45,10 +45,10 @@ return new \Phalcon\Config(
                         [
                             'type' => 'parameter',
                             'value' => 'http://' . $_SERVER['SERVER_NAME'] . '/'
-                        ],
+                        ]
                     ]
-                ],
-            ],
+                ]
+            ]
         ],
         'fileCache' => [
             'className' => '\Phalcon\Cache\Backend\File',

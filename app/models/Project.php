@@ -500,7 +500,7 @@ class Project extends Injectable
                 'authors' => empty($composer['authors']) ? [] : $composer['authors'],
                 'version' => empty($composer['version']) ? '' : $composer['version'],
                 'require' => empty($composer['require']) ? [] : $composer['require'],
-            ],
+            ]
         ];
     }
 

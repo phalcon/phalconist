@@ -7,6 +7,8 @@ if (!defined('ENV') && array_search('env=prod', $argv) !== false) {
     define('ENV', getenv('ENV') ? getenv('ENV') : 'dev');
 }
 
+$_SERVER['SERVER_NAME'] = 'phalconist.com';
+
 try {
 
     require_once __DIR__ . '/../vendor/autoload.php';
