@@ -14,7 +14,7 @@
                     {% for item in top %}
                         <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2 item-inline" style="margin-top: 30px">
                             {% set data = item.getData() %}
-                            <span class="badge"><i class="glyphicon glyphicon-stats"> </i> {{ data['score'] }}</span><br>
+                            <span class="badge"><i class="glyphicon glyphicon-stats"> </i> {{ data['position'] }}</span><br>
                             <h5 style="margin-bottom: 0;">
                                 {{ link_to(['view/item', 'owner': data['owner']['login'], 'repo': data['repo']], data['name'], 'style': 'color:#fff') }}
                             </h5>
@@ -41,7 +41,7 @@
                     {% for item in fresh %}
                         <li class="col-xs-12 col-sm-6 col-md-4 col-lg-2" style="margin-bottom:20px;overflow: hidden;margin-top: 30px;">
                             {% set data = item.getData() %}
-                            <span class="badge"><i class="glyphicon glyphicon-stats"> </i> {{ data['score'] }}</span><br>
+                            <span class="badge"><i class="glyphicon glyphicon-stats"> </i> {{ data['position'] }}</span><br>
                             <h5 style="margin-bottom: 0;"
                                 title="{{ data['name']|escape }}">{{ link_to(['view/item', 'owner': data['owner']['login'], 'repo': data['repo']], data['name'], 'style': 'color:#fff') }}</h5>
                             <span class="label label-date" title="Created"><?= \Models\Project::utcTime($data['created'])->format('d M') ?></span>

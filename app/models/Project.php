@@ -135,6 +135,7 @@ class Project extends Injectable
                 'watchers',
                 'forks',
                 'score',
+                'position',
                 'is_composer',
                 'updated',
                 'created',
@@ -142,7 +143,7 @@ class Project extends Injectable
                 'owner.login',
                 'owner.avatar_url',
                 'composer.keywords',
-                'composer.description',
+                'composer.description'
             ],
             'filter' => [
                 'bool' => [
@@ -178,6 +179,7 @@ class Project extends Injectable
                 'watchers',
                 'forks',
                 'score',
+                'position',
                 'is_composer',
                 'updated',
                 'created',
@@ -185,7 +187,7 @@ class Project extends Injectable
                 'owner.login',
                 'owner.avatar_url',
                 'composer.keywords',
-                'composer.description',
+                'composer.description'
             ]
         );
         $query->setSort(['created' => ['order' => 'desc']]);
@@ -210,6 +212,7 @@ class Project extends Injectable
                 'watchers',
                 'forks',
                 'score',
+                'position',
                 'is_composer',
                 'added',
                 'updated',
@@ -218,7 +221,7 @@ class Project extends Injectable
                 'owner.login',
                 'owner.avatar_url',
                 'composer.keywords',
-                'composer.description',
+                'composer.description'
             ]
         );
         $query->setSort(['added' => ['order' => 'desc']]);
@@ -240,13 +243,14 @@ class Project extends Injectable
                 'watchers',
                 'forks',
                 'score',
+                'position',
                 'created',
                 'updated',
                 'pushed',
                 'is_composer',
                 'composer.version',
                 'composer.keywords',
-                'composer.type',
+                'composer.type'
             ],
             'from' => 0,
             'size' => 60,
@@ -374,14 +378,15 @@ class Project extends Injectable
                 'name',
                 'repo',
                 'score',
+                'position',
                 'added',
-                'owner.login',
+                'owner.login'
             ],
             'filter' => [
                 'bool' => [
                     'must' => [
-                        ['range' => ['added' => ['gte' => 0]]],
-                    ],
+                        ['range' => ['added' => ['gte' => 0]]]
+                    ]
                 ]
             ],
             'from' => 0,
@@ -467,6 +472,7 @@ class Project extends Injectable
             'fullname' => $repository['full_name'],
             'description' => $repository['description'],
             'score' => $score,
+            'position' => '',
             'stars' => $repository['stargazers_count'],
             'watchers' => $repository['subscribers_count'],
             'forks' => $repository['forks_count'],

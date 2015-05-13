@@ -40,10 +40,17 @@
                 <h5>Details</h5>
 
                 <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
+                    Position:
+                </div>
+                <div class="col-xs-12 col-sm-10 col-md-9 col-lg-9">
+                    <span class="label label-default"><i class="glyphicon glyphicon-stats"> </i> {{ (project['position'] is defined) ? project['position'] : 'n/a' }}</span>
+                </div>
+
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
                     Score:
                 </div>
                 <div class="col-xs-12 col-sm-10 col-md-9 col-lg-9">
-                    <span class="label label-default"><i class="glyphicon glyphicon-stats"> </i> {{ (project['score'] is defined) ? project['score'] : 0 }}</span>
+                    <span class="label label-default">{{ (project['score'] is defined) ? project['score'] : 0 }}</span>
                 </div>
 
                 {% if project['composer']['version'] is defined AND project['composer']['version'] %}

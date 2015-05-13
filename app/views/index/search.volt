@@ -39,8 +39,8 @@
                                 {{ link_to(['view/item', 'action': 'view', 'owner': data['owner']['login'], 'repo': data['repo']], data['name']) }}
                             </h4>
                             <ul class="list-inline" style="margin: 0 0 8px 0;">
-                                <li class="label label-default" title="Score">
-                                    <i class="glyphicon glyphicon-stats"> </i> {{ (data['score'] is defined) ? data['score'] : 0 }}
+                                <li class="label label-default" title="Position">
+                                    <i class="glyphicon glyphicon-stats"> </i> {{ (data['position'] is defined) ? data['position'] : 'n/a' }}
                                 </li>
                                 {% if data['watchers'] %}
                                 <li class="label label-default" title="Number of watchers">
