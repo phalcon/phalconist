@@ -104,10 +104,12 @@ class ExtTask extends \Phalcon\CLI\Task
             $data = $project->getData();
             try {
                 $id = (int)$project->getId();
-                $data['id'] = $id;
-                $data['position'] = $pos + 1;
-                Project::update($data);
-                $pos++;
+                if ($id) {
+                    $data['id'] = $id;
+                    $data['position'] = $pos + 1;
+                    Project::update($data);
+                    $pos++;
+                }
             } catch(\Exception $e) {
                 if ($e->getCode() === 404) {
                     Project::deleteById($data['id']);
