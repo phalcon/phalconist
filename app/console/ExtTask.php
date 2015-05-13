@@ -88,9 +88,13 @@ class ExtTask extends \Phalcon\CLI\Task
     public function positionsAction()
     {
         $query = [
+            'query' => [
+                'match_all' => []
+            ],
             'sort' => [
                 'score' => ['order' => 'desc']
-            ]
+            ],
+            'size' => 100000
         ];
 
         $results = Project::find($query)->getResults();
