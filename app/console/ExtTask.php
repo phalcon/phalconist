@@ -103,7 +103,7 @@ class ExtTask extends \Phalcon\CLI\Task
             /** @var \Elastica\Result $data */
             $data = $project->getData();
             try {
-                $id = $project->getId();
+                $id = (int)$project->getId();
                 $data['id'] = $id;
                 $data['position'] = $pos + 1;
                 Project::update($data);
