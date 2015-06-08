@@ -16,7 +16,7 @@ class OauthController extends ControllerBase
         $accessToken = $provider->getAccessToken($code);
 
         /** @var \SocialConnect\Common\Entity\User $user */
-        if (!$user = $provider->getUser($accessToken)) {
+        if (!$user = $provider->getIdentity($accessToken)) {
             $this->flash->warning('Sorry, we cant get GitHub user right now');
             return $this->response->redirect('/');
         }
