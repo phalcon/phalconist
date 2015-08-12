@@ -53,5 +53,6 @@
        }
     }
     </script>
+    <script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=F4w6U*6XlAlyNkldsetLNoFcG*cVs1mkG7zelkcWSJPONxSK7LxJpEbm/KgvYqJbr2n4h3tSLfW38AQOwBwRLEfmjp6Lyft4BihqWP6Dk*htZ2GxjX5iHOBZRUnGrgJVdE2Yr4vuOw/7SECT4zFZFSaNgatD1NMHVD1oHMJvW3U-';</script>
 </body>
 </html>
