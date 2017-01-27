@@ -67,7 +67,7 @@ return new \Phalcon\Config(
             ],
         ],
         'cache' => [
-            'className' => '\Phalcon\Cache\Backend\Memcache',
+            'className' => '\Phalcon\Cache\Backend\Libmemcached',
             'arguments' => [
                 [
                     'type' => 'instance',
@@ -84,7 +84,7 @@ return new \Phalcon\Config(
             ]
         ],
         'viewCache' => [
-            'className' => '\Phalcon\Cache\Backend\Memcache',
+            'className' => '\Phalcon\Cache\Backend\Libmemcached',
             'arguments' => [
                 [
                     'type' => 'instance',
