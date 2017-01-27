@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "php": "~7.0.3",
+    "php": "~7.0.8",
     "ext-phalcon": ">=2.0",
     "serebro/phalcon-service-loader": "~2.0",
     "ruflin/elastica": "~2.1.0",
